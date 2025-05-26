@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String   @id // Kinde user ID (no @default needed)
+  email       String   @unique
+  given_name  String?
+  family_name String?
+  picture     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relationships
+  sessions ChatSession[]
+  
+  @@map("users")
+}
+
+model ChatSession {
+  id        String   @id @default(cuid())
+  title     String?
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relationships
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages Message[]
+  
+  // Indexes
+  @@index([userId])
+  @@index([createdAt])
+  @@map("chat_sessions")
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  content   String
+  role      Role
+  sessionId String
+  createdAt DateTime @default(now())
+  
+  // Relationships
+  session ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  
+  // Indexes
+  @@index([sessionId])
+  @@index([createdAt])
+  @@map("messages")
+}
+
+model KnowledgeBase {
+  id          String   @id @default(cuid())
+  title       String
+  content     String
+  category    String
+  tags        String[]
+  priority    Int      @default(0) // Higher number = higher priority
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Indexes for search performance
+  @@index([category])
+  @@index([isActive])
+  @@index([priority])
+  @@map("knowledge_base")
+}
+
+// Enums
+enum Role {
+  USER
+  ASSISTANT
+}

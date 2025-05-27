@@ -1,13 +1,5 @@
-import { KindeClient } from '@kinde-oss/kinde-auth-nextjs';
-
-export const kindeClient = new KindeClient({
-  clientId: process.env.KINDE_CLIENT_ID!,
-  clientSecret: process.env.KINDE_CLIENT_SECRET!,
-  issuerUrl: process.env.KINDE_ISSUER_URL!,
-  siteUrl: process.env.KINDE_SITE_URL!,
-  postLogoutRedirectUrl: process.env.KINDE_POST_LOGOUT_REDIRECT_URL!,
-  postLoginRedirectUrl: process.env.KINDE_POST_LOGIN_REDIRECT_URL!,
-});
+// src/lib/kinde.ts
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 export type KindeUser = {
   id: string;
@@ -16,3 +8,15 @@ export type KindeUser = {
   family_name?: string | null;
   picture?: string | null;
 };
+
+// Helper function to get user session
+export async function getUser() {
+  const { getUser } = getKindeServerSession();
+  return await getUser();
+}
+
+// Helper function to check if user is authenticated
+export async function isAuthenticated() {
+  const { isAuthenticated } = getKindeServerSession();
+  return await isAuthenticated();
+}

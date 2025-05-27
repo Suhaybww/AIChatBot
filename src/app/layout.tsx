@@ -1,4 +1,3 @@
-// src/app/layout.tsx
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -8,21 +7,21 @@ import { cn } from "@/lib/utils";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "RMIT AI Support - Your Academic Companion",
-  description: "Intelligent academic support for RMIT students. Get instant help with courses, policies, and university resources through our AI-powered assistant.",
-  keywords: ["RMIT", "student support", "AI", "chatbot", "university", "academic assistance"],
-  authors: [{ name: "RMIT AI Support Team" }],
-  creator: "RMIT AI Support",
+  title: "Vega - Your RMIT AI Companion",
+  description: "Meet Vega, your intelligent RMIT guide. Named after the brightest navigation star, Vega helps you navigate courses, policies, and university life with AI-powered assistance.",
+  keywords: ["Vega", "RMIT", "AI assistant", "student support", "university", "academic guidance", "navigation"],
+  authors: [{ name: "RMIT Vega Team" }],
+  creator: "RMIT Vega",
   openGraph: {
-    title: "RMIT AI Support - Your Academic Companion",
-    description: "Get instant help with RMIT courses, policies, and resources",
+    title: "Vega - Your RMIT AI Companion",
+    description: "AI-powered guidance for RMIT students. Navigate your university journey with Vega.",
     type: "website",
     locale: "en_AU",
   },
   twitter: {
     card: "summary_large_image",
-    title: "RMIT AI Support",
-    description: "AI-powered academic support for RMIT students",
+    title: "Vega - RMIT AI Assistant",
+    description: "Your intelligent guide to RMIT university life",
   },
   robots: {
     index: true,

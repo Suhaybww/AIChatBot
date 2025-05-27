@@ -8,12 +8,13 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { 
   Send, 
-  Bot,
   Copy,
   RotateCcw,
   ThumbsUp,
   ThumbsDown,
-  MoreHorizontal
+  MoreHorizontal,
+  Star,
+  Sparkles
 } from "lucide-react";
 import { Sidebar } from "@/components/layout/Sidebar";
 
@@ -85,7 +86,7 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
     setTimeout(() => {
       const aiResponse: Message = {
         id: (Date.now() + 1).toString(),
-        content: `Thanks for your question about "${textToSend}". I'm here to help you with RMIT-related queries. This is a placeholder response - in the real application, this would be connected to your AI backend to provide helpful information about courses, policies, services, and campus life.`,
+        content: `Thanks for your question about "${textToSend}". I'm Vega, your RMIT guide! This is a placeholder response - in the real application, this would be connected to your AI backend to provide helpful information about courses, policies, services, and campus life.`,
         role: "ASSISTANT",
         createdAt: new Date(),
       };
@@ -121,7 +122,7 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
   };
 
   return (
-    <div className="h-screen flex bg-white dark:bg-gray-950">
+    <div className="h-screen flex" style={{ backgroundColor: '#0f0f0f' }}>
       {/* Sidebar */}
       <Sidebar 
         collapsed={sidebarCollapsed} 
@@ -139,14 +140,27 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
               {messages.length === 0 ? (
                 /* Welcome Screen */
                 <div className="flex flex-col items-center justify-center min-h-[80vh] text-center">
-                  <div className="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center mb-6">
-                    <Bot className="w-6 h-6 text-white" />
+                  {/* Aesthetic Vega Branding */}
+                  <div className="mb-8">
+                    <div className="flex items-center justify-center space-x-3 mb-6">
+                      <Star className="w-8 h-8 text-red-500 fill-current animate-pulse" />
+                      <h1 className="text-5xl font-bold bg-gradient-to-r from-red-500 via-red-400 to-orange-400 bg-clip-text text-transparent">
+                        Vega
+                      </h1>
+                      <Star className="w-8 h-8 text-red-500 fill-current animate-pulse" style={{ animationDelay: '0.5s' }} />
+                    </div>
+                    <div className="flex items-center justify-center space-x-2 text-sm text-gray-400 mb-4">
+                      <Sparkles className="w-4 h-4 text-red-400" />
+                      <span className="italic font-medium">Your brightest guide to RMIT</span>
+                      <Sparkles className="w-4 h-4 text-red-400" />
+                    </div>
                   </div>
-                  <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
+
+                  <h2 className="text-2xl font-semibold text-gray-100 mb-3">
                     How can I help you today?
-                  </h1>
-                  <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-md">
-                    I&apos;m your RMIT AI assistant. Ask me about courses, policies, services, or anything else related to your university experience.
+                  </h2>
+                  <p className="text-gray-400 mb-8 max-w-md leading-relaxed">
+                    Named after the brightest navigation star, I'm here to guide you through courses, policies, services, and everything about your university experience.
                   </p>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-2xl">
@@ -154,12 +168,12 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
                       <button
                         key={index}
                         onClick={() => handleSuggestionClick(suggestion)}
-                        className="p-4 text-left border border-gray-200 dark:border-gray-700 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                        className="p-4 text-left border border-gray-700 bg-gray-900 rounded-xl hover:bg-gray-800 hover:border-gray-600 transition-colors group"
                       >
-                        <div className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-1">
+                        <div className="text-sm font-medium text-gray-200 mb-1 group-hover:text-red-400 transition-colors">
                           {suggestion.split(' ').slice(0, 4).join(' ')}...
                         </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                        <div className="text-xs text-gray-400">
                           {suggestion}
                         </div>
                       </button>
@@ -176,7 +190,7 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
                         <div className="flex-shrink-0">
                           {message.role === "ASSISTANT" ? (
                             <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center">
-                              <Bot className="w-4 h-4 text-white" />
+                              <Star className="w-4 h-4 text-white fill-white" />
                             </div>
                           ) : (
                             <Avatar className="w-8 h-8">
@@ -191,10 +205,10 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
                         {/* Content */}
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center space-x-2 mb-2">
-                            <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-                              {message.role === "ASSISTANT" ? "RMIT AI" : (user.given_name || "You")}
+                            <span className="text-sm font-semibold text-gray-200">
+                              {message.role === "ASSISTANT" ? "Vega" : (user.given_name || "You")}
                             </span>
-                            <span className="text-xs text-gray-500 dark:text-gray-400">
+                            <span className="text-xs text-gray-500">
                               {message.createdAt.toLocaleTimeString([], {
                                 hour: "2-digit",
                                 minute: "2-digit",
@@ -203,7 +217,7 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
                           </div>
                           
                           <div 
-                            className="prose prose-sm max-w-none text-gray-900 dark:text-gray-100 dark:prose-invert"
+                            className="prose prose-sm max-w-none text-gray-300 prose-strong:text-gray-200"
                             dangerouslySetInnerHTML={{ 
                               __html: formatMessage(message.content)
                             }}
@@ -216,35 +230,35 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
                                 variant="ghost"
                                 size="sm"
                                 onClick={() => copyMessage(message.content)}
-                                className="h-8 px-2 text-gray-500"
+                                className="h-8 px-2 text-gray-500 hover:text-gray-300 hover:bg-gray-800"
                               >
                                 <Copy className="w-3 h-3" />
                               </Button>
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                className="h-8 px-2 text-gray-500"
+                                className="h-8 px-2 text-gray-500 hover:text-gray-300 hover:bg-gray-800"
                               >
                                 <RotateCcw className="w-3 h-3" />
                               </Button>
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                className="h-8 px-2 text-gray-500"
+                                className="h-8 px-2 text-gray-500 hover:text-gray-300 hover:bg-gray-800"
                               >
                                 <ThumbsUp className="w-3 h-3" />
                               </Button>
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                className="h-8 px-2 text-gray-500"
+                                className="h-8 px-2 text-gray-500 hover:text-gray-300 hover:bg-gray-800"
                               >
                                 <ThumbsDown className="w-3 h-3" />
                               </Button>
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                className="h-8 px-2 text-gray-500"
+                                className="h-8 px-2 text-gray-500 hover:text-gray-300 hover:bg-gray-800"
                               >
                                 <MoreHorizontal className="w-3 h-3" />
                               </Button>
@@ -260,16 +274,16 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
                     <div className="group">
                       <div className="flex space-x-4">
                         <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Bot className="w-4 h-4 text-white" />
+                          <Star className="w-4 h-4 text-white fill-white" />
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center space-x-2 mb-2">
-                            <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">RMIT AI</span>
+                            <span className="text-sm font-semibold text-gray-200">Vega</span>
                           </div>
                           <div className="flex space-x-1">
-                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                            <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></div>
+                            <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                            <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                           </div>
                         </div>
                       </div>
@@ -282,7 +296,7 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
         </div>
 
         {/* Input Area */}
-        <div className="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-4">
+        <div className="border-t border-gray-800 p-4" style={{ backgroundColor: '#0f0f0f' }}>
           <div className="max-w-3xl mx-auto">
             <div className="relative">
               <Input
@@ -290,8 +304,8 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Message RMIT AI..."
-                className="pr-12 py-3 resize-none border-gray-300 dark:border-gray-700 focus:border-red-500 focus:ring-red-500 rounded-xl"
+                placeholder="Message Vega..."
+                className="pr-12 py-3 resize-none border-gray-700 bg-gray-900 text-gray-200 placeholder:text-gray-500 focus:border-red-500 focus:ring-red-500 rounded-xl"
                 disabled={isLoading}
               />
               <Button
@@ -304,8 +318,8 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
               </Button>
             </div>
             
-            <div className="text-xs text-gray-500 dark:text-gray-400 text-center mt-2">
-              RMIT AI can make mistakes. Consider checking important information.
+            <div className="text-xs text-gray-500 text-center mt-2">
+              Vega can make mistakes. Consider checking important information.
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-
+// src/components/layout/Sidebar.tsx
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -9,9 +9,11 @@ import {
   LogOut,
   PanelLeftClose,
   PanelLeftOpen,
-  MessageSquare
+  MessageSquare,
+  Star
 } from "lucide-react";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import Link from "next/link";
 
 interface SidebarProps {
   collapsed: boolean;
@@ -26,14 +28,29 @@ interface SidebarProps {
 }
 
 export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
+  const handleVegaClick = () => {
+    // You can customize this action - maybe show info about Vega or reset conversation
+    window.location.href = "/chat";
+  };
+
   if (collapsed) {
     return (
-      <div className="fixed left-0 top-0 h-full w-12 bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex flex-col items-center py-4 z-40">
+      <div className="fixed left-0 top-0 h-full w-12 bg-black border-r border-gray-800 flex flex-col items-center py-4 z-40">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleVegaClick}
+          className="w-8 h-8 p-0 mb-4 hover:bg-red-950/30 text-red-500"
+          title="Vega - New Chat"
+        >
+          <Star className="w-4 h-4 fill-current" />
+        </Button>
+
         <Button
           variant="outline"
           size="sm"
           onClick={onToggle}
-          className="w-8 h-8 p-0 mb-4 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400"
+          className="w-8 h-8 p-0 mb-4 border-gray-700 hover:bg-gray-900 text-gray-400 hover:text-gray-300"
         >
           <PanelLeftOpen className="w-4 h-4" />
         </Button>
@@ -41,7 +58,7 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
         <Button
           variant="ghost"
           size="sm"
-          className="w-8 h-8 p-0 mb-4 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400"
+          className="w-8 h-8 p-0 mb-4 hover:bg-gray-900 text-gray-400 hover:text-gray-300"
           onClick={() => window.location.reload()}
         >
           <Plus className="w-4 h-4" />
@@ -60,18 +77,29 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
   }
 
   return (
-    <div className="fixed left-0 top-0 h-full w-64 bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex flex-col z-40">
-      {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
-        <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">RMIT AI</h1>
+    <div className="fixed left-0 top-0 h-full w-64 bg-black border-r border-gray-800 flex flex-col z-40">
+      {/* Header - Clickable */}
+      <div className="border-b border-gray-800 relative">
         <Button
-          variant="outline"
-          size="sm"
-          onClick={onToggle}
-          className="w-8 h-8 p-0 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 hover:border-gray-400 dark:hover:border-gray-500 text-gray-600 dark:text-gray-400"
+          onClick={handleVegaClick}
+          variant="ghost"
+          className="w-full flex items-center justify-start p-4 hover:bg-gray-900 rounded-none text-gray-100"
         >
-          <PanelLeftClose className="w-4 h-4" />
+          <div className="flex items-center space-x-2">
+            <Star className="w-5 h-5 text-red-500 fill-current" />
+            <h1 className="text-lg font-semibold text-gray-100">Vega</h1>
+          </div>
         </Button>
+        <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onToggle}
+            className="w-8 h-8 p-0 border-gray-700 hover:bg-gray-900 hover:border-gray-600 text-gray-400 hover:text-gray-300"
+          >
+            <PanelLeftClose className="w-4 h-4" />
+          </Button>
+        </div>
       </div>
 
       {/* New Chat Button */}
@@ -88,20 +116,20 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
       {/* Empty State */}
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-8">
         <div className="text-center max-w-48">
-          <div className="w-12 h-12 bg-gray-200 dark:bg-gray-800 rounded-xl flex items-center justify-center mb-4 mx-auto">
-            <MessageSquare className="w-6 h-6 text-gray-400 dark:text-gray-500" />
+          <div className="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center mb-4 mx-auto">
+            <MessageSquare className="w-6 h-6 text-gray-500" />
           </div>
-          <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">
+          <h3 className="text-sm font-medium text-gray-200 mb-2">
             No conversations yet
           </h3>
-          <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-            Start a new conversation to see your chat history here.
+          <p className="text-xs text-gray-400 leading-relaxed">
+            Start chatting with Vega to see your conversation history here.
           </p>
         </div>
       </div>
 
       {/* User Profile */}
-      <div className="border-t border-gray-200 dark:border-gray-800 p-4">
+      <div className="border-t border-gray-800 p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3 min-w-0 flex-1">
             <Avatar className="w-8 h-8">
@@ -111,25 +139,27 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
               </AvatarFallback>
             </Avatar>
             <div className="min-w-0 flex-1">
-              <div className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+              <div className="text-sm font-medium text-gray-200 truncate">
                 {user.given_name ? `${user.given_name} ${user.family_name || ''}`.trim() : user.email}
               </div>
             </div>
           </div>
           
           <div className="flex items-center space-x-1 ml-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="w-8 h-8 p-0 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
-            >
-              <Settings className="w-4 h-4" />
-            </Button>
+            <Link href="/settings">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="w-8 h-8 p-0 hover:bg-gray-900 text-gray-400 hover:text-gray-200"
+              >
+                <Settings className="w-4 h-4" />
+              </Button>
+            </Link>
             <LogoutLink>
               <Button
                 variant="ghost"
                 size="sm"
-                className="w-8 h-8 p-0 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+                className="w-8 h-8 p-0 hover:bg-gray-900 text-gray-400 hover:text-gray-200"
               >
                 <LogOut className="w-4 h-4" />
               </Button>

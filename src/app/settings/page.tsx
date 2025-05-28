@@ -3,24 +3,17 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Sidebar } from "@/components/layout/Sidebar";
+import { UserProfile } from "@/components/settings/UserProfile";
+import { AccountManagement } from "@/components/settings/AccountManagement";
 import { 
   ArrowLeft, 
-  Camera, 
-  Save, 
-  Trash2, 
-  AlertTriangle,
   User,
   Shield,
-  Download,
-  RotateCcw
+  Star
 } from "lucide-react";
 import Link from "next/link";
-import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { useRouter } from "next/navigation";
 
@@ -37,10 +30,10 @@ function SettingsPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#0f0f0f' }}>
+      <div className="min-h-screen flex items-center justify-center bg-gray-900">
         <div className="text-center space-y-4">
-          <div className="w-8 h-8 animate-spin text-red-600 mx-auto border-2 border-red-600 border-t-transparent rounded-full"></div>
-          <p className="text-gray-400">Loading...</p>
+          <div className="w-8 h-8 animate-spin text-gray-400 mx-auto border-2 border-gray-400 border-t-transparent rounded-full"></div>
+          <p className="text-gray-500">Loading...</p>
         </div>
       </div>
     );
@@ -51,7 +44,7 @@ function SettingsPage() {
   }
 
   return (
-    <div className="h-screen flex" style={{ backgroundColor: '#0f0f0f' }}>
+    <div className="h-screen flex bg-gray-900">
       {/* Sidebar */}
       <Sidebar 
         collapsed={sidebarCollapsed} 
@@ -62,216 +55,55 @@ function SettingsPage() {
       {/* Main Content */}
       <div className={`flex-1 transition-all duration-300 ${sidebarCollapsed ? 'ml-12' : 'ml-64'}`}>
         {/* Header */}
-        <div className="border-b border-gray-800 px-6 py-4" style={{ backgroundColor: '#0f0f0f' }}>
+        <div className="border-b border-gray-800 bg-gray-900 px-8 py-6">
           <div className="flex items-center space-x-4">
             <Link href="/chat">
-              <Button variant="ghost" size="sm" className="p-2 text-gray-400 hover:text-gray-200 hover:bg-gray-900">
+              <Button variant="ghost" size="sm" className="p-2 text-gray-500 hover:text-gray-300 hover:bg-gray-800 rounded-lg">
                 <ArrowLeft className="w-4 h-4" />
               </Button>
             </Link>
-            <div>
-              <h1 className="text-xl font-semibold text-gray-100">Settings</h1>
-              <p className="text-sm text-gray-400">Manage your Vega account and preferences</p>
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-gradient-to-br from-red-500 to-orange-500 rounded-lg flex items-center justify-center">
+                <Star className="w-4 h-4 text-white fill-white" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-100">Settings</h1>
+                <p className="text-sm text-gray-500">Manage your Vega account and preferences</p>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Content */}
-        <div className="p-6">
+        <div className="p-8 max-h-[calc(100vh-120px)] overflow-y-auto">
           <div className="max-w-4xl mx-auto">
             
-            <Tabs defaultValue="profile" className="space-y-6">
-              <TabsList className="grid w-full grid-cols-2 bg-gray-900 border border-gray-800">
+            <Tabs defaultValue="profile" className="space-y-8">
+              <TabsList className="grid w-full grid-cols-2 bg-gray-800/50 border border-gray-700/50 rounded-xl p-1">
                 <TabsTrigger 
                   value="profile" 
-                  className="data-[state=active]:bg-gray-800 data-[state=active]:text-gray-100 text-gray-400"
+                  className="data-[state=active]:bg-gray-700 data-[state=active]:text-gray-100 data-[state=active]:shadow-sm text-gray-400 rounded-lg transition-all duration-200"
                 >
+                  <User className="w-4 h-4 mr-2" />
                   Profile
                 </TabsTrigger>
                 <TabsTrigger 
                   value="account" 
-                  className="data-[state=active]:bg-gray-800 data-[state=active]:text-gray-100 text-gray-400"
+                  className="data-[state=active]:bg-gray-700 data-[state=active]:text-gray-100 data-[state=active]:shadow-sm text-gray-400 rounded-lg transition-all duration-200"
                 >
+                  <Shield className="w-4 h-4 mr-2" />
                   Account
                 </TabsTrigger>
               </TabsList>
 
               {/* Profile Tab */}
-              <TabsContent value="profile" className="space-y-6">
-                <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
-                  <div className="flex items-center space-x-2 mb-6">
-                    <User className="w-5 h-5 text-gray-400" />
-                    <h2 className="text-lg font-semibold text-gray-100">Profile Information</h2>
-                  </div>
-                  
-                  <div className="space-y-6">
-                    {/* Profile Picture */}
-                    <div className="flex items-center space-x-6">
-                      <div className="relative">
-                        <Avatar className="w-20 h-20">
-                          <AvatarImage src={user.picture || ""} alt="Profile picture" />
-                          <AvatarFallback className="bg-red-600 text-white text-lg font-semibold">
-                            {user.given_name?.[0] || user.email?.[0]?.toUpperCase() || 'U'}
-                          </AvatarFallback>
-                        </Avatar>
-                        <Button
-                          size="sm"
-                          className="absolute -bottom-2 -right-2 w-8 h-8 p-0 rounded-full bg-red-600 hover:bg-red-700"
-                        >
-                          <Camera className="w-4 h-4" />
-                        </Button>
-                      </div>
-                      <div>
-                        <h3 className="font-medium text-gray-100">Profile Picture</h3>
-                        <p className="text-sm text-gray-400">
-                          Click the camera icon to upload a new picture
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Personal Information */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="firstName" className="text-gray-300">First Name</Label>
-                        <Input
-                          id="firstName"
-                          defaultValue={user.given_name || ""}
-                          placeholder="Enter your first name"
-                          className="bg-gray-800 border-gray-700 text-gray-100 placeholder:text-gray-500"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="lastName" className="text-gray-300">Last Name</Label>
-                        <Input
-                          id="lastName"
-                          defaultValue={user.family_name || ""}
-                          placeholder="Enter your last name"
-                          className="bg-gray-800 border-gray-700 text-gray-100 placeholder:text-gray-500"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="email" className="text-gray-300">Email Address</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        defaultValue={user.email || ""}
-                        placeholder="Enter your email"
-                        className="bg-gray-800 border-gray-700 text-gray-100 placeholder:text-gray-500"
-                      />
-                      <p className="text-xs text-gray-500">
-                        This email is used for your RMIT account access
-                      </p>
-                    </div>
-
-                    <Button className="bg-red-600 hover:bg-red-700 text-white">
-                      <Save className="w-4 h-4 mr-2" />
-                      Save Changes
-                    </Button>
-                  </div>
-                </div>
+              <TabsContent value="profile">
+                <UserProfile user={user} />
               </TabsContent>
 
               {/* Account Tab */}
-              <TabsContent value="account" className="space-y-6">
-                {/* Account Info */}
-                <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
-                  <div className="flex items-center space-x-2 mb-6">
-                    <Shield className="w-5 h-5 text-gray-400" />
-                    <h2 className="text-lg font-semibold text-gray-100">Account Information</h2>
-                  </div>
-                  
-                  <div className="bg-gray-800 rounded-lg p-4 mb-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                      <div>
-                        <span className="font-medium text-gray-300">User ID:</span>
-                        <p className="text-gray-400 font-mono text-xs mt-1 break-all">{user.id}</p>
-                      </div>
-                      <div>
-                        <span className="font-medium text-gray-300">Account Type:</span>
-                        <p className="text-gray-400 mt-1">RMIT Student</p>
-                      </div>
-                      <div>
-                        <span className="font-medium text-gray-300">Account Status:</span>
-                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-green-900 text-green-200 mt-1">
-                          Active
-                        </span>
-                      </div>
-                      <div>
-                        <span className="font-medium text-gray-300">Member Since:</span>
-                        <p className="text-gray-400 mt-1">Today</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Data Management */}
-                <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
-                  <h3 className="text-lg font-semibold text-gray-100 mb-4">Data Management</h3>
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between p-3 bg-gray-800 rounded-lg">
-                      <div className="flex items-center space-x-3">
-                        <Download className="w-4 h-4 text-gray-400" />
-                        <div>
-                          <h4 className="font-medium text-gray-100">Export Data</h4>
-                          <p className="text-sm text-gray-400">Download your conversation history</p>
-                        </div>
-                      </div>
-                      <Button variant="outline" size="sm" className="border-gray-700 text-gray-300 hover:bg-gray-700">
-                        Export
-                      </Button>
-                    </div>
-
-                    <div className="flex items-center justify-between p-3 bg-gray-800 rounded-lg">
-                      <div className="flex items-center space-x-3">
-                        <RotateCcw className="w-4 h-4 text-orange-400" />
-                        <div>
-                          <h4 className="font-medium text-gray-100">Clear Chat History</h4>
-                          <p className="text-sm text-gray-400">Permanently delete all conversations</p>
-                        </div>
-                      </div>
-                      <Button variant="outline" size="sm" className="border-orange-600 text-orange-400 hover:bg-orange-950/20">
-                        Clear
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Danger Zone */}
-                <div className="bg-gray-900 border border-red-800 rounded-lg p-6">
-                  <h3 className="text-lg font-semibold text-red-400 mb-4 flex items-center">
-                    <AlertTriangle className="w-5 h-5 mr-2" />
-                    Danger Zone
-                  </h3>
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between p-3 bg-red-950/20 border border-red-800 rounded-lg">
-                      <div>
-                        <h4 className="font-medium text-red-400">Sign Out</h4>
-                        <p className="text-sm text-red-300">Sign out of your Vega account</p>
-                      </div>
-                      <LogoutLink>
-                        <Button variant="outline" size="sm" className="border-red-600 text-red-400 hover:bg-red-950/20">
-                          Sign Out
-                        </Button>
-                      </LogoutLink>
-                    </div>
-
-                    <div className="flex items-center justify-between p-3 bg-red-950/20 border border-red-800 rounded-lg">
-                      <div>
-                        <h4 className="font-medium text-red-400 flex items-center">
-                          <Trash2 className="w-4 h-4 mr-2" />
-                          Delete Account
-                        </h4>
-                        <p className="text-sm text-red-300">Permanently delete your account and all data</p>
-                      </div>
-                      <Button variant="outline" size="sm" className="border-red-600 text-red-400 hover:bg-red-950/20">
-                        <Trash2 className="w-4 h-4 mr-2" />
-                        Delete
-                      </Button>
-                    </div>
-                  </div>
-                </div>
+              <TabsContent value="account">
+                <AccountManagement user={user} />
               </TabsContent>
             </Tabs>
 

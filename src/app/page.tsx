@@ -58,9 +58,9 @@ export default async function HomePage() {
           </Button>
         </LoginLink>
 
-        <p className="text-center text-sm text-gray-600 mt-6">
+        {/* <p className="text-center text-sm text-gray-600 mt-6">
           Sign in with your RMIT credentials to start your guided journey
-        </p>
+        </p> */}
       </div>
     </div>
   );

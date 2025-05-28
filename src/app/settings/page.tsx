@@ -11,13 +11,14 @@ import {
   ArrowLeft, 
   User,
   Shield,
-  Star
+  Star,
+  AlertCircle
 } from "lucide-react";
 import Link from "next/link";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { useRouter } from "next/navigation";
 
-function SettingsPage() {
+function SettingsContent() {
   const { user, isAuthenticated, isLoading } = useKindeBrowserClient();
   const router = useRouter();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -40,7 +41,22 @@ function SettingsPage() {
   }
 
   if (!isAuthenticated || !user) {
-    return null;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-900">
+        <div className="text-center space-y-4">
+          <AlertCircle className="w-12 h-12 text-red-400 mx-auto" />
+          <div>
+            <h2 className="text-xl font-semibold text-gray-100 mb-2">Authentication Required</h2>
+            <p className="text-gray-400 mb-4">Please sign in to access your settings.</p>
+            <Link href="/">
+              <Button className="bg-red-600 hover:bg-red-700 text-white">
+                Go Home
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -68,7 +84,7 @@ function SettingsPage() {
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-gray-100">Settings</h1>
-                <p className="text-sm text-gray-500">Manage your Vega account and preferences</p>
+                <p className="text-sm text-gray-500">Manage your account and preferences</p>
               </div>
             </div>
           </div>
@@ -98,12 +114,16 @@ function SettingsPage() {
 
               {/* Profile Tab */}
               <TabsContent value="profile">
-                <UserProfile user={user} />
+                <ErrorBoundary fallback={<ErrorFallback />}>
+                  <UserProfile user={user} />
+                </ErrorBoundary>
               </TabsContent>
 
               {/* Account Tab */}
               <TabsContent value="account">
-                <AccountManagement user={user} />
+                <ErrorBoundary fallback={<ErrorFallback />}>
+                  <AccountManagement user={user} />
+                </ErrorBoundary>
               </TabsContent>
             </Tabs>
 
@@ -114,4 +134,42 @@ function SettingsPage() {
   );
 }
 
-export default SettingsPage;
+// Error Boundary Component
+function ErrorBoundary({ children, fallback }: { children: React.ReactNode, fallback: React.ReactNode }) {
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    setHasError(false);
+  }, [children]);
+
+  if (hasError) {
+    return fallback;
+  }
+
+  return (
+    <div onError={() => setHasError(true)}>
+      {children}
+    </div>
+  );
+}
+
+// Error Fallback Component
+function ErrorFallback() {
+  return (
+    <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 text-center">
+      <AlertCircle className="w-12 h-12 text-red-400 mx-auto mb-4" />
+      <h3 className="text-lg font-semibold text-gray-100 mb-2">Something went wrong</h3>
+      <p className="text-gray-400 mb-4">We&apos;re having trouble loading this section. Please try refreshing the page.</p>
+      <Button 
+        onClick={() => window.location.reload()} 
+        className="bg-red-600 hover:bg-red-700 text-white"
+      >
+        Refresh Page
+      </Button>
+    </div>
+  );
+}
+
+export default function SettingsPage() {
+  return <SettingsContent />;
+}

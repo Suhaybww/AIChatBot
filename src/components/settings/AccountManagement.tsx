@@ -1,14 +1,31 @@
 // src/components/settings/AccountManagement.tsx
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { 
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { 
   Trash2, 
   AlertTriangle,
   Shield,
   RotateCcw,
-  CheckCircle
+  CheckCircle,
+  Loader2,
+  X
 } from "lucide-react";
+import { api } from "@/lib/trpc";
+import { toast } from "sonner";
+import { useUserSync } from "@/hooks/useUserSync";
 
 interface AccountManagementProps {
   user: {
@@ -21,6 +38,87 @@ interface AccountManagementProps {
 }
 
 export function AccountManagement({ user }: AccountManagementProps) {
+  const [deleteConfirmEmail, setDeleteConfirmEmail] = useState("");
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [showClearHistoryDialog, setShowClearHistoryDialog] = useState(false);
+
+  // Sync user to database first
+  const { isSyncing, syncCompleted } = useUserSync();
+
+  // Get account stats - only run after sync is complete
+  const { data: profile } = api.auth.getProfile.useQuery(
+    undefined,
+    { enabled: syncCompleted }
+  );
+  const { data: accountStats } = api.auth.getAccountStats.useQuery(
+    undefined,
+    { enabled: syncCompleted }
+  );
+
+  const clearHistoryMutation = api.auth.clearChatHistory.useMutation({
+    onSuccess: (data) => {
+      toast.success(data.message);
+      setShowClearHistoryDialog(false);
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
+  const deleteAccountMutation = api.auth.deleteAccount.useMutation({
+    onSuccess: () => {
+      toast.success("Account deleted successfully. Logging you out...");
+      setShowDeleteDialog(false);
+      
+      // Redirect to Kinde's logout URL - this will log out and redirect to landing page
+      setTimeout(() => {
+        window.location.href = "/api/auth/logout";
+      }, 1500);
+    },
+    onError: (error) => {
+      toast.error(error.message || "Failed to delete account. Please try again.");
+    },
+  });
+
+  const handleClearHistory = () => {
+    clearHistoryMutation.mutate();
+  };
+
+  const handleDeleteAccount = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!deleteConfirmEmail.trim()) {
+      toast.error("Please enter your email to confirm");
+      return;
+    }
+
+    if (deleteConfirmEmail !== user.email) {
+      toast.error("Email confirmation does not match");
+      return;
+    }
+
+    deleteAccountMutation.mutate({
+      confirmEmail: deleteConfirmEmail,
+    });
+  };
+
+  // Show loading state while syncing user
+  if (isSyncing) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <div className="text-center space-y-4">
+          <Loader2 className="w-8 h-8 animate-spin text-gray-400 mx-auto" />
+          <div>
+            <p className="text-gray-300 font-medium">Loading account data...</p>
+            <p className="text-gray-500 text-sm">Please wait a moment</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const currentUser = profile || user;
+
   return (
     <div className="space-y-8">
       {/* Account Information */}
@@ -43,7 +141,7 @@ export function AccountManagement({ user }: AccountManagementProps) {
                 <span className="font-medium text-gray-300">User ID</span>
               </div>
               <p className="text-gray-500 font-mono text-sm bg-gray-800/50 p-3 rounded-lg break-all">
-                {user.id}
+                {currentUser.id}
               </p>
             </div>
             <div className="space-y-3">
@@ -68,7 +166,12 @@ export function AccountManagement({ user }: AccountManagementProps) {
                 <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
                 <span className="font-medium text-gray-300">Member Since</span>
               </div>
-              <p className="text-gray-400">Today</p>
+              <p className="text-gray-400">
+                {accountStats?.memberSince 
+                  ? new Date(accountStats.memberSince).toLocaleDateString()
+                  : 'Today'
+                }
+              </p>
             </div>
           </div>
         </div>
@@ -95,15 +198,56 @@ export function AccountManagement({ user }: AccountManagementProps) {
               <div>
                 <h4 className="font-semibold text-gray-200">Clear Chat History</h4>
                 <p className="text-sm text-gray-400">Permanently delete all your conversations with Vega</p>
+                {accountStats?.totalConversations !== undefined && (
+                  <p className="text-xs text-orange-400 mt-1">
+                    {accountStats.totalConversations} conversation{accountStats.totalConversations !== 1 ? 's' : ''} will be deleted
+                  </p>
+                )}
               </div>
             </div>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className="border-orange-600/50 bg-orange-900/30 text-orange-300 hover:bg-orange-800/40 hover:border-orange-500 rounded-xl px-6"
-            >
-              Clear History
-            </Button>
+            
+            <Dialog open={showClearHistoryDialog} onOpenChange={setShowClearHistoryDialog}>
+              <DialogTrigger asChild>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="border-orange-600/50 bg-orange-900/30 text-orange-300 hover:bg-orange-800/40 hover:border-orange-500 rounded-xl px-6"
+                >
+                  Clear History
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="bg-gray-800 border-gray-700">
+                <DialogHeader>
+                  <DialogTitle className="text-gray-100">Clear Chat History</DialogTitle>
+                  <DialogDescription className="text-gray-400">
+                    This will permanently delete all your conversations with Vega. This action cannot be undone.
+                  </DialogDescription>
+                </DialogHeader>
+                <DialogFooter className="flex space-x-3">
+                  <Button
+                    variant="outline"
+                    onClick={() => setShowClearHistoryDialog(false)}
+                    className="border-gray-600 text-gray-400 hover:bg-gray-700"
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    onClick={handleClearHistory}
+                    disabled={clearHistoryMutation.isPending}
+                    className="bg-orange-600 hover:bg-orange-700 text-white"
+                  >
+                    {clearHistoryMutation.isPending ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Clearing...
+                      </>
+                    ) : (
+                      'Clear History'
+                    )}
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </div>
@@ -129,14 +273,85 @@ export function AccountManagement({ user }: AccountManagementProps) {
               </h4>
               <p className="text-sm text-red-400/80">Permanently delete your account and all data</p>
             </div>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className="border-red-600/50 text-red-400 hover:bg-red-950/50 hover:border-red-500 rounded-xl px-6"
-            >
-              <Trash2 className="w-4 h-4 mr-2" />
-              Delete
-            </Button>
+            
+            <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+              <DialogTrigger asChild>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="border-red-600/50 text-red-400 hover:bg-red-950/50 hover:border-red-500 rounded-xl px-6"
+                >
+                  <Trash2 className="w-4 h-4 mr-2" />
+                  Delete
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="bg-gray-800 border-gray-700">
+                <DialogHeader>
+                  <DialogTitle className="text-red-400 flex items-center">
+                    <AlertTriangle className="w-5 h-5 mr-2" />
+                    Delete Account
+                  </DialogTitle>
+                  <DialogDescription className="text-gray-400">
+                    This will permanently delete your account and all associated data including:
+                    <ul className="list-disc list-inside mt-2 space-y-1 text-sm">
+                      <li>Your profile information</li>
+                      <li>All conversation history</li>
+                      <li>Account preferences and settings</li>
+                    </ul>
+                    <strong className="text-red-400 block mt-3">This action cannot be undone.</strong>
+                  </DialogDescription>
+                </DialogHeader>
+                
+                <form onSubmit={handleDeleteAccount} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="confirmEmail" className="text-gray-300">
+                      Type your email address to confirm:
+                    </Label>
+                    <Input
+                      id="confirmEmail"
+                      type="email"
+                      value={deleteConfirmEmail}
+                      onChange={(e) => setDeleteConfirmEmail(e.target.value)}
+                      placeholder={user.email || "Enter your email"}
+                      className="bg-gray-700 border-gray-600 text-gray-200"
+                      required
+                    />
+                  </div>
+                  
+                  <DialogFooter className="flex space-x-3">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => {
+                        setShowDeleteDialog(false);
+                        setDeleteConfirmEmail("");
+                      }}
+                      className="border-gray-600 text-gray-400 hover:bg-gray-700"
+                    >
+                      <X className="w-4 h-4 mr-2" />
+                      Cancel
+                    </Button>
+                    <Button
+                      type="submit"
+                      disabled={deleteAccountMutation.isPending || deleteConfirmEmail !== user.email}
+                      className="bg-red-600 hover:bg-red-700 text-white disabled:opacity-50"
+                    >
+                      {deleteAccountMutation.isPending ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Deleting...
+                        </>
+                      ) : (
+                        <>
+                          <Trash2 className="w-4 h-4 mr-2" />
+                          Delete Account
+                        </>
+                      )}
+                    </Button>
+                  </DialogFooter>
+                </form>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </div>

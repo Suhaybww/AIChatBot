@@ -3,6 +3,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Providers } from "./providers";
+import { TRPCProvider } from "@/components/providers/TRPCProvider";
+import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -38,9 +40,21 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <Providers>
-        <body className={cn('h-full font-sans antialiased grainy', inter.className)}>
-          {children}
-        </body>
+        <TRPCProvider>
+          <body className={cn('h-full font-sans antialiased grainy', inter.className)}>
+            {children}
+            <Toaster 
+              position="top-right"
+              toastOptions={{
+                style: {
+                  background: 'rgb(31 41 55)', // gray-800
+                  color: 'rgb(243 244 246)',   // gray-100  
+                  border: '1px solid rgb(75 85 99)', // gray-600
+                },
+              }}
+            />
+          </body>
+        </TRPCProvider>
       </Providers>
     </html>
   );

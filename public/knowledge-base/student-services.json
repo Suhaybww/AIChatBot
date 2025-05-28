@@ -1,0 +1,79 @@
+{
+  "category": "student-services",
+  "lastUpdated": "2025-05-28T04:11:28.068Z",
+  "totalEntries": 3,
+  "totalWordCount": 286,
+  "entries": [
+    {
+      "id": "student-services-guide-1748405488056",
+      "title": "Student Services Guide",
+      "content": "Student Services and Support Resources FINANCIAL AID SERVICES The Financial Aid Office provides comprehensive support for: 1. Federal Student Aid (FAFSA): - Complete FAFSA by March 1st for priority consideration - Required annual renewal for continued aid eligibility - Verification process may be required for selected applications 2. Scholarship Opportunities: - Merit-based scholarships for academic achievement - Need-based aid for qualified students - Departmental scholarships in specific fields of study - External scholarship search assistance 3. Student Employment: - Work-study program coordination - On-campus job placement assistance - Career counseling and resume building HOUSING SERVICES Residential Life provides: - Residence hall room assignments - Meal plan options and dining services - Room change requests and roommate mediation - Maintenance requests and facility management REGISTRATION AND ENROLLMENT - Course enrollment and schedule planning - Adddrop period assistance (first two weeks of semester) - Transcript requests and degree audits - Academic advising appointment scheduling STUDENT SUPPORT SERVICES - Academic tutoring and study groups - Mental health counseling and wellness programs - Disability support services and accommodations - International student services and visa support",
+      "source": "student-services-guide.txt",
+      "category": "student-services",
+      "type": "text",
+      "priority": 4,
+      "tags": [
+        "academic",
+        "course",
+        "student",
+        "service",
+        "financial",
+        "aid",
+        "registration",
+        "degree",
+        "housing",
+        "enrollment",
+        "schedule"
+      ],
+      "wordCount": 181,
+      "lastUpdated": "2025-05-28T04:11:28.056Z"
+    },
+    {
+      "id": "mixed-content-1748405488056",
+      "title": "Mixed Content",
+      "content": "Registration Information and Course Requirements This document contains information about course registration, financial aid deadlines, and graduation requirements. Students must complete prerequisite courses before enrolling in advanced classes. The academic calendar shows important dates for registration and payment deadlines. Housing services provides residence hall assignments and meal plan options for students living on campus.",
+      "source": "mixed-content.txt",
+      "category": "student-services",
+      "type": "text",
+      "priority": 4,
+      "tags": [
+        "academic",
+        "requirement",
+        "course",
+        "student",
+        "service",
+        "financial",
+        "aid",
+        "registration",
+        "graduation",
+        "housing",
+        "prerequisite"
+      ],
+      "wordCount": 54,
+      "lastUpdated": "2025-05-28T04:11:28.056Z"
+    },
+    {
+      "id": "student-services-test-1748405488057",
+      "title": "Student Services Test",
+      "content": "Student Services Overview Financial Aid Office: - FAFSA processing - Scholarship applications - Student loan counseling - Work-study program coordination Housing Services: - Residence hall assignments - Meal plan options - Room change requests - Maintenance requests Registration Services: - Course enrollment - Schedule changes - Transcript requests - Degree audits",
+      "source": "student-services-test.txt",
+      "category": "student-services",
+      "type": "text",
+      "priority": 2,
+      "tags": [
+        "course",
+        "student",
+        "service",
+        "financial",
+        "aid",
+        "registration",
+        "degree",
+        "housing",
+        "enrollment",
+        "schedule"
+      ],
+      "wordCount": 51,
+      "lastUpdated": "2025-05-28T04:11:28.057Z"
+    }
+  ]
+}

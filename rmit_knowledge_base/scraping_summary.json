@@ -1,0 +1,17 @@
+{
+  "generated_at": "2025-05-30T14:56:23.521373",
+  "categories": {
+    "quick-course-scan": {
+      "total_pages": 200,
+      "scrape_date": "2025-05-30T14:56:23.145540",
+      "courses_found": 172,
+      "sample_courses": []
+    },
+    "course-information": {
+      "total_pages": 199,
+      "scrape_date": "2025-05-30T14:49:49.244392",
+      "courses_found": 168,
+      "sample_courses": []
+    }
+  }
+}

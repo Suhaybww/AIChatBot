@@ -10,15 +10,17 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
   MessageSquare,
-  Star
+  Star,
 } from "lucide-react";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import Link from "next/link";
 import { useState } from "react";
+import { api } from "@/lib/trpc";
+import { useRouter } from "next/navigation";
 
 interface SidebarProps {
-  collapsed: boolean;          // Add this
-  onToggle: () => void;        // Add this
+  collapsed: boolean; // Add this
+  onToggle: () => void; // Add this
   user: {
     id: string;
     email?: string | null;
@@ -30,7 +32,10 @@ interface SidebarProps {
 
 export function Sidebar({ user }: SidebarProps) {
   const [collapsed, setCollapsed] = useState(false);
-  
+
+  const { data: sessions, isLoading } = api.chat.getSessions.useQuery();
+  const router = useRouter();
+
   const handleVegaClick = () => {
     window.location.href = "/chat";
   };
@@ -38,13 +43,13 @@ export function Sidebar({ user }: SidebarProps) {
   if (collapsed) {
     return (
       <div className="fixed left-0 top-0 h-full w-12 bg-gray-950 border-r border-gray-800 flex flex-col items-center py-4 z-40">
-      <button
-        onClick={handleVegaClick}
-        className="w-8 h-8 p-0 mb-4 text-red-500 hover:bg-gray-800 hover:text-red-400 focus:outline-none rounded-lg flex items-center justify-center"
-        title="Vega - New Chat"
-      >
-        <Star className="w-4 h-4 fill-current" />
-      </button>
+        <button
+          onClick={handleVegaClick}
+          className="w-8 h-8 p-0 mb-4 text-red-500 hover:bg-gray-800 hover:text-red-400 focus:outline-none rounded-lg flex items-center justify-center"
+          title="Vega - New Chat"
+        >
+          <Star className="w-4 h-4 fill-current" />
+        </button>
 
         <Button
           variant="outline"
@@ -54,7 +59,7 @@ export function Sidebar({ user }: SidebarProps) {
         >
           <PanelLeftOpen className="w-4 h-4" />
         </Button>
-        
+
         <Button
           variant="ghost"
           size="sm"
@@ -65,11 +70,11 @@ export function Sidebar({ user }: SidebarProps) {
         </Button>
 
         <div className="flex-1" />
-        
+
         <Avatar className="w-8 h-8">
           <AvatarImage src={user.picture || ""} alt="User avatar" />
           <AvatarFallback className="bg-gray-700 text-white text-xs">
-            {user.given_name?.[0] || user.email?.[0]?.toUpperCase() || 'U'}
+            {user.given_name?.[0] || user.email?.[0]?.toUpperCase() || "U"}
           </AvatarFallback>
         </Avatar>
       </div>
@@ -79,7 +84,7 @@ export function Sidebar({ user }: SidebarProps) {
   return (
     <div className="fixed left-0 top-0 h-full w-64 bg-gray-950 border-r border-gray-800 flex flex-col z-40">
       <div className="border-b border-gray-800 relative">
-        <div 
+        <div
           onClick={handleVegaClick}
           className="w-full flex items-center justify-start p-4 cursor-pointer select-none hover:bg-transparent"
         >
@@ -108,7 +113,42 @@ export function Sidebar({ user }: SidebarProps) {
         </Button>
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center px-4 py-8">
+      <div className="flex-1 overflow-y-auto w-full px-4 py-8">
+        {isLoading ? (
+          <div className="text-gray-500 text-sm text-center">
+            Loading chats...
+          </div>
+        ) : sessions && sessions.length > 0 ? (
+          sessions.map((session) => (
+            <button
+              key={session.id}
+              onClick={() => router.push(`/chat/${session.id}`)}
+              className="w-full text-left px-4 py-3 hover:bg-gray-800 border-b border-gray-800 transition-colors rounded-lg"
+            >
+              <div className="text-sm font-medium text-gray-200 truncate">
+                {session.title || "Untitled Chat"}
+              </div>
+              <div className="text-xs text-gray-500">
+                {new Date(session.updatedAt).toLocaleString()}
+              </div>
+            </button>
+          ))
+        ) : (
+          <div className="text-center max-w-48 mx-auto">
+            <div className="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center mb-4 mx-auto">
+              <MessageSquare className="w-6 h-6 text-gray-500" />
+            </div>
+            <h3 className="text-sm font-medium text-gray-300 mb-2">
+              No conversations yet
+            </h3>
+            <p className="text-xs text-gray-500 leading-relaxed">
+              Start chatting with Vega to see your conversation history here.
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* <div className="flex-1 flex flex-col items-center justify-center px-4 py-8">
         <div className="text-center max-w-48">
           <div className="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center mb-4 mx-auto">
             <MessageSquare className="w-6 h-6 text-gray-500" />
@@ -120,7 +160,7 @@ export function Sidebar({ user }: SidebarProps) {
             Start chatting with Vega to see your conversation history here.
           </p>
         </div>
-      </div>
+      </div> */}
 
       <div className="border-t border-gray-800 p-4">
         <div className="flex items-center justify-between">
@@ -128,16 +168,18 @@ export function Sidebar({ user }: SidebarProps) {
             <Avatar className="w-8 h-8">
               <AvatarImage src={user.picture || ""} alt="User avatar" />
               <AvatarFallback className="bg-gray-700 text-white text-sm">
-                {user.given_name?.[0] || user.email?.[0]?.toUpperCase() || 'U'}
+                {user.given_name?.[0] || user.email?.[0]?.toUpperCase() || "U"}
               </AvatarFallback>
             </Avatar>
             <div className="min-w-0 flex-1">
               <div className="text-sm font-medium text-gray-300 truncate">
-                {user.given_name ? `${user.given_name} ${user.family_name || ''}`.trim() : user.email}
+                {user.given_name
+                  ? `${user.given_name} ${user.family_name || ""}`.trim()
+                  : user.email}
               </div>
             </div>
           </div>
-          
+
           <div className="flex items-center space-x-1 ml-2">
             <Link href="/settings">
               <Button

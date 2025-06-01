@@ -6,17 +6,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { 
-  Send, 
+import {
+  Send,
   Copy,
   RotateCcw,
   ThumbsUp,
   ThumbsDown,
   MoreHorizontal,
   Star,
-  Sparkles
+  Sparkles,
 } from "lucide-react";
 import { Sidebar } from "@/components/layout/Sidebar";
+
+import { api } from "@/lib/trpc";
 
 interface Message {
   id: string;
@@ -41,7 +43,7 @@ const suggestions = [
   "How do I access the RMIT library resources?",
   "Tell me about the course enrollment process",
   "What student support services are available?",
-  "How do I contact academic advisors?"
+  "How do I contact academic advisors?",
 ];
 
 export function ChatInterface({ user }: ChatInterfaceProps) {
@@ -55,7 +57,9 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     if (scrollAreaRef.current) {
-      const scrollElement = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]');
+      const scrollElement = scrollAreaRef.current.querySelector(
+        "[data-radix-scroll-area-viewport]"
+      );
       if (scrollElement) {
         scrollElement.scrollTop = scrollElement.scrollHeight;
       }
@@ -66,6 +70,37 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
+
+  const ClaudeStreaming = async (
+    message: string,
+    onChunk: (text: string) => void
+  ): Promise<string> => {
+    const response = await fetch("/api/streamingAI", {
+      method: "POST",
+      body: JSON.stringify({ message }),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (!response.body) throw new Error("No response stream");
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let fullText = "";
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      const chunk = decoder.decode(value);
+      fullText += chunk;
+      onChunk(chunk);
+    }
+
+    return fullText;
+  };
+
+  const { mutateAsync } = api.chat.sendMessage.useMutation()
+
 
   const handleSendMessage = async (messageText?: string) => {
     const textToSend = messageText || input;
@@ -78,21 +113,61 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
       createdAt: new Date(),
     };
 
-    setMessages(prev => [...prev, userMessage]);
+    setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsLoading(true);
 
-    // Add a mock AI response after a delay
-    setTimeout(() => {
-      const aiResponse: Message = {
+    const realTimeMessage: Message = {
+      id: "streaming",
+      content: "",
+      role: "ASSISTANT",
+      createdAt: new Date(),
+      isTyping: true,
+    };
+
+    setMessages((prev) => [...prev, realTimeMessage]);
+
+    try {
+      // First, send the message to save in the database
+      await mutateAsync({ content: textToSend });
+
+      // Then start streaming the response
+      const fullResponse = await ClaudeStreaming(textToSend, (chunk) => {
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === "streaming"
+              ? { ...msg, content: msg.content + chunk }
+              : msg
+          )
+        );
+      });
+
+      const messageByAI: Message = {
         id: (Date.now() + 1).toString(),
-        content: `Thanks for your question about "${textToSend}". I'm Vega, your RMIT guide! This is a placeholder response - in the real application, this would be connected to your AI backend to provide helpful information about courses, policies, services, and campus life.`,
+        content: fullResponse,
         role: "ASSISTANT",
         createdAt: new Date(),
       };
-      setMessages(prev => [...prev, aiResponse]);
+
+      setMessages((prev) => [
+        ...prev.filter((message) => message.id != "streaming"),
+        messageByAI,
+      ]);
+    } catch (error) {
+      console.error("Error in chat:", error);
+      // Show error message to user
+      setMessages((prev) => [
+        ...prev.filter((message) => message.id != "streaming"),
+        {
+          id: (Date.now() + 1).toString(),
+          content: "I apologize, but I encountered an error. Please try again.",
+          role: "ASSISTANT",
+          createdAt: new Date(),
+        },
+      ]);
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -114,25 +189,28 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
     return content
       .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>')
       .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
-      .split('\n')
-      .map(line => line.trim())
-      .filter(line => line.length > 0)
-      .map(line => `<p class="mb-2 last:mb-0">${line}</p>`)
-      .join('');
+      .split("\n")
+      .map((line) => line.trim())
+      .filter((line) => line.length > 0)
+      .map((line) => `<p class="mb-2 last:mb-0">${line}</p>`)
+      .join("");
   };
 
   return (
     <div className="h-screen flex bg-gray-900">
       {/* Sidebar with corrected props */}
-      <Sidebar 
+      <Sidebar
         user={user}
         collapsed={sidebarCollapsed}
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
       />
-      
+
       {/* Main Chat Area */}
-      <div className={`flex-1 flex flex-col transition-all duration-300 ${sidebarCollapsed ? 'ml-12' : 'ml-64'}`}>
-        
+      <div
+        className={`flex-1 flex flex-col transition-all duration-300 ${
+          sidebarCollapsed ? "ml-12" : "ml-64"
+        }`}
+      >
         {/* Chat Messages */}
         <div className="flex-1 relative">
           <ScrollArea className="h-full" ref={scrollAreaRef}>
@@ -147,11 +225,16 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
                       <h1 className="text-5xl font-bold bg-gradient-to-r from-red-500 via-red-400 to-orange-400 bg-clip-text text-transparent">
                         Vega
                       </h1>
-                      <Star className="w-8 h-8 text-red-500 fill-current animate-pulse" style={{ animationDelay: '0.5s' }} />
+                      <Star
+                        className="w-8 h-8 text-red-500 fill-current animate-pulse"
+                        style={{ animationDelay: "0.5s" }}
+                      />
                     </div>
                     <div className="flex items-center justify-center space-x-2 text-sm text-gray-500 mb-4">
                       <Sparkles className="w-4 h-4 text-red-400" />
-                      <span className="italic font-medium">Your brightest guide to RMIT</span>
+                      <span className="italic font-medium">
+                        Your brightest guide to RMIT
+                      </span>
                       <Sparkles className="w-4 h-4 text-red-400" />
                     </div>
                   </div>
@@ -160,9 +243,11 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
                     How can I help you today?
                   </h2>
                   <p className="text-gray-500 mb-8 max-w-md leading-relaxed">
-                    Named after the brightest navigation star, I&apos;m here to guide you through courses, policies, services, and everything about your university experience.
+                    Named after the brightest navigation star, I&apos;m here to
+                    guide you through courses, policies, services, and
+                    everything about your university experience.
                   </p>
-                  
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-2xl">
                     {suggestions.map((suggestion, index) => (
                       <button
@@ -171,7 +256,7 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
                         className="p-4 text-left border border-gray-700 bg-gray-800 rounded-xl hover:bg-gray-700 hover:border-gray-600 transition-colors group"
                       >
                         <div className="text-sm font-medium text-gray-300 mb-1 group-hover:text-gray-200 transition-colors">
-                          {suggestion.split(' ').slice(0, 4).join(' ')}...
+                          {suggestion.split(" ").slice(0, 4).join(" ")}...
                         </div>
                         <div className="text-xs text-gray-500">
                           {suggestion}
@@ -194,9 +279,14 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
                             </div>
                           ) : (
                             <Avatar className="w-8 h-8">
-                              <AvatarImage src={user.picture || ""} alt="User avatar" />
+                              <AvatarImage
+                                src={user.picture || ""}
+                                alt="User avatar"
+                              />
                               <AvatarFallback className="bg-gray-700 text-white text-sm">
-                                {user.given_name?.[0] || user.email?.[0]?.toUpperCase() || 'U'}
+                                {user.given_name?.[0] ||
+                                  user.email?.[0]?.toUpperCase() ||
+                                  "U"}
                               </AvatarFallback>
                             </Avatar>
                           )}
@@ -206,7 +296,9 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center space-x-2 mb-2">
                             <span className="text-sm font-semibold text-gray-300">
-                              {message.role === "ASSISTANT" ? "Vega" : (user.given_name || "You")}
+                              {message.role === "ASSISTANT"
+                                ? "Vega"
+                                : user.given_name || "You"}
                             </span>
                             <span className="text-xs text-gray-600">
                               {message.createdAt.toLocaleTimeString([], {
@@ -215,11 +307,11 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
                               })}
                             </span>
                           </div>
-                          
-                          <div 
+
+                          <div
                             className="prose prose-sm max-w-none text-gray-400 prose-strong:text-gray-300"
-                            dangerouslySetInnerHTML={{ 
-                              __html: formatMessage(message.content)
+                            dangerouslySetInnerHTML={{
+                              __html: formatMessage(message.content),
                             }}
                           />
 
@@ -278,12 +370,20 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center space-x-2 mb-2">
-                            <span className="text-sm font-semibold text-gray-300">Vega</span>
+                            <span className="text-sm font-semibold text-gray-300">
+                              Vega
+                            </span>
                           </div>
                           <div className="flex space-x-1">
                             <div className="w-2 h-2 bg-gray-600 rounded-full animate-bounce"></div>
-                            <div className="w-2 h-2 bg-gray-600 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                            <div className="w-2 h-2 bg-gray-600 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                            <div
+                              className="w-2 h-2 bg-gray-600 rounded-full animate-bounce"
+                              style={{ animationDelay: "0.1s" }}
+                            ></div>
+                            <div
+                              className="w-2 h-2 bg-gray-600 rounded-full animate-bounce"
+                              style={{ animationDelay: "0.2s" }}
+                            ></div>
                           </div>
                         </div>
                       </div>
@@ -317,7 +417,7 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
                 <Send className="w-4 h-4" />
               </Button>
             </div>
-            
+
             <div className="text-xs text-gray-600 text-center mt-2">
               Vega can make mistakes. Consider checking important information.
             </div>

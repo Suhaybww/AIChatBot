@@ -37,7 +37,7 @@ export const chatRouter = createTRPCRouter({
         },
       });
 
-      const prompt = `User: ${input.content} \n\nVega:`;
+      const prompt = `Human: ${input.content}\n\nAssistant: `;
       const responseByVega = await sendClaude(prompt);
 
       await ctx.db.message.create({

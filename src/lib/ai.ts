@@ -4,36 +4,18 @@ import {BedrockRuntimeClient, InvokeModelCommand} from "@aws-sdk/client-bedrock-
 
 // Ensure all required environment variables are present
 if (!process.env.REGION || !process.env.MODEL_ID || !process.env.IDENTITY_POOL_ID || 
-    !process.env.USER_POOL_ID || !process.env.APP_CLIENT_ID || !process.env.USERNAME || !process.env.PASSWORD) {
+    !process.env.USER_POOL_ID || !process.env.APP_CLIENT_ID || !process.env.COGNITO_USERNAME || !process.env.PASSWORD) {
     throw new Error("Missing required environment variables. Please check your .env and .env.local files.")
 }
 
-// Enhanced debugging
-console.log("Environment Variables Status:")
-console.log("----------------------------")
-console.log("REGION:", process.env.REGION || "NOT SET")
-console.log("MODEL_ID:", process.env.MODEL_ID || "NOT SET")
-console.log("IDENTITY_POOL_ID:", process.env.IDENTITY_POOL_ID || "NOT SET")
-console.log("USER_POOL_ID:", process.env.USER_POOL_ID || "NOT SET")
-console.log("APP_CLIENT_ID:", process.env.APP_CLIENT_ID || "NOT SET")
-console.log("USERNAME exists:", !!process.env.USERNAME)
-console.log("PASSWORD exists:", !!process.env.PASSWORD)
-console.log("----------------------------")
-
 async function getToken(): Promise<string> {
     const client = new CognitoIdentityProviderClient({region: process.env.REGION})
-
-    console.log("Attempting Cognito authentication with:")
-    console.log("Region:", process.env.REGION)
-    console.log("Client ID:", process.env.APP_CLIENT_ID)
-    console.log("Username length:", process.env.USERNAME?.length)
-    console.log("Password length:", process.env.PASSWORD?.length)
 
     const authenticationCommand = new InitiateAuthCommand({
         AuthFlow: "USER_PASSWORD_AUTH",
         ClientId: process.env.APP_CLIENT_ID!,
         AuthParameters: {
-            USERNAME: process.env.USERNAME!,
+            USERNAME: process.env.COGNITO_USERNAME!,
             PASSWORD: process.env.PASSWORD!
         }
     })
@@ -49,7 +31,7 @@ async function getToken(): Promise<string> {
         console.log("Successfully obtained Cognito token")
         return tokenId
     } catch (error) {
-        console.error("Cognito authentication error details:", error)
+        console.error("Cognito auth error:", error)
         throw error
     }
 }
@@ -67,12 +49,6 @@ export async function createBedRock(): Promise<BedrockRuntimeClient> {
 }
 
 export async function sendClaude(prompt: string): Promise<string> {
-    // Temporary mock response for testing
-    console.log("Received prompt:", prompt);
-    return "This is a mock response for testing. Your prompt was: " + prompt;
-
-    // Comment out the actual implementation for now
-    /*
     const client = await createBedRock()
 
     const modelCommand = new InvokeModelCommand({
@@ -80,16 +56,25 @@ export async function sendClaude(prompt: string): Promise<string> {
         contentType: "application/json",
         accept: "application/json",
         body: JSON.stringify({
-            prompt: prompt,
-            max_tokens_to_sample: 1024,
-            temperature: 0.9
+            anthropic_version: "bedrock-2023-05-31",
+            max_tokens: 1024,
+            messages: [
+                {
+                    role: "user",
+                    content: prompt
+                }
+            ],
+            temperature: 0.7
         })
     })
 
     const response = await client.send(modelCommand)
     const body = await response.body.transformToString()
     const parsed = JSON.parse(body)
+    
+    if (parsed.error) {
+        throw new Error(parsed.error.message || "Unknown error from Claude API")
+    }
 
-    return parsed.completion
-    */
+    return parsed.content[0]?.text || ""
 }

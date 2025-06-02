@@ -1,4 +1,3 @@
-// src/app/page.tsx
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import { LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
@@ -9,9 +8,9 @@ export default async function HomePage() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
-  // If user is authenticated, redirect to chat
+  // If user is authenticated, redirect to auth callback for user sync
   if (user) {
-    redirect("/chat");
+    redirect("/auth-callback");
   }
 
   // If not authenticated, show sign in page
@@ -51,16 +50,16 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <LoginLink>
+        <LoginLink postLoginRedirectURL="/auth-callback">
           <Button size="lg" className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-6 text-lg shadow-xl hover:shadow-red-500/25 transition-all duration-300 transform hover:-translate-y-1">
             Chat with Vega
             <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
         </LoginLink>
 
-        {/* <p className="text-center text-sm text-gray-600 mt-6">
-          Sign in with your RMIT credentials to start your guided journey
-        </p> */}
+        <p className="text-center text-sm text-gray-600 mt-6">
+          Sign in to access your personalized RMIT AI assistant
+        </p>
       </div>
     </div>
   );

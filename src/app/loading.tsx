@@ -1,4 +1,3 @@
-// src/app/loading.tsx
 import { Star } from "lucide-react";
 
 function Loading() {

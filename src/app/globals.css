@@ -268,3 +268,127 @@
 .loading-dots span:nth-child(3) {
   animation-delay: 0.4s;
 }
+
+
+/* Custom scrollbar for sidebar */
+.sidebar-scroll {
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #374151 #111827;
+}
+
+/* WebKit browsers (Chrome, Safari, Edge) */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: #111827; /* gray-900 */
+  border-radius: 3px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: #374151; /* gray-700 */
+  border-radius: 3px;
+  border: 1px solid #1f2937; /* gray-800 */
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: #4b5563; /* gray-600 */
+}
+
+.sidebar-scroll-hidden {
+  /* Firefox */
+  scrollbar-width: none;
+  /* WebKit browsers */
+  -ms-overflow-style: none;
+}
+
+.sidebar-scroll-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* Settings page specific responsive utilities */
+.settings-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .settings-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .settings-grid {
+    gap: 2rem;
+  }
+}
+
+/* Responsive card padding */
+.responsive-card {
+  padding: 1rem;
+}
+
+@media (min-width: 640px) {
+  .responsive-card {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-card {
+    padding: 2rem;
+  }
+}
+
+/* Mobile-friendly button groups */
+.mobile-button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .mobile-button-group {
+    flex-direction: row;
+    gap: 0.75rem;
+  }
+}
+
+/* Custom responsive breakpoints */
+@media (min-width: 475px) {
+  .xs\:inline {
+    display: inline;
+  }
+  
+  .xs\:hidden {
+    display: none;
+  }
+}
+
+/* Enhanced dialog responsiveness */
+@media (max-width: 640px) {
+  [data-radix-dialog-content] {
+    width: calc(100vw - 2rem);
+    max-width: calc(100vw - 2rem);
+    margin: 1rem;
+  }
+}
+
+/* Better form layouts on mobile */
+@media (max-width: 768px) {
+  .mobile-form-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .mobile-form-stack > * {
+    width: 100%;
+  }
+}

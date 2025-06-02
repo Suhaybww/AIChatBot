@@ -24,6 +24,24 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Create environment file
+        run: |
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+          echo "DIRECT_URL=${{ secrets.DIRECT_URL }}" >> .env
+          echo "KINDE_CLIENT_ID=${{ secrets.KINDE_CLIENT_ID }}" >> .env
+          echo "KINDE_CLIENT_SECRET=${{ secrets.KINDE_CLIENT_SECRET }}" >> .env
+          echo "KINDE_ISSUER_URL=${{ secrets.KINDE_ISSUER_URL }}" >> .env
+          echo "KINDE_SITE_URL=${{ secrets.KINDE_SITE_URL }}" >> .env
+          echo "KINDE_POST_LOGOUT_REDIRECT_URL=${{ secrets.KINDE_POST_LOGOUT_REDIRECT_URL }}" >> .env
+          echo "KINDE_POST_LOGIN_REDIRECT_URL=${{ secrets.KINDE_POST_LOGIN_REDIRECT_URL }}" >> .env
+          echo "REGION=${{ secrets.REGION }}" >> .env
+          echo "MODEL_ID=${{ secrets.MODEL_ID }}" >> .env
+          echo "IDENTITY_POOL_ID=${{ secrets.IDENTITY_POOL_ID }}" >> .env
+          echo "USER_POOL_ID=${{ secrets.USER_POOL_ID }}" >> .env
+          echo "APP_CLIENT_ID=${{ secrets.APP_CLIENT_ID }}" >> .env
+          echo "COGNITO_USERNAME=${{ secrets.COGNITO_USERNAME }}" >> .env
+          echo "PASSWORD=${{ secrets.PASSWORD }}" >> .env
+
       - name: Run linting
         run: npm run lint
 
@@ -32,9 +50,38 @@ jobs:
 
       - name: Generate Prisma client
         run: npx prisma generate
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DIRECT_URL: ${{ secrets.DIRECT_URL }}
+
+      - name: Run database migrations (if needed)
+        run: npx prisma migrate deploy
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DIRECT_URL: ${{ secrets.DIRECT_URL }}
+        continue-on-error: true  # Don't fail if migrations aren't needed
 
       - name: Build application
         run: npm run build
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DIRECT_URL: ${{ secrets.DIRECT_URL }}
+          KINDE_CLIENT_ID: ${{ secrets.KINDE_CLIENT_ID }}
+          KINDE_CLIENT_SECRET: ${{ secrets.KINDE_CLIENT_SECRET }}
+          KINDE_ISSUER_URL: ${{ secrets.KINDE_ISSUER_URL }}
+          KINDE_SITE_URL: ${{ secrets.KINDE_SITE_URL }}
+          KINDE_POST_LOGOUT_REDIRECT_URL: ${{ secrets.KINDE_POST_LOGOUT_REDIRECT_URL }}
+          KINDE_POST_LOGIN_REDIRECT_URL: ${{ secrets.KINDE_POST_LOGIN_REDIRECT_URL }}
+          REGION: ${{ secrets.REGION }}
+          MODEL_ID: ${{ secrets.MODEL_ID }}
+          IDENTITY_POOL_ID: ${{ secrets.IDENTITY_POOL_ID }}
+          USER_POOL_ID: ${{ secrets.USER_POOL_ID }}
+          APP_CLIENT_ID: ${{ secrets.APP_CLIENT_ID }}
+          COGNITO_USERNAME: ${{ secrets.COGNITO_USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
 
       - name: Run tests (if any)
         run: npm run test --if-present
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DIRECT_URL: ${{ secrets.DIRECT_URL }}

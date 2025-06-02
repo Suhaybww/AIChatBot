@@ -106,15 +106,17 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Reset messages when sessionId changes (new session clicked)
+  // Reset messages when sessionId changes (new session clicked) or when transitioning to a new chat
   useEffect(() => {
-    // Only clear messages when explicitly navigating to a different session
-    if (sessionId && sessionId !== currentSessionId && currentSessionId !== null) {
-      console.log('Clearing messages for session transition from', currentSessionId, 'to', sessionId);
+    // Clear messages when:
+    // 1. Transitioning between different sessions
+    // 2. Going from a session to a new chat (sessionId becomes undefined)
+    // 3. Going from a new chat to a session
+    if (sessionId !== currentSessionId) {
+      console.log('Clearing messages for transition from', currentSessionId, 'to', sessionId || 'new chat');
       setMessages([]);
-      setCurrentSessionId(sessionId);
+      setCurrentSessionId(sessionId || null);
     }
-    // Don't clear messages when going from no session to having a session (new chat creation)
   }, [sessionId, currentSessionId]);
 
   // Load existing session data

@@ -46,12 +46,17 @@ export function Sidebar({ user, collapsed, onToggle }: SidebarProps) {
   };
 
   const handleNewChat = async () => {
-    setIsCreatingNewChat(true);
-    // Small delay to show loading state
-    setTimeout(() => {
-      router.push("/chat");
+    try {
+      setIsCreatingNewChat(true);
+      // Use replace instead of push to force a clean state
+      await router.replace("/chat");
+      // Force a hard navigation to clear all states
+      window.location.href = "/chat";
+    } catch (error) {
+      console.error("Navigation error:", error);
+    } finally {
       setIsCreatingNewChat(false);
-    }, 200);
+    }
   };
 
   const handleSessionClick = (sessionId: string) => {

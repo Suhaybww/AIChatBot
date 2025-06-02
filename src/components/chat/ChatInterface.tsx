@@ -39,11 +39,11 @@ interface ChatInterfaceProps {
 }
 
 const suggestions = [
-  "What are the prerequisites for Computer Science courses?",
-  "How do I access the RMIT library resources?",
-  "Tell me about the course enrollment process",
-  "What student support services are available?",
-  "How do I contact academic advisors?",
+  "What are the entry requirements for RMIT's Computer Science degree?",
+  "How do I access Canvas and other RMIT online systems?",
+  "Tell me about RMIT's course enrollment deadlines",
+  "What mental health and wellbeing services does RMIT offer?",
+  "How can I contact my RMIT program manager?",
 ];
 
 export function ChatInterface({ user }: ChatInterfaceProps) {
@@ -99,7 +99,9 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
     return fullText;
   };
 
-  const { mutateAsync } = api.chat.sendMessage.useMutation()
+  // const { mutateAsync } = api.chat.sendMessage.useMutation()
+  const { mutateAsync: getAIResponse } = api.knowledgeBase.getAIResponse.useMutation()
+
 
 
   const handleSendMessage = async (messageText?: string) => {
@@ -129,18 +131,19 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
 
     try {
       // First, send the message to save in the database
-      await mutateAsync({ content: textToSend });
+      const responseByAI = await getAIResponse({ query: textToSend })
+      const fullResponse = responseByAI.answer
 
       // Then start streaming the response
-      const fullResponse = await ClaudeStreaming(textToSend, (chunk) => {
-        setMessages((prev) =>
-          prev.map((msg) =>
-            msg.id === "streaming"
-              ? { ...msg, content: msg.content + chunk }
-              : msg
-          )
-        );
-      });
+      // const fullResponse = await ClaudeStreaming(textToSend, (chunk) => {
+      //   setMessages((prev) =>
+      //     prev.map((msg) =>
+      //       msg.id === "streaming"
+      //         ? { ...msg, content: msg.content + chunk }
+      //         : msg
+      //     )
+      //   );
+      // });
 
       const messageByAI: Message = {
         id: (Date.now() + 1).toString(),

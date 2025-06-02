@@ -14,13 +14,12 @@ import {
 } from "lucide-react";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import Link from "next/link";
-import { useState } from "react";
 import { api } from "@/lib/trpc";
 import { useRouter } from "next/navigation";
 
 interface SidebarProps {
-  collapsed: boolean; // Add this
-  onToggle: () => void; // Add this
+  collapsed: boolean;
+  onToggle: () => void;
   user: {
     id: string;
     email?: string | null;
@@ -30,19 +29,25 @@ interface SidebarProps {
   };
 }
 
-export function Sidebar({ user }: SidebarProps) {
-  const [collapsed, setCollapsed] = useState(false);
-
-  const { data: sessions, isLoading } = api.chat.getSessions.useQuery();
+export function Sidebar({ user, collapsed, onToggle }: SidebarProps) {
   const router = useRouter();
+  const { data: sessions, isLoading } = api.chat.getSessions.useQuery();
+
+  const handleNewChat = () => {
+    router.push('/chat');
+  };
+
+  const handleSessionClick = (sessionId: string) => {
+    router.push(`/chat/${sessionId}`);
+  };
 
   const handleVegaClick = () => {
-    window.location.href = "/chat";
+    router.push('/chat');
   };
 
   if (collapsed) {
     return (
-      <div className="fixed left-0 top-0 h-full w-12 bg-gray-950 border-r border-gray-800 flex flex-col items-center py-4 z-40">
+      <div className="fixed left-0 top-0 h-full w-12 bg-gray-950 border-r border-gray-800 z-40 py-4 hidden lg:flex lg:flex-col lg:items-center">
         <button
           onClick={handleVegaClick}
           className="w-8 h-8 p-0 mb-4 text-red-500 hover:bg-gray-800 hover:text-red-400 focus:outline-none rounded-lg flex items-center justify-center"
@@ -54,7 +59,7 @@ export function Sidebar({ user }: SidebarProps) {
         <Button
           variant="outline"
           size="sm"
-          onClick={() => setCollapsed(false)}
+          onClick={onToggle}
           className="w-8 h-8 p-0 mb-4 border-gray-700 bg-gray-900 hover:bg-gray-800 text-gray-400 hover:text-gray-300 hover:border-gray-600"
         >
           <PanelLeftOpen className="w-4 h-4" />
@@ -64,7 +69,7 @@ export function Sidebar({ user }: SidebarProps) {
           variant="ghost"
           size="sm"
           className="w-8 h-8 p-0 mb-4 hover:bg-gray-800 text-gray-400 hover:text-gray-300"
-          onClick={() => window.location.reload()}
+          onClick={handleNewChat}
         >
           <Plus className="w-4 h-4" />
         </Button>
@@ -82,7 +87,9 @@ export function Sidebar({ user }: SidebarProps) {
   }
 
   return (
-    <div className="fixed left-0 top-0 h-full w-64 bg-gray-950 border-r border-gray-800 flex flex-col z-40">
+    <div className={`fixed left-0 top-0 h-full w-64 bg-gray-950 border-r border-gray-800 flex flex-col z-40 ${
+      collapsed ? 'translate-x-[-100%]' : 'translate-x-0'
+    } lg:translate-x-0 transition-transform duration-300`}>
       <div className="border-b border-gray-800 relative">
         <div
           onClick={handleVegaClick}
@@ -96,7 +103,7 @@ export function Sidebar({ user }: SidebarProps) {
         <Button
           variant="outline"
           size="sm"
-          onClick={() => setCollapsed(true)}
+          onClick={onToggle}
           className="absolute right-4 top-1/2 transform -translate-y-1/2 w-8 h-8 p-0 border-gray-700 bg-gray-900 hover:bg-gray-800 hover:border-gray-600 text-gray-400 hover:text-gray-300"
         >
           <PanelLeftClose className="w-4 h-4" />
@@ -105,7 +112,7 @@ export function Sidebar({ user }: SidebarProps) {
 
       <div className="p-4">
         <Button
-          onClick={() => window.location.reload()}
+          onClick={handleNewChat}
           className="w-full justify-start bg-gray-800 hover:bg-gray-700 text-white h-10 border border-gray-700 hover:border-gray-600"
         >
           <Plus className="w-4 h-4 mr-2" />
@@ -122,7 +129,7 @@ export function Sidebar({ user }: SidebarProps) {
           sessions.map((session) => (
             <button
               key={session.id}
-              onClick={() => router.push(`/chat/${session.id}`)}
+              onClick={() => handleSessionClick(session.id)}
               className="w-full text-left px-4 py-3 hover:bg-gray-800 border-b border-gray-800 transition-colors rounded-lg"
             >
               <div className="text-sm font-medium text-gray-200 truncate">
@@ -147,20 +154,6 @@ export function Sidebar({ user }: SidebarProps) {
           </div>
         )}
       </div>
-
-      {/* <div className="flex-1 flex flex-col items-center justify-center px-4 py-8">
-        <div className="text-center max-w-48">
-          <div className="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center mb-4 mx-auto">
-            <MessageSquare className="w-6 h-6 text-gray-500" />
-          </div>
-          <h3 className="text-sm font-medium text-gray-300 mb-2">
-            No conversations yet
-          </h3>
-          <p className="text-xs text-gray-500 leading-relaxed">
-            Start chatting with Vega to see your conversation history here.
-          </p>
-        </div>
-      </div> */}
 
       <div className="border-t border-gray-800 p-4">
         <div className="flex items-center justify-between">

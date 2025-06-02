@@ -32,6 +32,83 @@ export const authRouter = createTRPCRouter({
     return ctx.user;
   }),
 
+  // Sync user data from Kinde (PUBLIC for auth callback)
+  syncUserFromKinde: publicProcedure
+    .input(syncUserSchema)
+    .mutation(async ({ ctx, input }) => {
+      try {
+        // Check if user exists
+        const existingUser = await ctx.db.user.findUnique({
+          where: { id: input.id },
+        });
+
+        let user;
+
+        if (existingUser) {
+          // Update existing user with latest data from Kinde
+          user = await ctx.db.user.update({
+            where: { id: input.id },
+            data: {
+              email: input.email,
+              given_name: input.given_name,
+              family_name: input.family_name,
+              picture: input.picture,
+              updatedAt: new Date(),
+            },
+            select: {
+              id: true,
+              email: true,
+              given_name: true,
+              family_name: true,
+              picture: true,
+              createdAt: true,
+              updatedAt: true,
+            },
+          });
+
+          return {
+            success: true,
+            user,
+            isNewUser: false,
+            message: "User data synchronized successfully",
+          };
+        } else {
+          // Create new user
+          user = await ctx.db.user.create({
+            data: {
+              id: input.id,
+              email: input.email,
+              given_name: input.given_name,
+              family_name: input.family_name,
+              picture: input.picture,
+            },
+            select: {
+              id: true,
+              email: true,
+              given_name: true,
+              family_name: true,
+              picture: true,
+              createdAt: true,
+              updatedAt: true,
+            },
+          });
+
+          return {
+            success: true,
+            user,
+            isNewUser: true,
+            message: "User created successfully",
+          };
+        }
+      } catch (error) {
+        console.error("Error syncing user from Kinde:", error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to sync user data",
+        });
+      }
+    }),
+
   // Get full user profile with detailed information
   getProfile: protectedProcedure.query(async ({ ctx }) => {
     try {
@@ -124,83 +201,6 @@ export const authRouter = createTRPCRouter({
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Failed to update profile",
-        });
-      }
-    }),
-
-  // Sync user data from Kinde (for user creation or updates)
-  syncUserFromKinde: protectedProcedure
-    .input(syncUserSchema)
-    .mutation(async ({ ctx, input }) => {
-      try {
-        // Check if user exists
-        const existingUser = await ctx.db.user.findUnique({
-          where: { id: input.id },
-        });
-
-        let user;
-
-        if (existingUser) {
-          // Update existing user with latest data from Kinde
-          user = await ctx.db.user.update({
-            where: { id: input.id },
-            data: {
-              email: input.email,
-              given_name: input.given_name,
-              family_name: input.family_name,
-              picture: input.picture,
-              updatedAt: new Date(),
-            },
-            select: {
-              id: true,
-              email: true,
-              given_name: true,
-              family_name: true,
-              picture: true,
-              createdAt: true,
-              updatedAt: true,
-            },
-          });
-
-          return {
-            success: true,
-            user,
-            isNewUser: false,
-            message: "User data synchronized successfully",
-          };
-        } else {
-          // Create new user
-          user = await ctx.db.user.create({
-            data: {
-              id: input.id,
-              email: input.email,
-              given_name: input.given_name,
-              family_name: input.family_name,
-              picture: input.picture,
-            },
-            select: {
-              id: true,
-              email: true,
-              given_name: true,
-              family_name: true,
-              picture: true,
-              createdAt: true,
-              updatedAt: true,
-            },
-          });
-
-          return {
-            success: true,
-            user,
-            isNewUser: true,
-            message: "User created successfully",
-          };
-        }
-      } catch (error) {
-        console.error("Error syncing user from Kinde:", error);
-        throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Failed to sync user data",
         });
       }
     }),

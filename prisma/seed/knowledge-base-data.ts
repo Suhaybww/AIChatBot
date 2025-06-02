@@ -31,7 +31,7 @@ interface PageData {
   url: string;
   content_sections: Array<{
     heading: string | null;
-    paragraphs: string[];
+    paragraphs: string[];                                                                                                                                                                                 
   }>;
   structured_data: StructuredData;
   full_text: string;

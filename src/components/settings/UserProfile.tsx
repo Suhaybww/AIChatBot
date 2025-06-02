@@ -145,12 +145,12 @@ export function UserProfile({ user: initialUser }: UserProfileProps) {
   // Show loading state while syncing user
   if (isSyncing) {
     return (
-      <div className="flex items-center justify-center p-8">
-        <div className="text-center space-y-4">
-          <Loader2 className="w-8 h-8 animate-spin text-gray-400 mx-auto" />
+      <div className="flex items-center justify-center p-6 sm:p-8">
+        <div className="text-center space-y-4 max-w-sm mx-auto">
+          <Loader2 className="w-6 h-6 sm:w-8 sm:h-8 animate-spin text-gray-400 mx-auto" />
           <div>
-            <p className="text-gray-300 font-medium">Setting up your profile...</p>
-            <p className="text-gray-500 text-sm">Just a moment while we sync your account</p>
+            <p className="text-gray-300 font-medium text-sm sm:text-base">Setting up your profile...</p>
+            <p className="text-gray-500 text-xs sm:text-sm">Just a moment while we sync your account</p>
           </div>
         </div>
       </div>
@@ -160,8 +160,8 @@ export function UserProfile({ user: initialUser }: UserProfileProps) {
   // Show loading state while fetching profile
   if (profileLoading) {
     return (
-      <div className="flex items-center justify-center p-8">
-        <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
+      <div className="flex items-center justify-center p-6 sm:p-8">
+        <Loader2 className="w-6 h-6 sm:w-8 sm:h-8 animate-spin text-gray-400" />
       </div>
     );
   }
@@ -169,63 +169,65 @@ export function UserProfile({ user: initialUser }: UserProfileProps) {
   const currentUser = profile || initialUser;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Profile Header Card */}
-      <div className="bg-gradient-to-r from-gray-800/80 to-gray-700/80 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8">
-        <div className="flex items-center space-x-6">
-          <div className="relative">
-            <Avatar className="w-24 h-24 ring-4 ring-gray-600/50">
+      <div className="bg-gradient-to-r from-gray-800/80 to-gray-700/80 backdrop-blur-sm border border-gray-700/50 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8">
+        <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6 text-center sm:text-left">
+          <div className="relative flex-shrink-0">
+            <Avatar className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 ring-4 ring-gray-600/50">
               <AvatarImage src={currentUser.picture || ""} alt="Profile picture" />
-              <AvatarFallback className="bg-gradient-to-br from-red-500 to-orange-500 text-white text-2xl font-bold">
+              <AvatarFallback className="bg-gradient-to-br from-red-500 to-orange-500 text-white text-lg sm:text-xl lg:text-2xl font-bold">
                 {currentUser.given_name?.[0] || currentUser.email?.[0]?.toUpperCase() || 'U'}
               </AvatarFallback>
             </Avatar>
-            <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 border-2 border-gray-800 rounded-full flex items-center justify-center">
-              <CheckCircle className="w-3 h-3 text-white" />
+            <div className="absolute -bottom-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 bg-green-500 border-2 border-gray-800 rounded-full flex items-center justify-center">
+              <CheckCircle className="w-2 h-2 sm:w-3 sm:h-3 text-white" />
             </div>
           </div>
-          <div className="flex-1">
-            <div className="flex items-center space-x-2 mb-2">
-              <h2 className="text-2xl font-bold text-gray-100">
+          <div className="flex-1 min-w-0">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 mb-2">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-100 truncate">
                 {currentUser.given_name ? `${currentUser.given_name} ${currentUser.family_name || ''}`.trim() : 'Welcome'}
               </h2>
-              <Sparkles className="w-5 h-5 text-yellow-400" />
+              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 mx-auto sm:mx-0 mt-1 sm:mt-0" />
             </div>
-            <p className="text-gray-400 flex items-center space-x-2">
-              <Mail className="w-4 h-4" />
-              <span>{currentUser.email}</span>
-            </p>
-            <p className="text-sm text-gray-500 mt-2 flex items-center space-x-2">
-              <Calendar className="w-4 h-4" />
-              <span>
-                Student • Member since {
-                  accountStats?.memberSince 
-                    ? new Date(accountStats.memberSince).toLocaleDateString()
-                    : 'today'
-                }
-              </span>                      
-            </p>
+            <div className="space-y-2">
+              <p className="text-gray-400 flex items-center justify-center sm:justify-start space-x-2 text-sm sm:text-base">
+                <Mail className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span className="truncate">{currentUser.email}</span>
+              </p>
+              <p className="text-xs sm:text-sm text-gray-500 flex items-center justify-center sm:justify-start space-x-2">
+                <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span>
+                  Student • Member since {
+                    accountStats?.memberSince 
+                      ? new Date(accountStats.memberSince).toLocaleDateString()
+                      : 'today'
+                  }
+                </span>                      
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Profile Information Card */}
-      <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8">
-        <div className="flex items-center space-x-3 mb-8">
-          <div className="w-10 h-10 bg-gray-700 rounded-xl flex items-center justify-center">
-            <User className="w-5 h-5 text-gray-400" />
+      <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-700/50 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8">
+        <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-3 mb-6 sm:mb-8">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-700 rounded-lg sm:rounded-xl flex items-center justify-center mx-auto sm:mx-0">
+            <User className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
           </div>
-          <div>
-            <h3 className="text-xl font-semibold text-gray-100">Profile Information</h3>
-            <p className="text-sm text-gray-500">Update your personal details</p>
+          <div className="text-center sm:text-left">
+            <h3 className="text-lg sm:text-xl font-semibold text-gray-100">Profile Information</h3>
+            <p className="text-xs sm:text-sm text-gray-500">Update your personal details</p>
           </div>
         </div>
         
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           {/* Personal Information */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-3">
-              <Label htmlFor="firstName" className="text-gray-300 font-medium">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+            <div className="space-y-2 sm:space-y-3">
+              <Label htmlFor="firstName" className="text-gray-300 font-medium text-sm sm:text-base">
                 First Name *
               </Label>
               <Input
@@ -233,24 +235,24 @@ export function UserProfile({ user: initialUser }: UserProfileProps) {
                 value={formData.given_name}
                 onChange={(e) => setFormData(prev => ({ ...prev, given_name: e.target.value }))}
                 placeholder="Enter your first name"
-                className="bg-gray-700/50 border-gray-600/50 text-gray-200 placeholder:text-gray-500 rounded-xl h-12 focus:bg-gray-700 transition-colors duration-200"
+                className="bg-gray-700/50 border-gray-600/50 text-gray-200 placeholder:text-gray-500 rounded-lg sm:rounded-xl h-10 sm:h-12 focus:bg-gray-700 transition-colors duration-200 text-sm sm:text-base"
                 required
               />
             </div>
-            <div className="space-y-3">
-              <Label htmlFor="lastName" className="text-gray-300 font-medium">Last Name</Label>
+            <div className="space-y-2 sm:space-y-3">
+              <Label htmlFor="lastName" className="text-gray-300 font-medium text-sm sm:text-base">Last Name</Label>
               <Input
                 id="lastName"
                 value={formData.family_name}
                 onChange={(e) => setFormData(prev => ({ ...prev, family_name: e.target.value }))}
                 placeholder="Enter your last name"
-                className="bg-gray-700/50 border-gray-600/50 text-gray-200 placeholder:text-gray-500 rounded-xl h-12 focus:bg-gray-700 transition-colors duration-200"
+                className="bg-gray-700/50 border-gray-600/50 text-gray-200 placeholder:text-gray-500 rounded-lg sm:rounded-xl h-10 sm:h-12 focus:bg-gray-700 transition-colors duration-200 text-sm sm:text-base"
               />
             </div>
           </div>
 
-          <div className="space-y-3">
-            <Label htmlFor="email" className="text-gray-300 font-medium">Email Address *</Label>
+          <div className="space-y-2 sm:space-y-3">
+            <Label htmlFor="email" className="text-gray-300 font-medium text-sm sm:text-base">Email Address *</Label>
             <div className="relative">
               <Input
                 id="email"
@@ -258,20 +260,20 @@ export function UserProfile({ user: initialUser }: UserProfileProps) {
                 value={formData.email}
                 onChange={(e) => handleEmailChange(e.target.value)}
                 placeholder="Enter your email"
-                className="bg-gray-700/50 border-gray-600/50 text-gray-200 placeholder:text-gray-500 rounded-xl h-12 focus:bg-gray-700 transition-colors duration-200 pr-10"
+                className="bg-gray-700/50 border-gray-600/50 text-gray-200 placeholder:text-gray-500 rounded-lg sm:rounded-xl h-10 sm:h-12 focus:bg-gray-700 transition-colors duration-200 pr-10 text-sm sm:text-base"
                 required
               />
               {checkingEmail && (
-                <Loader2 className="w-4 h-4 animate-spin text-gray-400 absolute right-3 top-4" />
+                <Loader2 className="w-3 h-3 sm:w-4 sm:h-4 animate-spin text-gray-400 absolute right-3 top-3 sm:top-4" />
               )}
               {emailAvailable === false && (
-                <AlertCircle className="w-4 h-4 text-red-400 absolute right-3 top-4" />
+                <AlertCircle className="w-3 h-3 sm:w-4 sm:h-4 text-red-400 absolute right-3 top-3 sm:top-4" />
               )}
               {emailAvailable === true && (
-                <CheckCircle className="w-4 h-4 text-green-400 absolute right-3 top-4" />
+                <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 text-green-400 absolute right-3 top-3 sm:top-4" />
               )}
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-1 sm:space-y-0">
               <p className="text-xs text-gray-500 flex items-center space-x-1">
                 <Shield className="w-3 h-3" />
                 <span>This email is used for your account access</span>
@@ -288,16 +290,16 @@ export function UserProfile({ user: initialUser }: UserProfileProps) {
           <Button 
             type="submit"
             disabled={updateProfileMutation.isPending || emailAvailable === false || !isReady}
-            className="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white shadow-lg hover:shadow-xl transition-all duration-200 rounded-xl h-12 px-8 disabled:opacity-50"
+            className="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white shadow-lg hover:shadow-xl transition-all duration-200 rounded-lg sm:rounded-xl h-10 sm:h-12 px-6 sm:px-8 disabled:opacity-50 w-full sm:w-auto text-sm sm:text-base"
           >
             {updateProfileMutation.isPending ? (
               <>
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                <Loader2 className="w-3 h-3 sm:w-4 sm:h-4 mr-2 animate-spin" />
                 Saving...
               </>
             ) : (
               <>
-                <Save className="w-4 h-4 mr-2" />
+                <Save className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
                 Save Changes
               </>
             )}

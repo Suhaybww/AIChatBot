@@ -11,11 +11,13 @@ import {
   PanelLeftOpen,
   MessageSquare,
   Star,
+  Loader2,
 } from "lucide-react";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import Link from "next/link";
 import { api } from "@/lib/trpc";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import { useState } from "react";
 
 interface SidebarProps {
   collapsed: boolean;
@@ -30,20 +32,35 @@ interface SidebarProps {
 }
 
 export function Sidebar({ user, collapsed, onToggle }: SidebarProps) {
+  const { data: sessions, isLoading } = api.chat.getSessions.useQuery(undefined, {
+    refetchOnWindowFocus: false,
+    refetchOnMount: true, // Allow refetch on mount
+    refetchOnReconnect: false,
+    staleTime: 1000 * 30, // Reduced to 30 seconds for more frequent updates
+  });
   const router = useRouter();
-  const { data: sessions, isLoading } = api.chat.getSessions.useQuery();
+  const pathname = usePathname();
+  const [isCreatingNewChat, setIsCreatingNewChat] = useState(false);
 
-  const handleNewChat = () => {
-    router.push('/chat');
+  const handleVegaClick = () => {
+    router.push("/chat");
+  };
+
+  const handleNewChat = async () => {
+    setIsCreatingNewChat(true);
+    // Small delay to show loading state
+    setTimeout(() => {
+      router.push("/chat");
+      setIsCreatingNewChat(false);
+    }, 200);
   };
 
   const handleSessionClick = (sessionId: string) => {
     router.push(`/chat/${sessionId}`);
   };
 
-  const handleVegaClick = () => {
-    router.push('/chat');
-  };
+  // Get current session ID from URL
+  const currentSessionId = pathname.startsWith('/chat/') ? pathname.split('/')[2] : null;
 
   if (collapsed) {
     return (
@@ -70,8 +87,13 @@ export function Sidebar({ user, collapsed, onToggle }: SidebarProps) {
           size="sm"
           className="w-8 h-8 p-0 mb-4 hover:bg-gray-800 text-gray-400 hover:text-gray-300"
           onClick={handleNewChat}
+          disabled={isCreatingNewChat}
         >
-          <Plus className="w-4 h-4" />
+          {isCreatingNewChat ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            <Plus className="w-4 h-4" />
+          )}
         </Button>
 
         <div className="flex-1" />
@@ -104,7 +126,7 @@ export function Sidebar({ user, collapsed, onToggle }: SidebarProps) {
           variant="outline"
           size="sm"
           onClick={onToggle}
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 w-8 h-8 p-0 border-gray-700 bg-gray-900 hover:bg-gray-800 hover:border-gray-600 text-gray-400 hover:text-gray-300"
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 w-8 h-8 p-0 border-gray-700 bg-gray-900 hover:bg-gray-800 hover:border-gray-600 text-gray-400 hover:text-gray-300 hidden lg:flex"
         >
           <PanelLeftClose className="w-4 h-4" />
         </Button>
@@ -113,44 +135,58 @@ export function Sidebar({ user, collapsed, onToggle }: SidebarProps) {
       <div className="p-4">
         <Button
           onClick={handleNewChat}
-          className="w-full justify-start bg-gray-800 hover:bg-gray-700 text-white h-10 border border-gray-700 hover:border-gray-600"
+          disabled={isCreatingNewChat}
+          className="w-full justify-start bg-gray-800 hover:bg-gray-700 text-white h-10 border border-gray-700 hover:border-gray-600 disabled:opacity-50"
         >
-          <Plus className="w-4 h-4 mr-2" />
+          {isCreatingNewChat ? (
+            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+          ) : (
+            <Plus className="w-4 h-4 mr-2" />
+          )}
           New chat
         </Button>
       </div>
 
-      <div className="flex-1 overflow-y-auto w-full px-4 py-8">
+      <div className="flex-1 overflow-y-auto w-full px-4 py-2 sidebar-scroll flex flex-col">
         {isLoading ? (
-          <div className="text-gray-500 text-sm text-center">
+          <div className="text-gray-500 text-sm text-center py-8">
+            <Loader2 className="w-5 h-5 animate-spin mx-auto mb-2" />
             Loading chats...
           </div>
         ) : sessions && sessions.length > 0 ? (
-          sessions.map((session) => (
-            <button
-              key={session.id}
-              onClick={() => handleSessionClick(session.id)}
-              className="w-full text-left px-4 py-3 hover:bg-gray-800 border-b border-gray-800 transition-colors rounded-lg"
-            >
-              <div className="text-sm font-medium text-gray-200 truncate">
-                {session.title || "Untitled Chat"}
-              </div>
-              <div className="text-xs text-gray-500">
-                {new Date(session.updatedAt).toLocaleString()}
-              </div>
-            </button>
-          ))
+          <div className="space-y-1">
+            {sessions.map((session) => (
+              <button
+                key={session.id}
+                onClick={() => handleSessionClick(session.id)}
+                className={`w-full text-left px-3 py-3 hover:bg-gray-800 transition-colors rounded-lg border border-transparent ${
+                  currentSessionId === session.id 
+                    ? 'bg-gray-800 border-gray-700' 
+                    : 'hover:border-gray-800'
+                }`}
+              >
+                <div className="text-sm font-medium text-gray-200 truncate">
+                  {session.title || "Untitled Chat"}
+                </div>
+                <div className="text-xs text-gray-500 mt-1">
+                  {new Date(session.updatedAt).toLocaleDateString()} • {session.messageCount} messages
+                </div>
+              </button>
+            ))}
+          </div>
         ) : (
-          <div className="text-center max-w-48 mx-auto">
-            <div className="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center mb-4 mx-auto">
-              <MessageSquare className="w-6 h-6 text-gray-500" />
+          <div className="flex-1 flex items-center justify-center">
+            <div className="text-center max-w-48 mx-auto">
+              <div className="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center mb-4 mx-auto">
+                <MessageSquare className="w-6 h-6 text-gray-500" />
+              </div>
+              <h3 className="text-sm font-medium text-gray-300 mb-2">
+                No conversations yet
+              </h3>
+              <p className="text-xs text-gray-500 leading-relaxed">
+                Start chatting with Vega to see your conversation history here.
+              </p>
             </div>
-            <h3 className="text-sm font-medium text-gray-300 mb-2">
-              No conversations yet
-            </h3>
-            <p className="text-xs text-gray-500 leading-relaxed">
-              Start chatting with Vega to see your conversation history here.
-            </p>
           </div>
         )}
       </div>

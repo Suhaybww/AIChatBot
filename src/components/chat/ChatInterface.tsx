@@ -16,10 +16,11 @@ import {
   PanelLeftOpen,
   ChevronDown,
   Check,
+  Loader2,
 } from "lucide-react";
 import { Sidebar } from "@/components/layout/Sidebar";
-
 import { api } from "@/lib/trpc";
+import { useRouter } from "next/navigation";
 
 interface Message {
   id: string;
@@ -37,6 +38,7 @@ interface ChatInterfaceProps {
     family_name?: string | null;
     picture?: string | null;
   };
+  sessionId?: string; // Optional sessionId prop for loading existing conversations
 }
 
 const suggestions = [
@@ -44,10 +46,9 @@ const suggestions = [
   "How do I access Canvas and other RMIT online systems?",
   "Tell me about RMIT's course enrollment deadlines",
   "What mental health and wellbeing services does RMIT offer?",
-  "How can I contact my RMIT program manager?",
 ];
 
-export function ChatInterface({ user }: ChatInterfaceProps) {
+export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -56,10 +57,40 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
   const [autoScroll, setAutoScroll] = useState(true);
   const [retryingMessageId, setRetryingMessageId] = useState<string | null>(null);
   const [copiedMessageId, setCopiedMessageId] = useState<string | null>(null);
-  const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
+  const [currentSessionId, setCurrentSessionId] = useState<string | null>(sessionId || null);
+  const [hasRedirected, setHasRedirected] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+
+  // API hooks
+  const { mutateAsync: sendMessage } = api.chat.sendMessage.useMutation();
+  const { data: sessionData, isLoading: sessionLoading, error: sessionError } = api.chat.getSession.useQuery(
+    { sessionId: sessionId! },
+    { 
+      enabled: !!sessionId,
+      retry: false,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+    }
+  );
+
+  // Get utils for query invalidation
+  const utils = api.useUtils();
+
+  // Smooth scroll to bottom function
+  const scrollToBottom = useCallback((force = false) => {
+    if (!autoScroll && !force) return;
+    
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'end'
+      });
+    }
+  }, [autoScroll]);
 
   // Handle mobile sidebar initial state
   useEffect(() => {
@@ -76,17 +107,58 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Smooth scroll to bottom function
-  const scrollToBottom = useCallback((force = false) => {
-    if (!autoScroll && !force) return;
-    
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'end'
-      });
+  // Reset messages when sessionId changes (new session clicked)
+  useEffect(() => {
+    // Only clear messages when explicitly navigating to a different session
+    if (sessionId && sessionId !== currentSessionId && currentSessionId !== null) {
+      console.log('Clearing messages for session transition from', currentSessionId, 'to', sessionId);
+      setMessages([]);
+      setCurrentSessionId(sessionId);
     }
-  }, [autoScroll]);
+    // Don't clear messages when going from no session to having a session (new chat creation)
+  }, [sessionId, currentSessionId]);
+
+  // Load existing session data
+  useEffect(() => {
+    // Only load session data if we have sessionId from props (existing session)
+    // Don't interfere with new sessions created during chat
+    if (sessionData && sessionData.messages && sessionId) {
+      // Only update if we haven't loaded this session's messages yet
+      const hasMatchingMessages = messages.length > 0 && 
+        messages[0] && sessionData.messages[0] && 
+        messages[0].id === sessionData.messages[0].id;
+        
+      if (!hasMatchingMessages) {
+        console.log('Loading session messages:', sessionData.messages.length, 'messages for session:', sessionData.id);
+        const formattedMessages: Message[] = sessionData.messages.map(msg => ({
+          id: msg.id,
+          content: msg.content,
+          role: msg.role,
+          createdAt: new Date(msg.createdAt),
+        }));
+        setMessages(formattedMessages);
+        setCurrentSessionId(sessionData.id);
+        
+        // Scroll to bottom after loading messages
+        setTimeout(() => {
+          scrollToBottom(true);
+        }, 100);
+      }
+    }
+  }, [sessionData, scrollToBottom, messages, sessionId]);
+
+  // Handle session loading error
+  useEffect(() => {
+    if (sessionError && sessionId && !hasRedirected) {
+      console.error("Failed to load session:", sessionError);
+      // Only redirect if we're actually trying to load a specific session
+      // and we're not already on the main chat page
+      if (window.location.pathname !== '/chat') {
+        setHasRedirected(true);
+        router.replace("/chat");
+      }
+    }
+  }, [sessionError, sessionId, router, hasRedirected]);
 
   // Auto-scroll when messages change
   useEffect(() => {
@@ -119,14 +191,16 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
 
   // Focus input on mount
   useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
-
-  const { mutateAsync: sendMessage } = api.chat.sendMessage.useMutation();
+    if (!sessionLoading) {
+      inputRef.current?.focus();
+    }
+  }, [sessionLoading]);
 
   const handleSendMessage = async (messageText?: string) => {
     const textToSend = messageText || input;
     if (!textToSend.trim() || isLoading) return;
+
+    console.log('Sending message:', textToSend, 'Current session ID:', currentSessionId);
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -150,10 +224,18 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
         sessionId: currentSessionId || undefined 
       });
 
+      console.log('Received response:', response);
+
       // If this is a new session, store the session ID
       if (!currentSessionId) {
+        console.log('Setting new session ID:', response.sessionId);
         setCurrentSessionId(response.sessionId);
+        // Note: We're not updating the URL here to avoid page reloads
+        // The URL will be correct when user refreshes or navigates
       }
+
+      // Invalidate sessions query to update sidebar
+      await utils.chat.getSessions.invalidate();
 
       const messageByAI: Message = {
         id: (Date.now() + 1).toString(),
@@ -162,6 +244,7 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
         createdAt: new Date(),
       };
 
+      console.log('Adding AI message:', messageByAI);
       setMessages((prev) => [...prev, messageByAI]);
       
       // Scroll to AI response after it's added
@@ -190,10 +273,10 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
 
   // Auto-focus input after sending message
   useEffect(() => {
-    if (!isLoading && inputRef.current) {
+    if (!isLoading && !sessionLoading && inputRef.current) {
       inputRef.current.focus();
     }
-  }, [isLoading]);
+  }, [isLoading, sessionLoading]);
 
   const handleSuggestionClick = (suggestion: string) => {
     setAutoScroll(true); // Enable auto-scroll for new conversation
@@ -254,6 +337,9 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
         sessionId: currentSessionId || undefined 
       });
 
+      // Invalidate sessions query to update sidebar
+      await utils.chat.getSessions.invalidate();
+
       const newMessageByAI: Message = {
         id: Date.now().toString(),
         content: response.message,
@@ -292,6 +378,30 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
       .join("");
   };
 
+  // Show loading state while session is loading
+  if (sessionLoading) {
+    return (
+      <div className="h-screen flex bg-gray-900 overflow-hidden">
+        <Sidebar
+          user={user}
+          collapsed={sidebarCollapsed}
+          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+        />
+        
+        <div className={`flex-1 flex flex-col transition-all duration-300 bg-gray-900 h-screen ${
+          sidebarCollapsed ? "lg:ml-12" : "lg:ml-64"
+        } ml-0`}>
+          <div className="flex-1 flex items-center justify-center">
+            <div className="text-center">
+              <Loader2 className="w-8 h-8 text-red-500 animate-spin mx-auto mb-4" />
+              <p className="text-gray-400">Loading conversation...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="h-screen flex bg-gray-900 overflow-hidden">
       {/* Sidebar with corrected props */}
@@ -301,17 +411,15 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
       />
 
-      {/* Mobile Menu Button */}
-      <button
-        onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-        className="fixed top-4 left-4 z-50 lg:hidden bg-gray-800 hover:bg-gray-700 text-white p-2 rounded-lg border border-gray-700"
-      >
-        {sidebarCollapsed ? (
+      {/* Mobile Menu Button - Only show when sidebar is collapsed */}
+      {sidebarCollapsed && (
+        <button
+          onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+          className="fixed top-4 left-4 z-50 lg:hidden bg-gray-800 hover:bg-gray-700 text-white p-2 rounded-lg border border-gray-700"
+        >
           <PanelLeftOpen className="w-5 h-5" />
-        ) : (
-          <PanelLeftClose className="w-5 h-5" />
-        )}
-      </button>
+        </button>
+      )}
 
       {/* Mobile Sidebar Overlay */}
       {!sidebarCollapsed && (
@@ -321,11 +429,21 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
         />
       )}
 
+      {/* Mobile close button when sidebar is open */}
+      {!sidebarCollapsed && (
+        <button
+          onClick={() => setSidebarCollapsed(true)}
+          className="fixed top-4 right-4 z-50 lg:hidden bg-gray-800 hover:bg-gray-700 text-white p-2 rounded-lg border border-gray-700"
+        >
+          <PanelLeftClose className="w-5 h-5" />
+        </button>
+      )}
+
       {/* Main Chat Area */}
       <div
         className={`flex-1 flex flex-col transition-all duration-300 bg-gray-900 h-screen ${
           sidebarCollapsed ? "lg:ml-12" : "lg:ml-64"
-        } ml-0`}
+        } ml-0 ${!sidebarCollapsed ? 'hidden lg:flex' : 'flex'}`}
       >
         {/* Chat Messages */}
         <div className="flex-1 relative bg-gray-900 overflow-hidden min-h-0">
@@ -333,53 +451,80 @@ export function ChatInterface({ user }: ChatInterfaceProps) {
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 bg-gray-900 pb-4 min-h-full flex flex-col">
               {messages.length === 0 ? (
                 /* Welcome Screen */
-                <div className="flex flex-col items-center justify-center flex-1 text-center px-4">
+                <div className="flex flex-col items-center justify-center flex-1 text-center px-4 py-8">
                   {/* Aesthetic Vega Branding */}
-                  <div className="mb-8">
-                    <div className="flex items-center justify-center space-x-3 mb-6">
-                      <Star className="w-6 h-6 sm:w-8 sm:h-8 text-red-500 fill-current animate-pulse" />
-                      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-red-500 via-red-400 to-orange-400 bg-clip-text text-transparent">
+                  <div className="mb-12">
+                    <div className="flex items-center justify-center space-x-4 mb-8">
+                      <div className="relative">
+                        <Star className="w-8 h-8 sm:w-10 sm:h-10 text-red-500 fill-current animate-pulse drop-shadow-lg" />
+                        <div className="absolute inset-0 w-8 h-8 sm:w-10 sm:h-10 bg-red-500/20 rounded-full blur-xl animate-pulse"></div>
+                      </div>
+                      <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-red-500 via-red-400 to-orange-400 bg-clip-text text-transparent drop-shadow-2xl">
                         Vega
                       </h1>
-                      <Star
-                        className="w-6 h-6 sm:w-8 sm:h-8 text-red-500 fill-current animate-pulse"
-                        style={{ animationDelay: "0.5s" }}
-                      />
+                      <div className="relative">
+                        <Star
+                          className="w-8 h-8 sm:w-10 sm:h-10 text-red-500 fill-current animate-pulse drop-shadow-lg"
+                          style={{ animationDelay: "0.5s" }}
+                        />
+                        <div 
+                          className="absolute inset-0 w-8 h-8 sm:w-10 sm:h-10 bg-red-500/20 rounded-full blur-xl animate-pulse"
+                          style={{ animationDelay: "0.5s" }}
+                        ></div>
+                      </div>
                     </div>
-                    <div className="flex items-center justify-center space-x-2 text-xs sm:text-sm text-gray-500 mb-4">
-                      <Sparkles className="w-4 h-4 text-red-400" />
-                      <span className="italic font-medium">
+                    
+                    <div className="flex items-center justify-center space-x-3 mb-8">
+                      <Sparkles className="w-5 h-5 text-red-400 animate-pulse" />
+                      <span className="text-sm sm:text-base text-gray-400 font-medium italic tracking-wide">
                         Your brightest guide to RMIT
                       </span>
-                      <Sparkles className="w-4 h-4 text-red-400" />
+                      <Sparkles className="w-5 h-5 text-red-400 animate-pulse" />
                     </div>
                   </div>
 
-                  <h2 className="text-xl sm:text-2xl font-semibold text-gray-200 mb-3">
-                    How can I help you today?
-                  </h2>
-                  <p className="text-gray-500 mb-8 max-w-md leading-relaxed text-sm sm:text-base">
-                    Named after the brightest navigation star, I&apos;m here to
-                    guide you through courses, policies, services, and
-                    everything about your university experience.
-                  </p>
+                  <div className="max-w-3xl mx-auto mb-12">
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-100 mb-6 leading-tight">
+                      How can I help you today?
+                    </h2>
+                    <p className="text-gray-400 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
+                      Named after the brightest navigation star, I&apos;m here to guide you through courses, 
+                      policies, services, and everything about your university experience at RMIT.
+                    </p>
+                  </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-2xl">
-                    {suggestions.map((suggestion, index) => (
-                      <button
-                        key={index}
-                        onClick={() => handleSuggestionClick(suggestion)}
-                        disabled={isLoading}
-                        className="p-3 sm:p-4 text-left border border-gray-700 bg-gray-800 rounded-xl hover:bg-gray-700 hover:border-gray-600 transition-colors group disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        <div className="text-xs sm:text-sm font-medium text-gray-300 mb-1 group-hover:text-gray-200 transition-colors">
-                          {suggestion.split(" ").slice(0, 4).join(" ")}...
-                        </div>
-                        <div className="text-xs text-gray-500 line-clamp-2">
-                          {suggestion}
-                        </div>
-                      </button>
-                    ))}
+                  <div className="w-full max-w-4xl mx-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                      {suggestions.map((suggestion, index) => (
+                        <button
+                          key={index}
+                          onClick={() => handleSuggestionClick(suggestion)}
+                          disabled={isLoading}
+                          className="group p-4 sm:p-6 text-left border border-gray-700/50 bg-gray-800/50 backdrop-blur-sm rounded-2xl hover:bg-gray-700/50 hover:border-gray-600/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] hover:shadow-lg hover:shadow-red-500/10"
+                        >
+                          <div className="flex items-start space-x-3">
+                            <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-xl flex items-center justify-center group-hover:from-red-500/30 group-hover:to-orange-500/30 transition-colors duration-300">
+                              <Sparkles className="w-5 h-5 text-red-400 group-hover:text-red-300 transition-colors duration-300" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h3 className="text-sm sm:text-base font-semibold text-gray-200 mb-2 group-hover:text-gray-100 transition-colors duration-300 line-clamp-2">
+                                {suggestion.split("?")[0]}?
+                              </h3>
+                              <p className="text-xs sm:text-sm text-gray-500 group-hover:text-gray-400 transition-colors duration-300 line-clamp-2">
+                                Click to ask this question
+                              </p>
+                            </div>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Subtle bottom decoration */}
+                  <div className="mt-16 flex items-center justify-center space-x-2 opacity-40">
+                    <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                    <div className="w-1 h-1 bg-red-400 rounded-full animate-pulse" style={{ animationDelay: "0.2s" }}></div>
+                    <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" style={{ animationDelay: "0.4s" }}></div>
                   </div>
                 </div>
               ) : (

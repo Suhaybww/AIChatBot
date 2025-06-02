@@ -1,4 +1,4 @@
-import { BedrockRuntimeClient, InvokeModelWithResponseStreamCommand, ResponseStream } from "@aws-sdk/client-bedrock-runtime";
+import { InvokeModelWithResponseStreamCommand, ResponseStream } from "@aws-sdk/client-bedrock-runtime";
 import { createBedRock } from "./ai";
 
 export async function streamingClaude(prompt: string): Promise<ReadableStream> {

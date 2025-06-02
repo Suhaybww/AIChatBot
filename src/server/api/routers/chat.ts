@@ -180,7 +180,7 @@ export const chatRouter = createTRPCRouter({
         if (!session) {
           throw new TRPCError({
             code: "NOT_FOUND",
-            message: "Session not found",
+            message: "Session not found or you don't have permission to access it",
           });
         }
 
@@ -195,6 +195,35 @@ export const chatRouter = createTRPCRouter({
           code: "INTERNAL_SERVER_ERROR",
           message: "Failed to fetch session",
         });
+      }
+    }),
+
+  // Check if user has access to a session (lightweight check)
+  checkSessionAccess: protectedProcedure
+    .input(sessionIdSchema)
+    .query(async ({ input, ctx }) => {
+      try {
+        const session = await ctx.db.chatSession.findFirst({
+          where: {
+            id: input.sessionId,
+            userId: ctx.user.id,
+          },
+          select: {
+            id: true,
+            title: true,
+          },
+        });
+
+        return {
+          hasAccess: !!session,
+          session: session || null,
+        };
+      } catch (error) {
+        console.error("Error checking session access:", error);
+        return {
+          hasAccess: false,
+          session: null,
+        };
       }
     }),
 
@@ -257,7 +286,7 @@ export const chatRouter = createTRPCRouter({
           });
         });
 
-        return { success: true };
+        return { success: true, deletedSessionId: input.sessionId };
       } catch (error) {
         if (error instanceof TRPCError) {
           throw error;

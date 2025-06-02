@@ -1,4 +1,3 @@
-// src/server/api/routers/chat.ts
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import { z } from "zod";
 import { sendClaude } from "@/lib/ai";

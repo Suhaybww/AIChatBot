@@ -1,4 +1,3 @@
-// src/hooks/useUserSync.ts
 import { useEffect, useState } from 'react';
 import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 import { api } from '@/lib/trpc';

@@ -1,4 +1,3 @@
-// src/lib/kinde.ts
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 export type KindeUser = {

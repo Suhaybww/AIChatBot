@@ -1,4 +1,3 @@
-// src/app/chat/page.tsx
 import { requireAuth } from "@/lib/auth";
 import { ChatInterface } from "@/components/chat/ChatInterface";
 import { ErrorBoundary } from "@/components/error/ErrorBoundary";

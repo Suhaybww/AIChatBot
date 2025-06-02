@@ -1,4 +1,3 @@
-// src/components/settings/AccountManagement.tsx
 "use client";
 
 import { useState } from "react";

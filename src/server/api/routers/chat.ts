@@ -375,4 +375,17 @@ export const chatRouter = createTRPCRouter({
         });
       }
     }),
+
+    renameChatSession: protectedProcedure.input(z.object({sessionId: z.string(), newTitle: z.string().min(1)}))
+    .mutation(async ({input, ctx}) => {
+      return ctx.db.chatSession.update({
+        where: {
+          id: input.sessionId,
+          userId: ctx.user.id
+        },
+        data: {
+          title: input.newTitle
+        }
+      })
+    })
 });

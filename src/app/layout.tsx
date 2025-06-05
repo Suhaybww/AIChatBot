@@ -6,6 +6,9 @@ import { TRPCProvider } from "@/components/providers/TRPCProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 
+import "font-awesome/css/font-awesome.min.css";
+import "./globals.css";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

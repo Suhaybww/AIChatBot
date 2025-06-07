@@ -72,14 +72,14 @@ export const chatRouter = createTRPCRouter({
             }
           }
 
-          const userMessage = await tx.message.create({
-            data: {
-              sessionId: sessionId!,
-              role: Role.USER,
-              content: input.content,
-              imageUrl: input.imageUrl || null
-            },
-          });
+          // const userMessage = await tx.message.create({
+          //   data: {
+          //     sessionId: sessionId!,
+          //     role: Role.USER,
+          //     content: input.content,
+          //     imageUrl: input.imageUrl || null
+          //   },
+          // });
 
           await tx.chatSession.update({
             where: { id: sessionId },

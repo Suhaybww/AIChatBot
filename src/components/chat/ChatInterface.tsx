@@ -560,6 +560,7 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
 
                           {message.imageUrl && (
                             <div className="mb-2">
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
                               <img 
                                 src={message.imageUrl} 
                                 alt="Uploaded content"

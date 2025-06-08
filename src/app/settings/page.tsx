@@ -7,10 +7,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { UserProfile } from "@/components/settings/UserProfile";
 import { AccountManagement } from "@/components/settings/AccountManagement";
+import { MemoryManagement } from "@/components/settings/MemoryManagement";
 import { 
   ArrowLeft, 
   User,
   Shield,
+  Brain,
   Star,
   AlertCircle,
   Loader2,
@@ -163,13 +165,20 @@ function SettingsContent() {
             <div className="max-w-4xl mx-auto">
               
               <Tabs defaultValue="profile" className="space-y-6 sm:space-y-8">
-                <TabsList className="grid w-full grid-cols-2 bg-gray-800/50 border border-gray-700/50 rounded-xl p-1 h-auto">
+                <TabsList className="grid w-full grid-cols-3 bg-gray-800/50 border border-gray-700/50 rounded-xl p-1 h-auto">
                   <TabsTrigger 
                     value="profile" 
                     className="data-[state=active]:bg-gray-700 data-[state=active]:text-gray-100 data-[state=active]:shadow-sm text-gray-400 rounded-lg transition-all duration-200 text-sm sm:text-base py-3 sm:py-3 px-4 font-medium tracking-normal"
                   >
                     <User className="w-4 h-4 mr-2 flex-shrink-0" />
                     <span>Profile</span>
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="memory" 
+                    className="data-[state=active]:bg-gray-700 data-[state=active]:text-gray-100 data-[state=active]:shadow-sm text-gray-400 rounded-lg transition-all duration-200 text-sm sm:text-base py-3 sm:py-3 px-4 font-medium tracking-normal"
+                  >
+                    <Brain className="w-4 h-4 mr-2 flex-shrink-0" />
+                    <span>Memory</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="account" 
@@ -190,6 +199,13 @@ function SettingsContent() {
                       family_name: user.family_name,
                       picture: user.picture,
                     }} />
+                  </ErrorBoundary>
+                </TabsContent>
+
+                {/* Memory Tab */}
+                <TabsContent value="memory" className="focus:outline-none">
+                  <ErrorBoundary fallback={<ErrorFallback />}>
+                    <MemoryManagement userId={user.id} />
                   </ErrorBoundary>
                 </TabsContent>
 

@@ -11,7 +11,7 @@ export async function streamingClaude(prompt: string): Promise<ReadableStream> {
         messages: [
             {
                 role: "user",
-                content: prompt,
+                content: prompt, // The prompt now includes context from ContextManager
             },
         ],
         temperature: 0.7,

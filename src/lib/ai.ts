@@ -51,6 +51,31 @@ export async function createBedRock(): Promise<BedrockRuntimeClient> {
 export async function sendClaude(prompt: string): Promise<string> {
     const client = await createBedRock()
 
+    let messageContent;
+    try {
+        // Check if the prompt is a JSON string containing image data
+        const parsedPrompt = JSON.parse(prompt);
+        messageContent = parsedPrompt.content;
+    } catch {
+        // If not JSON, treat as regular text
+        messageContent = [
+            {
+                type: "text",
+                text: `You are Vega, RMIT University's AI assistant. You help students navigate academic life, courses, and university services.
+
+CRITICAL INSTRUCTIONS:
+- NEVER introduce yourself or say phrases like "As Vega" or "I am RMIT's AI assistant"
+- NEVER start responses with "Hello" or explain who you are
+- Jump straight into answering questions with RMIT-specific information
+- Keep responses focused on RMIT content and services
+- Use official RMIT terminology and references
+- If you don't have enough information, suggest contacting RMIT directly
+
+${prompt}`
+            }
+        ];
+    }
+
     const modelCommand = new InvokeModelCommand({
         modelId: process.env.MODEL_ID,
         contentType: "application/json",
@@ -61,9 +86,7 @@ export async function sendClaude(prompt: string): Promise<string> {
             messages: [
                 {
                     role: "user",
-                    content: `You are Vega, RMIT University's AI assistant. You help students navigate academic life, courses, and university services. Always maintain a helpful, professional, and RMIT-focused tone. Keep responses focused on RMIT-specific information. Use official RMIT terminology and references. If you don't have enough information about something, say so and suggest contacting RMIT directly.
-
-${prompt}`
+                    content: messageContent
                 }
             ],
             temperature: 0.7

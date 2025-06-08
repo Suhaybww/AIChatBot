@@ -5,10 +5,10 @@ import { v4 as uuidv4 } from "uuid";
 import { Role } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 
-// Input validation schemas
 const sendMessageSchema = z.object({
-  content: z.string().min(1).max(4000), // Add max length for safety
+  content: z.string().min(1).max(4000), 
   sessionId: z.string().uuid().optional(),
+  imageUrl: z.string().optional() 
 });
 
 const sessionIdSchema = z.object({
@@ -21,7 +21,6 @@ const updateSessionTitleSchema = z.object({
 });
 
 export const chatRouter = createTRPCRouter({
-  // Send a message and get AI response
   sendMessage: protectedProcedure
     .input(sendMessageSchema)
     .mutation(async ({ input, ctx }) => {
@@ -30,7 +29,26 @@ export const chatRouter = createTRPCRouter({
         let sessionId = input.sessionId;
         let isNewSession = false;
 
-        // PHASE 1: Save user message and create session (quick transaction)
+        if(input.imageUrl) {
+          const isBase64 = /^data:image\/(png|jpeg|jpg|gif);base64,/.test(input.imageUrl);
+          const isUrl = input.imageUrl.startsWith("http");
+
+          if(!isBase64 && !isUrl) {
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: "Unsupported Image Format"
+            });
+          }
+
+          if (isBase64 && input.imageUrl.length > 1000000) {
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: "Image is too large. Please use a smaller image."
+            });
+          }
+        }
+
+    
         const sessionInfo = await ctx.db.$transaction(async (tx) => {
           if (!sessionId) {
             const newSession = await tx.chatSession.create({
@@ -54,26 +72,108 @@ export const chatRouter = createTRPCRouter({
             }
           }
 
-          // Save user message
-          await tx.message.create({
-            data: {
-              sessionId: sessionId!,
-              role: Role.USER,
-              content: input.content,
-            },
-          });
+          // const userMessage = await tx.message.create({
+          //   data: {
+          //     sessionId: sessionId!,
+          //     role: Role.USER,
+          //     content: input.content,
+          //     imageUrl: input.imageUrl || null
+          //   },
+          // });
 
-          // Update session timestamp
           await tx.chatSession.update({
             where: { id: sessionId },
             data: { updatedAt: new Date() },
           });
 
           return { sessionId, isNewSession };
+        }, {
+          timeout: 10000, 
+          maxWait: 5000, 
         });
 
-        // PHASE 2: Generate AI response (outside transaction)
-        const prompt = `Human: ${input.content}\n\nAssistant: `;
+        if (!sessionInfo || !sessionInfo.sessionId) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "Failed to create or retrieve session",
+          });
+        }
+
+        
+        let prompt = `Human: ${input.content}`;
+        if (input.imageUrl) {
+          if (input.imageUrl.startsWith("data:image/")) {
+            prompt = JSON.stringify({
+              role: "user",
+              content: [
+                {
+                  type: "image",
+                  source: {
+                    type: "base64",
+                    media_type: "image/jpeg",
+                    data: input.imageUrl.split(",")[1]
+                  }
+                },
+                {
+                  type: "text",
+                  text: `Please analyze this image and provide the specific information shown. If the image contains:
+
+- Steps or instructions: List them out exactly as written
+- Formulas or equations: Write them exactly as shown
+- Algorithms or processes: Detail each step in order
+- Technical content: Provide the exact technical details
+
+Focus on the actual content and information rather than just describing the image. If there's text or steps visible, write them out precisely.
+
+For diagrams or technical content:
+1. First state what the content is about
+2. Then list out all the specific steps/information shown
+3. Include any variables, equations, or special notations exactly as written
+4. Maintain the same ordering and numbering as shown
+
+Please provide the actual content and information from the image, preserving the exact details and steps shown.
+
+User's question: ${input.content || "What information is shown in this image?"}`
+                }
+              ]
+            });
+          } else if (input.imageUrl.startsWith("http")) {
+            prompt = JSON.stringify({
+              role: "user",
+              content: [
+                {
+                  type: "image",
+                  source: {
+                    type: "url",
+                    url: input.imageUrl
+                  }
+                },
+                {
+                  type: "text",
+                  text: `Please analyze this image and provide the specific information shown. If the image contains:
+
+- Steps or instructions: List them out exactly as written
+- Formulas or equations: Write them exactly as shown
+- Algorithms or processes: Detail each step in order
+- Technical content: Provide the exact technical details
+
+Focus on the actual content and information rather than just describing the image. If there's text or steps visible, write them out precisely.
+
+For diagrams or technical content:
+1. First state what the content is about
+2. Then list out all the specific steps/information shown
+3. Include any variables, equations, or special notations exactly as written
+4. Maintain the same ordering and numbering as shown
+
+Please provide the actual content and information from the image, preserving the exact details and steps shown.
+
+User's question: ${input.content || "What information is shown in this image?"}`
+                }
+              ]
+            });
+          }
+        }
+
         const aiResponse = await sendClaude(prompt);
 
         if (!aiResponse) {
@@ -83,17 +183,16 @@ export const chatRouter = createTRPCRouter({
           });
         }
 
-        // PHASE 3: Save AI response (quick transaction)
         const result = await ctx.db.$transaction(async (tx) => {
           const assistantMessage = await tx.message.create({
             data: {
               sessionId: sessionInfo.sessionId,
               role: Role.ASSISTANT,
               content: aiResponse,
+              imageUrl: null
             },
           });
 
-          // Update session timestamp again
           await tx.chatSession.update({
             where: { id: sessionInfo.sessionId },
             data: { updatedAt: new Date() },
@@ -105,7 +204,17 @@ export const chatRouter = createTRPCRouter({
             isNewSession: sessionInfo.isNewSession,
             messageId: assistantMessage.id,
           };
+        }, {
+          timeout: 10000, 
+          maxWait: 5000,  
         });
+
+        if (!result) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "Failed to save AI response",
+          });
+        }
 
         return result;
       } catch (error) {
@@ -120,7 +229,6 @@ export const chatRouter = createTRPCRouter({
       }
     }),
 
-  // Get all chat sessions for the user
   getSessions: protectedProcedure
     .query(async ({ ctx }) => {
       try {
@@ -136,7 +244,7 @@ export const chatRouter = createTRPCRouter({
             },
           },
           orderBy: { updatedAt: "desc" },
-          take: 50, // Limit to recent 50 sessions for performance
+          take: 50, 
         });
 
         return sessions.map(session => ({
@@ -153,7 +261,6 @@ export const chatRouter = createTRPCRouter({
       }
     }),
 
-  // Get a specific session with messages
   getSession: protectedProcedure
     .input(sessionIdSchema)
     .query(async ({ input, ctx }) => {
@@ -171,6 +278,7 @@ export const chatRouter = createTRPCRouter({
                 content: true,
                 role: true,
                 createdAt: true,
+                imageUrl: true
               },
             },
           },
@@ -197,7 +305,6 @@ export const chatRouter = createTRPCRouter({
       }
     }),
 
-  // Check if user has access to a session (lightweight check)
   checkSessionAccess: protectedProcedure
     .input(sessionIdSchema)
     .query(async ({ input, ctx }) => {
@@ -226,7 +333,6 @@ export const chatRouter = createTRPCRouter({
       }
     }),
 
-  // Update session title
   updateSessionTitle: protectedProcedure
     .input(updateSessionTitleSchema)
     .mutation(async ({ input, ctx }) => {
@@ -252,14 +358,11 @@ export const chatRouter = createTRPCRouter({
       }
     }),
 
-  // Delete a specific session
   deleteSession: protectedProcedure
     .input(sessionIdSchema)
     .mutation(async ({ input, ctx }) => {
       try {
-        // Use transaction to ensure both messages and session are deleted
         await ctx.db.$transaction(async (tx) => {
-          // Verify ownership
           const session = await tx.chatSession.findFirst({
             where: {
               id: input.sessionId,
@@ -274,12 +377,10 @@ export const chatRouter = createTRPCRouter({
             });
           }
 
-          // Delete messages first (due to foreign key constraint)
           await tx.message.deleteMany({
             where: { sessionId: input.sessionId },
           });
 
-          // Delete session
           await tx.chatSession.delete({
             where: { id: input.sessionId },
           });
@@ -299,15 +400,12 @@ export const chatRouter = createTRPCRouter({
       }
     }),
 
-  // Clear all sessions for the user
   clearAllSessions: protectedProcedure
     .mutation(async ({ ctx }) => {
       try {
         const userId = ctx.user.id;
 
-        // Use transaction for consistency
         const result = await ctx.db.$transaction(async (tx) => {
-          // Get count before deletion for feedback
           const sessionCount = await tx.chatSession.count({
             where: { userId },
           });
@@ -316,14 +414,12 @@ export const chatRouter = createTRPCRouter({
             return { success: true, deletedCount: 0 };
           }
 
-          // Delete all messages for user's sessions
           await tx.message.deleteMany({
             where: {
               session: { userId },
             },
           });
 
-          // Delete all sessions
           await tx.chatSession.deleteMany({
             where: { userId },
           });
@@ -341,7 +437,6 @@ export const chatRouter = createTRPCRouter({
       }
     }),
 
-  // Get recent messages for continuation (useful for context)
   getRecentMessages: protectedProcedure
     .input(z.object({
       sessionId: z.string().uuid(),
@@ -363,10 +458,11 @@ export const chatRouter = createTRPCRouter({
             content: true,
             role: true,
             createdAt: true,
+            imageUrl: true
           },
         });
 
-        return messages.reverse(); // Return in chronological order
+        return messages.reverse(); 
       } catch (error) {
         console.error("Error fetching recent messages:", error);
         throw new TRPCError({
@@ -375,4 +471,17 @@ export const chatRouter = createTRPCRouter({
         });
       }
     }),
+
+    renameChatSession: protectedProcedure.input(z.object({sessionId: z.string(), newTitle: z.string().min(1)}))
+    .mutation(async ({input, ctx}) => {
+      return ctx.db.chatSession.update({
+        where: {
+          id: input.sessionId,
+          userId: ctx.user.id
+        },
+        data: {
+          title: input.newTitle
+        }
+      })
+    })
 });

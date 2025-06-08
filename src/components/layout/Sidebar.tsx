@@ -18,6 +18,8 @@ import { api } from "@/lib/trpc";
 import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
 
+
+
 interface SidebarProps {
   collapsed: boolean;
   onToggle: () => void;
@@ -31,15 +33,22 @@ interface SidebarProps {
 }
 
 export function Sidebar({ user, collapsed, onToggle }: SidebarProps) {
-  const { data: sessions, isLoading } = api.chat.getSessions.useQuery(undefined, {
-    refetchOnWindowFocus: false,
-    refetchOnMount: true, // Allow refetch on mount
-    refetchOnReconnect: false,
-    staleTime: 1000 * 30, // Reduced to 30 seconds for more frequent updates
-  });
   const router = useRouter();
   const pathname = usePathname();
   const [isCreatingNewChat, setIsCreatingNewChat] = useState(false);
+  const [editId, setEditId] = useState<string | null > (null)
+  const [editTitle, setEditTitle] = useState("")
+
+  const {data: sessions, isLoading, refetch: refetchSessions} = api.chat.getSessions.useQuery(
+    undefined,
+    {
+      refetchOnWindowFocus: false,
+      refetchOnMount: true,
+      refetchOnReconnect: false,
+      staleTime: 1000 * 30
+    }
+  )
+
 
   const handleVegaClick = () => {
     router.push("/chat");
@@ -63,8 +72,35 @@ export function Sidebar({ user, collapsed, onToggle }: SidebarProps) {
     router.push(`/chat/${sessionId}`);
   };
 
+
+  const { mutateAsync: deleteChat } = api.chat.deleteSession.useMutation();
+  const {mutateAsync: renameChat} = api.chat.renameChatSession.useMutation()
+
+  const deleteAIChat = async(sessionId: string) => {
+    await deleteChat({sessionId})
+    refetchSessions()
+
+    if(sessionId === currentSessionId)
+    {
+      router.push("/chat")
+    }
+  }
+
+  const renameAIChat = async(sessionId: string) => {
+    if(!editTitle.trim())
+    {
+      return
+    }
+
+    await renameChat({sessionId, newTitle: editTitle.trim()})
+    setEditId(null)
+    refetchSessions()
+  }
+
   // Get current session ID from URL
-  const currentSessionId = pathname.startsWith('/chat/') ? pathname.split('/')[2] : null;
+  const currentSessionId = pathname.startsWith("/chat/")
+    ? pathname.split("/")[2]
+    : null;
 
   if (collapsed) {
     return (
@@ -113,9 +149,11 @@ export function Sidebar({ user, collapsed, onToggle }: SidebarProps) {
   }
 
   return (
-    <div className={`fixed left-0 top-0 h-full w-64 bg-gray-950 border-r border-gray-800 flex flex-col z-40 ${
-      collapsed ? 'translate-x-[-100%]' : 'translate-x-0'
-    } lg:translate-x-0 transition-transform duration-300`}>
+    <div
+      className={`fixed left-0 top-0 h-full w-64 bg-gray-950 border-r border-gray-800 flex flex-col z-40 ${
+        collapsed ? "translate-x-[-100%]" : "translate-x-0"
+      } lg:translate-x-0 transition-transform duration-300`}
+    >
       <div className="border-b border-gray-800 relative">
         <div
           onClick={handleVegaClick}
@@ -160,22 +198,62 @@ export function Sidebar({ user, collapsed, onToggle }: SidebarProps) {
         ) : sessions && sessions.length > 0 ? (
           <div className="space-y-1">
             {sessions.map((session) => (
-              <button
+              <div key={session.id} className="group relative">
+                <button
                 key={session.id}
                 onClick={() => handleSessionClick(session.id)}
                 className={`w-full text-left px-3 py-3 hover:bg-gray-800 transition-colors rounded-lg border border-transparent ${
-                  currentSessionId === session.id 
-                    ? 'bg-gray-800 border-gray-700' 
-                    : 'hover:border-gray-800'
+                  currentSessionId === session.id
+                    ? "bg-gray-800 border-gray-700"
+                    : "hover:border-gray-800"
                 }`}
               >
-                <div className="text-sm font-medium text-gray-200 truncate">
-                  {session.title || "Untitled Chat"}
+                <div className="flex justify-between items-center gap-2">
+                  <div className="text-sm font-medium text-gray-200 truncate">
+                    {editId == session.id ? (
+                      <input className="bg-gray-700 text-white px-2 py-1 rounded text-sm w-full" 
+                             value={editTitle}
+                             onChange={(e) => setEditTitle(e.target.value)}
+                             onBlur={() => renameAIChat(session.id)}
+                             onKeyDown={(e) => {
+                              if (e.key === "Enter")
+                              {
+                                renameAIChat(session.id)
+                              }
+                             }}
+                             autoFocus/>
+                    ) : (
+                      <span onDoubleClick={() => {
+                        setEditId(session.id)
+                        setEditTitle(session.title || "Untitiled Chat")
+                      }}>
+                        {session.title || "Untitiled Chat"}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className="flex gap-2 text-gray-500">
+                  <i className="fa fa-pencil hover:text-gray-300 cursor-pointer"
+                     onClick={(e) => {
+                      e.stopPropagation()
+                      setEditId(session.id)
+                      setEditTitle(session.title || "Untitled Chat")
+                     }}
+                  >
+                  </i>
+                  <i className="fa fa-trash hover:text-red-500 cursor-pointer"
+                     onClick={(e) => {
+                      e.stopPropagation()
+                      deleteAIChat(session.id)
+                     }}
+                  ></i>
                 </div>
                 <div className="text-xs text-gray-500 mt-1">
-                  {new Date(session.updatedAt).toLocaleDateString()} • {session.messageCount} messages
+                  {new Date(session.updatedAt).toLocaleDateString()} •{" "}
+                  {session.messageCount} messages
                 </div>
               </button>
+              </div>
             ))}
           </div>
         ) : (

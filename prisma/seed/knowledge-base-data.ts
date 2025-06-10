@@ -13,6 +13,8 @@ const KNOWLEDGE_BASE_DIR = path.join(__dirname, '..', '..', 'rmit_knowledge_base
 
 interface StructuredData {
   course_code?: string;
+  course_title?: string;
+  course_type?: string; // 'program' or 'subject'
   prerequisites?: string;
   career_outcomes?: string;
   study_mode?: string;
@@ -23,6 +25,15 @@ interface StructuredData {
   campus?: string;
   intake?: string;
   subjects?: string[];
+  core_subjects?: string[];
+  elective_subjects?: string[];
+  course_description?: string;
+  // Subject-specific fields
+  assessment?: string;
+  learning_outcomes?: string;
+  contact_hours?: string;
+  semester_offered?: string;
+  related_courses?: string[];
   [key: string]: unknown;
 }
 
@@ -39,20 +50,22 @@ interface PageData {
 
 interface Metadata {
   total_urls_found: number;
-  urls_processed: number;
+  urls_processed?: number;
   pages_with_content: number;
-  unchanged_skipped: number;
-  errors: number;
-  error_details: string[];
-  crawl_delay_used: number;
-  incremental_mode: boolean;
-  validation_enabled: boolean;
+  unchanged_skipped?: number;
+  errors?: number;
+  error_details?: string[];
+  crawl_delay_used?: number;
+  incremental_mode?: boolean;
+  validation_enabled?: boolean;
   validation_summary?: {
     total_validated_fields: number;
     pages_with_course_codes: number;
     pages_with_fees: number;
     pages_with_duration: number;
   };
+  course_codes_found?: string[];
+  total_course_codes?: number;
 }
 
 interface KnowledgeBaseFile {
@@ -86,8 +99,133 @@ function generateUniqueId(prefix: string, ...parts: (string | number)[]): string
   const hash = crypto.createHash('sha256')
     .update(combined)
     .digest('hex')
-    .substring(0, 20); // Use more characters for better uniqueness
+    .substring(0, 20);
   return `${prefix}-${hash}`;
+}
+
+// Extract tags from structured data with priority for course information
+function extractTags(structuredData: StructuredData): string[] {
+  const tags: string[] = [];
+  
+  // High priority tags
+  if (structuredData.course_code) {
+    tags.push(`code:${structuredData.course_code}`);
+    tags.push(structuredData.course_code); // Also add plain code for easier search
+    
+    // Check if it's a subject (4 letters + 4 digits pattern)
+    if (/^[A-Z]{4}\d{4}$/.test(structuredData.course_code)) {
+      tags.push('type:subject');
+      // Extract subject area from code (e.g., COSC from COSC1234)
+      const subjectArea = structuredData.course_code.substring(0, 4);
+      tags.push(`area:${subjectArea}`);
+    } else {
+      tags.push('type:program');
+    }
+  }
+  if (structuredData.course_type) {
+    tags.push(`type:${structuredData.course_type}`);
+  }
+  if (structuredData.course_title) {
+    tags.push('has_title');
+  }
+  if (structuredData.prerequisites) {
+    tags.push('has_prerequisites');
+  }
+  if (structuredData.duration) {
+    tags.push('has_duration');
+    // Extract duration type
+    const durationLower = structuredData.duration.toLowerCase();
+    if (durationLower.includes('year')) tags.push('duration_years');
+    if (durationLower.includes('month')) tags.push('duration_months');
+    if (durationLower.includes('semester')) tags.push('duration_semesters');
+  }
+  if (structuredData.fees) {
+    tags.push('has_fees');
+  }
+  if (structuredData.atar) {
+    tags.push('has_atar');
+  }
+  if (structuredData.credit_points) {
+    tags.push('has_credit_points');
+  }
+  if (structuredData.campus) {
+    tags.push('has_campus');
+    // Extract campus names
+    const campusLower = structuredData.campus.toLowerCase();
+    if (campusLower.includes('city')) tags.push('campus:city');
+    if (campusLower.includes('bundoora')) tags.push('campus:bundoora');
+    if (campusLower.includes('brunswick')) tags.push('campus:brunswick');
+  }
+  if (structuredData.study_mode) {
+    tags.push('has_study_mode');
+    const modeLower = structuredData.study_mode.toLowerCase();
+    if (modeLower.includes('full')) tags.push('mode:fulltime');
+    if (modeLower.includes('part')) tags.push('mode:parttime');
+    if (modeLower.includes('online')) tags.push('mode:online');
+  }
+  if (structuredData.core_subjects && structuredData.core_subjects.length > 0) {
+    tags.push('has_core_subjects');
+  }
+  if (structuredData.elective_subjects && structuredData.elective_subjects.length > 0) {
+    tags.push('has_elective_subjects');
+  }
+  if (structuredData.assessment) {
+    tags.push('has_assessment');
+  }
+  if (structuredData.learning_outcomes) {
+    tags.push('has_learning_outcomes');
+  }
+  if (structuredData.semester_offered) {
+    tags.push('has_semester');
+  }
+  if (structuredData.related_courses && structuredData.related_courses.length > 0) {
+    tags.push('has_related_courses');
+  }
+  
+  // Add all structured data keys as tags for searchability
+  Object.keys(structuredData).forEach(key => {
+    if (structuredData[key] && !tags.includes(key)) {
+      tags.push(key);
+    }
+  });
+  
+  return tags;
+}
+
+// Calculate priority based on completeness of data
+function calculatePriority(structuredData: StructuredData): number {
+  let priority = 0;
+  
+  // High priority for having a course code
+  if (structuredData.course_code) priority += 10;
+  
+  // Type-specific priority
+  if (structuredData.course_type === 'subject') {
+    // Subject-specific priorities
+    if (structuredData.prerequisites) priority += 10; // Very important for subjects
+    if (structuredData.credit_points) priority += 8;
+    if (structuredData.assessment) priority += 6;
+    if (structuredData.learning_outcomes) priority += 5;
+    if (structuredData.semester_offered) priority += 4;
+    if (structuredData.campus) priority += 3;
+  } else {
+    // Program-specific priorities
+    if (structuredData.prerequisites) priority += 8;
+    if (structuredData.duration) priority += 6;
+    if (structuredData.fees) priority += 5;
+    if (structuredData.atar) priority += 5;
+    if (structuredData.credit_points) priority += 4;
+    if (structuredData.campus) priority += 3;
+    if (structuredData.core_subjects && structuredData.core_subjects.length > 0) priority += 5;
+  }
+  
+  // Common priorities
+  if (structuredData.career_outcomes) priority += 3;
+  if (structuredData.study_mode) priority += 2;
+  if (structuredData.course_title) priority += 2;
+  if (structuredData.related_courses && structuredData.related_courses.length > 0) priority += 2;
+  
+  return priority;
 }
 
 async function seedKnowledgeBase() {
@@ -127,6 +265,7 @@ async function seedKnowledgeBase() {
     let totalEntriesAdded = 0;
     let totalErrors = 0;
     const processedUrls = new Set<string>();
+    const courseCodesSeen = new Set<string>();
 
     // Process each JSON file
     for (const filename of knowledgeFiles) {
@@ -139,9 +278,16 @@ async function seedKnowledgeBase() {
         console.log(`  Category: ${fileContent.category}`);
         console.log(`  Pages: ${fileContent.total_pages}`);
         console.log(`  Last scraped: ${fileContent.scrape_date}`);
+        
+        // Show course codes found if available
+        if (fileContent.metadata.course_codes_found) {
+          console.log(`  Course codes found: ${fileContent.metadata.total_course_codes || fileContent.metadata.course_codes_found.length}`);
+        }
 
         // Process pages in batches for better performance
         const batchSize = 50;
+        let coursePagesAdded = 0;
+        
         for (let i = 0; i < fileContent.pages.length; i += batchSize) {
           const batch = fileContent.pages.slice(i, i + batchSize);
           const batchPromises = batch.map(async (page, batchIndex) => {
@@ -154,7 +300,14 @@ async function seedKnowledgeBase() {
             }
             processedUrls.add(page.url);
 
+            // Track course codes
+            if (page.structured_data?.course_code) {
+              courseCodesSeen.add(page.structured_data.course_code);
+            }
+
             const pageId = generateUniqueId('page', page.url, fileContent.category, pageIndex);
+            const tags = extractTags(page.structured_data || {});
+            const priority = calculatePriority(page.structured_data || {});
 
             try {
               const knowledgeEntry = await prisma.knowledgeBase.upsert({
@@ -164,9 +317,9 @@ async function seedKnowledgeBase() {
                   content: page.full_text || '',
                   category: fileContent.category,
                   sourceUrl: page.url,
-                  tags: Object.keys(page.structured_data || {}),
+                  tags: tags,
                   structuredData: (page.structured_data || {}) as Prisma.InputJsonValue,
-                  priority: 0,
+                  priority: priority,
                   isActive: true,
                   updatedAt: new Date()
                 },
@@ -176,12 +329,17 @@ async function seedKnowledgeBase() {
                   content: page.full_text || '',
                   category: fileContent.category,
                   sourceUrl: page.url,
-                  tags: Object.keys(page.structured_data || {}),
+                  tags: tags,
                   structuredData: (page.structured_data || {}) as Prisma.InputJsonValue,
-                  priority: 0,
+                  priority: priority,
                   isActive: true
                 }
               });
+              
+              if (page.structured_data?.course_code) {
+                coursePagesAdded++;
+              }
+              
               return knowledgeEntry;
             } catch (error) {
               if (error instanceof PrismaClientKnownRequestError) {
@@ -205,6 +363,7 @@ async function seedKnowledgeBase() {
         }
 
         console.log(`  ✅ Completed ${filename}: ${fileContent.pages.length} pages processed`);
+        console.log(`  📊 Course pages with codes: ${coursePagesAdded}`);
       } catch (fileError) {
         if (fileError instanceof Error) {
           console.error(`  ❌ Error processing file ${filename}:`, fileError.message);
@@ -229,7 +388,7 @@ async function seedKnowledgeBase() {
         
         const chunkFiles = (await fs.readdir(categoryPath))
           .filter(file => file.endsWith('.json'))
-          .sort(); // Sort to ensure consistent ordering
+          .sort();
         
         console.log(`\n🗂️ Processing chunks for category: ${category}`);
         console.log(`  Found ${chunkFiles.length} chunk files`);
@@ -237,6 +396,7 @@ async function seedKnowledgeBase() {
         // Process chunks in batches
         const batchSize = 100;
         let chunksProcessed = 0;
+        let courseChunksAdded = 0;
         
         for (let i = 0; i < chunkFiles.length; i += batchSize) {
           const batch = chunkFiles.slice(i, i + batchSize);
@@ -255,6 +415,9 @@ async function seedKnowledgeBase() {
                 chunkFile
               );
 
+              const tags = extractTags(chunkData.structured_data || {});
+              const priority = calculatePriority(chunkData.structured_data || {}) - 5; // Slightly lower than full pages
+
               const chunkEntry = await prisma.knowledgeBase.upsert({
                 where: { id: chunkId },
                 update: {
@@ -262,9 +425,9 @@ async function seedKnowledgeBase() {
                   content: chunkData.text || '',
                   category: chunkData.metadata.category,
                   sourceUrl: chunkData.page_url,
-                  tags: Object.keys(chunkData.structured_data || {}),
+                  tags: tags,
                   structuredData: (chunkData.structured_data || {}) as Prisma.InputJsonValue,
-                  priority: 1,
+                  priority: priority,
                   chunkIndex: chunkData.chunk_index,
                   totalChunks: chunkData.total_chunks,
                   isActive: true,
@@ -276,14 +439,19 @@ async function seedKnowledgeBase() {
                   content: chunkData.text || '',
                   category: chunkData.metadata.category,
                   sourceUrl: chunkData.page_url,
-                  tags: Object.keys(chunkData.structured_data || {}),
+                  tags: tags,
                   structuredData: (chunkData.structured_data || {}) as Prisma.InputJsonValue,
-                  priority: 1,
+                  priority: priority,
                   chunkIndex: chunkData.chunk_index,
                   totalChunks: chunkData.total_chunks,
                   isActive: true
                 }
               });
+              
+              if (chunkData.structured_data?.course_code) {
+                courseChunksAdded++;
+              }
+              
               return chunkEntry;
             } catch (chunkError) {
               if (chunkError instanceof PrismaClientKnownRequestError) {
@@ -313,6 +481,7 @@ async function seedKnowledgeBase() {
         }
         
         console.log(`  ✅ Completed ${category}: ${chunksProcessed} chunks added`);
+        console.log(`  📊 Course chunks with codes: ${courseChunksAdded}`);
       }
     } else {
       console.log('\n⚠️ No chunks directory found - skipping chunk processing');
@@ -323,6 +492,7 @@ async function seedKnowledgeBase() {
     console.log(`📊 Summary:`);
     console.log(`  • Total entries added: ${totalEntriesAdded}`);
     console.log(`  • Total errors: ${totalErrors}`);
+    console.log(`  • Unique course codes found: ${courseCodesSeen.size}`);
     
     // Verify seeding
     const finalCount = await prisma.knowledgeBase.count();
@@ -332,23 +502,101 @@ async function seedKnowledgeBase() {
     const chunkCount = await prisma.knowledgeBase.count({
       where: { id: { startsWith: 'chunk-' } }
     });
+    const coursesWithCodes = await prisma.knowledgeBase.count({
+      where: {
+        structuredData: {
+          path: ['course_code'],
+          not: Prisma.DbNull
+        }
+      }
+    });
+    const coursesWithPrereqs = await prisma.knowledgeBase.count({
+      where: {
+        structuredData: {
+          path: ['prerequisites'],
+          not: Prisma.DbNull
+        }
+      }
+    });
     
     console.log(`\n📈 Database verification:`);
     console.log(`  • Total records: ${finalCount}`);
     console.log(`  • Pages: ${pageCount}`);
     console.log(`  • Chunks: ${chunkCount}`);
+    console.log(`  • Entries with course codes: ${coursesWithCodes}`);
+    console.log(`  • Entries with prerequisites: ${coursesWithPrereqs}`);
     
-    // Show sample data
-    const sampleEntries = await prisma.knowledgeBase.findMany({
-      take: 5,
-      orderBy: { createdAt: 'desc' }
+    // Show sample data with course information
+    const samplePrograms = await prisma.knowledgeBase.findMany({
+      where: {
+        tags: {
+          has: 'type:program'
+        },
+        structuredData: {
+          path: ['course_code'],
+          not: Prisma.DbNull
+        }
+      },
+      orderBy: { priority: 'desc' },
+      take: 3
     });
     
-    console.log(`\n📝 Sample entries:`);
-    sampleEntries.forEach(entry => {
-      console.log(`  • ${entry.title.substring(0, 60)}...`);
-      console.log(`    Category: ${entry.category}, Tags: ${entry.tags.slice(0, 3).join(', ')}`);
+    const sampleSubjects = await prisma.knowledgeBase.findMany({
+      where: {
+        tags: {
+          has: 'type:subject'
+        },
+        structuredData: {
+          path: ['course_code'],
+          not: Prisma.DbNull
+        }
+      },
+      orderBy: { priority: 'desc' },
+      take: 3
     });
+    
+    if (samplePrograms.length > 0) {
+      console.log(`\n📝 Sample program entries:`);
+      samplePrograms.forEach(entry => {
+        const structuredData = entry.structuredData as StructuredData;
+        console.log(`  • ${entry.title}`);
+        console.log(`    Code: ${structuredData.course_code || 'N/A'}`);
+        console.log(`    Prerequisites: ${structuredData.prerequisites ? 'Yes' : 'No'}`);
+        console.log(`    Duration: ${structuredData.duration || 'N/A'}`);
+        console.log(`    Priority: ${entry.priority}`);
+      });
+    }
+    
+    if (sampleSubjects.length > 0) {
+      console.log(`\n📚 Sample subject entries:`);
+      sampleSubjects.forEach(entry => {
+        const structuredData = entry.structuredData as StructuredData;
+        console.log(`  • ${entry.title}`);
+        console.log(`    Code: ${structuredData.course_code || 'N/A'}`);
+        console.log(`    Prerequisites: ${structuredData.prerequisites ? 'Yes' : 'No'}`);
+        console.log(`    Credit Points: ${structuredData.credit_points || 'N/A'}`);
+        console.log(`    Assessment: ${structuredData.assessment ? 'Yes' : 'No'}`);
+        console.log(`    Priority: ${entry.priority}`);
+      });
+    }
+
+    // Show course codes by type
+    const programCodes = Array.from(courseCodesSeen).filter(code => !/^[A-Z]{4}\d{4}$/.test(code));
+    const subjectCodes = Array.from(courseCodesSeen).filter(code => /^[A-Z]{4}\d{4}$/.test(code));
+    
+    if (programCodes.length > 0) {
+      console.log(`\n🎓 Sample program codes in database:`);
+      programCodes.slice(0, 5).forEach(code => {
+        console.log(`  • ${code}`);
+      });
+    }
+    
+    if (subjectCodes.length > 0) {
+      console.log(`\n📖 Sample subject codes in database:`);
+      subjectCodes.slice(0, 5).forEach(code => {
+        console.log(`  • ${code}`);
+      });
+    }
 
   } catch (error) {
     if (error instanceof Error) {

@@ -26,10 +26,8 @@ const nextConfig = {
   // should NOT be exposed to client-side and are automatically 
   // available to server-side code via process.env
   
-  // Experimental features
-  experimental: {
-    serverComponentsExternalPackages: ["@prisma/client"],
-  },
+  // External packages for server components
+  serverExternalPackages: ["@prisma/client"],
   
   // Headers for better CORS handling
   async headers() {

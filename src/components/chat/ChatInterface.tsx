@@ -16,6 +16,8 @@ import {
   ChevronDown,
   Check,
   Loader2,
+  Globe,
+  Square,
 } from "lucide-react";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { api } from "@/lib/trpc";
@@ -23,12 +25,35 @@ import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileArrowUp } from '@fortawesome/free-solid-svg-icons';
 
+interface SerializedSearchResults {
+  results: Array<{
+    id: string;
+    title: string;
+    content: string;
+    url: string;
+    source: 'web' | 'knowledge_base' | 'rmit_official';
+    relevanceScore: number;
+    searchQuery: string;
+    timestamp: string;
+  }>;
+  query: string;
+  totalResults: number;
+  searchTime: number;
+  sources: {
+    web: number;
+    knowledge_base: number;
+    rmit_official: number;
+  };
+}
+
 interface Message {
   id: string;
   content: string;
   role: "USER" | "ASSISTANT";
   createdAt: Date;
   isTyping?: boolean;
+  searchResults?: SerializedSearchResults | null;
+  searchQuery?: string;
   imageUrl?: string | null;
 }
 
@@ -91,12 +116,16 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
   const [copiedMessageId, setCopiedMessageId] = useState<string | null>(null);
   const [currentSessionId, setCurrentSessionId] = useState<string | null>(sessionId || null);
   const [hasRedirected, setHasRedirected] = useState(false);
+  const [searchMode, setSearchMode] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [abortController, setAbortController] = useState<AbortController | null>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   const { mutateAsync: sendMessage } = api.chat.sendMessage.useMutation();
+  const { mutateAsync: sendMessageWithSearch } = api.chat.sendMessageWithSearch.useMutation();
   const { data: sessionData, isLoading: sessionLoading, error: sessionError } = api.chat.getSession.useQuery(
     { sessionId: sessionId! },
     { 
@@ -156,7 +185,9 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
           content: msg.content,
           role: msg.role,
           createdAt: new Date(msg.createdAt),
-          imageUrl: msg.imageUrl
+          imageUrl: msg.imageUrl,
+          searchResults: null,
+          searchQuery: undefined
         }));
         setMessages(formattedMessages);
         setCurrentSessionId(sessionData.id);
@@ -215,7 +246,8 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
     const textToSend = messageText || input;
     if ((!textToSend.trim() && !imageUrl) || isLoading) return;
 
-    console.log('Sending message:', textToSend, 'Current session ID:', currentSessionId);
+    const willSearch = searchMode;
+    console.log('Sending message:', textToSend, 'Current session ID:', currentSessionId, 'Search mode:', willSearch);
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -228,16 +260,41 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsLoading(true);
+    setIsGenerating(true);
     setAutoScroll(true);
+    
+    // Create abort controller for this request
+    const controller = new AbortController();
+    setAbortController(controller);
+    
+    // Keep search mode on - user controls when to turn it off
 
     setTimeout(() => scrollToBottom(true), 50);
 
     try {
-      const response = await sendMessage({ 
-        content: textToSend || "Please analyze this image",
-        sessionId: currentSessionId || undefined,
-        imageUrl: imageUrl
-      });
+      let response: { message: string; sessionId: string; isNewSession: boolean; messageId: string; searchResults?: SerializedSearchResults | null };
+
+      if (willSearch) {
+        // Use search-enabled endpoint
+        response = await sendMessageWithSearch({ 
+          content: textToSend || "Please analyze this image", 
+          sessionId: currentSessionId || undefined,
+          forceSearch: true
+        });
+      } else {
+        // Use regular endpoint (may still trigger automatic search)
+        response = await sendMessage({ 
+          content: textToSend || "Please analyze this image", 
+          sessionId: currentSessionId || undefined,
+          imageUrl: imageUrl
+        });
+      }
+
+      // Check if request was aborted
+      if (controller.signal.aborted) {
+        console.log('Request was aborted');
+        return;
+      }
 
       console.log('Received response:', response);
 
@@ -253,6 +310,8 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
         content: response.message,
         role: "ASSISTANT",
         createdAt: new Date(),
+        searchResults: willSearch && response.searchResults ? response.searchResults : null,
+        searchQuery: willSearch ? textToSend : undefined,
         imageUrl: null
       };
 
@@ -271,6 +330,8 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
+      setIsGenerating(false);
+      setAbortController(null);
     }
   };
 
@@ -281,6 +342,26 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
     }
   };
 
+  const handleStopGeneration = () => {
+    if (abortController) {
+      console.log('Stopping AI generation...');
+      abortController.abort();
+      setIsGenerating(false);
+      setIsLoading(false);
+      setAbortController(null);
+      
+      // Add a message indicating the generation was stopped
+      const stopMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: "Generation stopped by user.",
+        role: "ASSISTANT",
+        createdAt: new Date(),
+      };
+      setMessages((prev) => [...prev, stopMessage]);
+    }
+  };
+
+  // Auto-focus input after sending message
   useEffect(() => {
     if (!isLoading && !sessionLoading && inputRef.current) {
       inputRef.current.focus();
@@ -439,6 +520,8 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
         <div className="flex-1 relative bg-gray-900 overflow-hidden min-h-0">
           <ScrollArea className="h-full bg-gray-900" ref={scrollAreaRef}>
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 bg-gray-900 pb-4 min-h-full flex flex-col">
+
+              
               {messages.length === 0 ? (
                 <div className="flex flex-col items-center justify-center flex-1 text-center px-4 py-8">
                   <div className="mb-12">
@@ -570,12 +653,54 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
                           )}
 
                           <div
-                            className="prose prose-sm max-w-none text-gray-400 prose-strong:text-gray-300 text-sm sm:text-base leading-relaxed"
+                            className="prose prose-sm max-w-none text-gray-400 prose-strong:text-gray-300 text-sm sm:text-base leading-relaxed selection:bg-blue-500 selection:text-white"
                             dangerouslySetInnerHTML={{
                               __html: formatMessage(message.content),
                             }}
                           />
 
+                          {/* Subtle Search References - Only show if search was actually used and contributed */}
+                          {message.role === "ASSISTANT" && message.searchResults && message.searchResults.totalResults > 0 && (
+                            <details className="mt-3 group">
+                              <summary className="cursor-pointer text-xs text-gray-500 hover:text-gray-400 flex items-center space-x-1">
+                                <Globe className="w-3 h-3" />
+                                <span>Sources ({message.searchResults.totalResults} found)</span>
+                                <svg className="w-3 h-3 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                </svg>
+                              </summary>
+                              
+                              <div className="mt-2 space-y-1 max-h-96 overflow-y-auto">
+                                {message.searchResults.results.map((result) => (
+                                  <div key={result.id} className="text-xs border border-gray-700/20 rounded p-2 bg-gray-800/20">
+                                    <div className="flex items-start justify-between">
+                                      <div className="flex-1 min-w-0">
+                                        <div className="font-medium text-gray-300 line-clamp-1 mb-1">
+                                          {result.title}
+                                        </div>
+                                        <div className="text-gray-500 line-clamp-2 text-xs">
+                                          {result.content.slice(0, 120)}...
+                                        </div>
+                                      </div>
+                                      <a
+                                        href={result.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="ml-2 text-blue-400 hover:text-blue-300 flex-shrink-0"
+                                        title="View source"
+                                      >
+                                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                        </svg>
+                                      </a>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </details>
+                          )}
+
+                          {/* Action Buttons */}
                           {message.role === "ASSISTANT" && (
                             <div className="flex items-center space-x-1 sm:space-x-2 mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
                               <Button
@@ -664,17 +789,33 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
                 ref={inputRef}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                onKeyDown={handleKeyPress}
+                onKeyPress={handleKeyPress}
                 placeholder={isLoading ? "Vega is thinking..." : "Message Vega..."}
-                className="pr-24 py-3 sm:py-4 resize-none border-gray-600 bg-gray-750 text-gray-100 placeholder:text-gray-400 focus:border-red-500 focus:ring-red-500/30 focus:ring-2 rounded-xl text-sm sm:text-base transition-all duration-200 w-full min-h-[52px] shadow-lg"
+                className="pr-32 py-3 sm:py-4 resize-none border-gray-600 bg-gray-750 text-gray-100 placeholder:text-gray-400 focus:border-red-500 focus:ring-red-500/30 focus:ring-2 rounded-xl text-sm sm:text-base transition-all duration-200 w-full min-h-[52px] shadow-lg"
                 style={{ backgroundColor: '#374151' }}
                 disabled={isLoading}
                 autoComplete="off"
                 spellCheck="false"
               />
-              <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center gap-2">
+              <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center space-x-1">
+                {/* Search Mode Toggle */}
+                <Button
+                  onClick={() => setSearchMode(!searchMode)}
+                  size="sm"
+                  variant={searchMode ? "default" : "ghost"}
+                  className={`w-8 h-8 sm:w-9 sm:h-9 p-0 transition-all duration-200 hover:scale-105 rounded-lg shadow-sm ${
+                    searchMode 
+                      ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+                      : 'bg-gray-700 hover:bg-gray-600 text-gray-400 hover:text-white'
+                  }`}
+                  title={searchMode ? "Search mode enabled" : "Enable search mode"}
+                >
+                  <Globe className={`w-3 h-3 sm:w-4 sm:h-4 ${searchMode ? 'text-white' : ''}`} />
+                </Button>
+                
+                {/* Image Upload Button */}
                 <label className="cursor-pointer text-gray-400 hover:text-white transition-colors duration-200">
-                  <FontAwesomeIcon icon={faFileArrowUp} className="w-5 h-5" />
+                  <FontAwesomeIcon icon={faFileArrowUp} className="w-4 h-4" />
                   <input type="file"
                     accept="image/*"
                     hidden
@@ -701,18 +842,38 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
                     }}
                   />
                 </label>
-                <Button
-                  onClick={() => handleSendMessage()}
-                  disabled={!input.trim() || isLoading}
-                  size="sm"
-                  className="bg-red-600 hover:bg-red-700 disabled:bg-gray-700 disabled:text-gray-500 text-white w-9 h-9 sm:w-10 sm:h-10 p-0 transition-all duration-200 hover:scale-105 disabled:hover:scale-100 rounded-lg shadow-lg"
-                >
-                  <Send className="w-4 h-4 sm:w-5 sm:h-5" />
-                </Button>
+                
+                {/* Send/Stop Button */}
+                {isGenerating ? (
+                  <Button
+                    onClick={handleStopGeneration}
+                    size="sm"
+                    className="bg-orange-600 hover:bg-orange-700 text-white w-8 h-8 sm:w-9 sm:h-9 p-0 transition-all duration-200 hover:scale-105 rounded-lg shadow-lg"
+                    title="Stop generation"
+                  >
+                    <Square className="w-3 h-3 sm:w-4 sm:h-4" />
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={() => handleSendMessage()}
+                    disabled={(!input.trim() && !isLoading) || isLoading}
+                    size="sm"
+                    className="bg-red-600 hover:bg-red-700 disabled:bg-gray-700 disabled:text-gray-500 text-white w-8 h-8 sm:w-9 sm:h-9 p-0 transition-all duration-200 hover:scale-105 disabled:hover:scale-100 rounded-lg shadow-lg"
+                    title="Send message"
+                  >
+                    <Send className="w-3 h-3 sm:w-4 sm:h-4" />
+                  </Button>
+                )}
               </div>
             </div>
+
             <div className="text-xs text-gray-500 text-center mt-3 px-2">
-              Vega can make mistakes. Consider checking important information.
+              <span>Toggle </span>
+              <span className="text-blue-400">🌐 search mode</span>
+              <span> for current information</span>
+              {searchMode && (
+                <span className="text-blue-400 ml-2">• Search mode active</span>
+              )}
             </div>
           </div>
         </div>

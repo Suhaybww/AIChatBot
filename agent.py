@@ -4,1112 +4,741 @@ import os
 import re
 import json
 import time
-import hashlib
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin, urlparse, parse_qs
 from typing import List, Tuple, Dict, Set, Optional
 from datetime import datetime
 import logging
 from pathlib import Path
+import colorama
+from colorama import Fore, Style, Back
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from queue import Queue
+import hashlib
+import xml.etree.ElementTree as ET
+
+# Initialize colorama for colored terminal output
+colorama.init()
+
+# Setup logging with colors
+class ColoredFormatter(logging.Formatter):
+    """Custom formatter with colors for different log levels"""
+    
+    COLORS = {
+        'DEBUG': Fore.CYAN,
+        'INFO': Fore.GREEN,
+        'WARNING': Fore.YELLOW,
+        'ERROR': Fore.RED,
+        'CRITICAL': Fore.RED + Back.WHITE
+    }
+    
+    def format(self, record):
+        log_color = self.COLORS.get(record.levelname, '')
+        record.levelname = f"{log_color}{record.levelname}{Style.RESET_ALL}"
+        record.msg = f"{log_color}{record.msg}{Style.RESET_ALL}"
+        return super().format(record)
 
 # Setup logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler('scraper.log'),
-        logging.StreamHandler()
-    ]
-)
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+# Console handler with colors
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(ColoredFormatter('%(asctime)s - %(levelname)s - %(message)s'))
+logger.addHandler(console_handler)
+
+# File handler without colors
+file_handler = logging.FileHandler('rmit_scraper.log')
+file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+logger.addHandler(file_handler)
 
 # Configuration
 CONFIG = {
     "output_dir": "rmit_knowledge_base",
-    "state_file": "scraper_state.json",
-    "chunk_size": 2000,  # Characters per chunk for embeddings
-    "chunk_overlap": 200,  # Overlap between chunks
     "max_retries": 3,
     "timeout": 30,
-    "validate_data": True,
-    "incremental_mode": True,  # Enable incremental updates
-    "user_agent": "Educational Knowledge Base Crawler (Contact: your-email@example.com)",
-    "focused_mode": True,  # Enable for faster, more targeted scraping
-    "max_urls_per_category": 300,  # Limit URLs per category
-    "max_crawl_depth": 3,  # Reduced depth for focused mode
-    "crawl_timeout_minutes": 30  # Maximum time for crawling phase
-}
-
-# Data validation patterns
-VALIDATION_PATTERNS = {
-    "course_code": {
-        "patterns": [
-            r'^[A-Z]{2,4}\d{3,4}$',  # BP094, COSC1234
-            r'^[A-Z]\d{4,5}$'         # C4415
-        ],
-        "examples": ["BP094", "MC200", "C4415"]
-    },
-    "duration": {
-        "patterns": [
-            r'(\d+\.?\d*)\s*(year|month|week|day|semester)s?',
-            r'(full-time|part-time)\s*:\s*(\d+)\s*(months|years)',
-            r'duration[:\s]+(\d+\s*-\s*\d+\s*(?:years|months))',
-            r'length\s*of\s*study[:\s]+(\d+\s*to\s*\d+\s*(?:years|months))'
-        ],
-        "examples": ["3 years", "6-12 months", "1.5 years", "full-time: 2 years"]
-    },
-    "fees": {
-        "patterns": [
-            r'\$\d{1,3}(?:,\d{3})*(?:\.\d{2})?',  # $12,345.67
-            r'\d{1,6}(?:\.\d{2})?\s*(?:AUD|USD)',  # 12345.67 AUD
-            r'[A-Z\$\£\€]\s*\d{1,3}(?:,\d{3})*(?:\.\d{2})?',  # AUD 12,345.67
-            r'tuition\s*fee[:\s]*[A-Z\$\£\€]?\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)'
-        ],
-        "transform": lambda x: re.sub(r'[^\d.]', '', x),  # Extract numeric part
-        "examples": ["$32,000", "15500.00 AUD", "AUD 32000"]
-    },
-    "credit_points": {
-        "patterns": [
-            r'^\d{1,4}$',
-            r'(\d+)\s*(credit\s*points|cp|points)'
-        ],
-        "examples": ["96", "192 CP", "384 credit points"]
-    },
-    "atar": {
-        "patterns": [
-            r'^\d{1,2}(\.\d{1,2})?$'
-        ],
-        "examples": ["75.00", "85.5", "90"]
+    "rate_limit": 0.3,  # seconds between requests
+    "user_agent": "Educational Knowledge Base Crawler for Course Information",
+    "save_progress_every": 50,  # save after every N items
+    "max_depth": 5,  # increased crawling depth
+    "max_pages": 15000,  # increased for comprehensive coverage 
+    "max_threads": 5,   # keep threads controlled to prevent queue explosion
+    "max_queue_size": 15000,  # increased queue size for more comprehensive crawling
+    "content_categories": {
+        "course-information": ["course", "program", "bachelor", "master", "diploma", "certificate", "degree"],
+        "subject-information": ["subject", "unit", "elective", "core", "prerequisite", "curriculum", "syllabus", "handbook"],
+        "policies": ["policy", "policies", "regulation", "procedure", "guideline", "rule"],
+        "student-support": ["support", "help", "service", "wellbeing", "counselling", "advice"],
+        "enrollment": ["enrol", "enrollment", "admission", "apply", "application", "entry"],
+        "fees-scholarships": ["fees", "cost", "scholarship", "financial", "payment"],
+        "academic-info": ["academic", "calendar", "timetable", "exam", "assessment", "grade"],
+        "student-life": ["student life", "campus", "accommodation", "facilities", "clubs"],
+        "research": ["research", "phd", "doctorate", "thesis", "publication"],
+        "careers": ["career", "employment", "job", "internship", "placement"],
+        "international": ["international", "visa", "overseas", "exchange"],
+        "online-learning": ["online", "remote", "digital", "e-learning"],
+        "faq": ["faq", "frequently asked", "question", "answer", "help", "guide", "common"],
+        "forms": ["form", "document", "template", "download"],
+        "contact": ["contact", "enquiry", "inquiry", "ask", "email", "phone"],
     }
 }
 
-# Setup with category-specific configurations
-base_urls = {
-    "course-information": {
-        "url": "https://www.rmit.edu.au/study-with-us",
-        "keywords": ["course", "program", "subject", "curriculum", "syllabus", "study plan", "timetable",
-                   "elective", "core", "prerequisite", "credit point", "handbook", "outline", "degree",
-                   "bachelor", "master", "diploma", "certificate", "associate", "graduate", "postgraduate",
-                   "undergraduate", "vocational", "tafe", "vet", "pathway", "career", "employment",
-                   "admission", "requirements", "duration", "fees", "structure", "major", "minor",
-                   "entry requirements", "atar", "selection rank", "english requirements"],
-        "url_patterns": [
-            "/course/", "/program/", "/study/", "/curriculum/", "/handbook/", "/timetable/",
-            "/architecture/", "/art/", "/aviation/", "/biomedical-sciences/", "/building/",
-            "/business/", "/communication/", "/design/", "/education/", "/engineering/",
-            "/environment/", "/fashion/", "/health/", "/information-technology/", "/law/",
-            "/media/", "/property/", "/psychology/", "/science/", "/social-and-community/",
-            "/levels-of-study/", "/undergraduate/", "/postgraduate/", "/vocational-study/",
-            "/certificates/", "/diplomas/", "/bachelor/", "/master/", "/graduate/",
-            "/associate-degree/", "/pathways/", "/dual-degree/", "/double-degree/",
-            # Specific course patterns
-            "/arts-management/", "/fine-and-visual-art/", "/photography/", "/graphic-design/",
-            "/interior-design/", "/fashion-design/", "/industrial-design/", "/animation/",
-            "/games-design/", "/digital-media/", "/film-and-television/", "/music/",
-            "/creative-writing/", "/journalism/", "/public-relations/", "/advertising/",
-            "/marketing/", "/accounting/", "/finance/", "/management/", "/economics/",
-            "/computer-science/", "/software-engineering/", "/cybersecurity/", "/data-science/",
-            "/artificial-intelligence/", "/information-systems/", "/network-engineering/",
-            "/civil-engineering/", "/mechanical-engineering/", "/electrical-engineering/",
-            "/aerospace-engineering/", "/chemical-engineering/", "/environmental-engineering/",
-            "/biomedical-engineering/", "/materials-engineering/", "/mining-engineering/",
-            "/nursing/", "/pharmacy/", "/physiotherapy/", "/psychology/", "/social-work/",
-            "/education/", "/teaching/", "/early-childhood/", "/primary/", "/secondary/",
-            "/applied-science/", "/biotechnology/", "/chemistry/", "/physics/", "/mathematics/",
-            "/statistics/", "/nanotechnology/", "/food-technology/", "/environmental-science/"
-        ],
-        "extraction_rules": {
-            "prerequisites": [
-                r'prerequisite[s]?[:\s]+([^.]+)',
-                r'entry requirement[s]?[:\s]+([^.]+)',
-                r'admission requirement[s]?[:\s]+([^.]+)'
-            ],
-            "career_outcomes": [
-                r'career[s]?[:\s]+([^.]+)',
-                r'employment outcome[s]?[:\s]+([^.]+)',
-                r'graduate[s]? work as[:\s]+([^.]+)'
-            ],
-            "study_mode": [
-                r'(full[- ]?time|part[- ]?time|online|on[- ]?campus|blended|flexible)'
-            ]
-        }
-    },
-    # Quick mode - only direct course pages
-    "quick-course-scan": {
-        "url": "https://www.rmit.edu.au/study-with-us/levels-of-study",
-        "keywords": ["course", "program", "degree", "bachelor", "master", "diploma", "certificate"],
-        "url_patterns": [
-            "/course/c\\d+", "/course/[a-z]+\\d+",  # Direct course codes only
-            "/program/bp\\d+", "/program/mc\\d+", "/program/gc\\d+"
-        ],
-        "extraction_rules": {}
-    }
-}
-
-# MASTER RULE: Always include URLs containing specific base paths
-master_include_patterns = [
-    "/study-with-us",
-    "/levels-of-study",
-    "/course/",
-    "/program/"
-]
-
-# Course-specific patterns that should always be included
-course_specific_patterns = [
-    r"c\d+",  # Course codes like c4415, c5411
-    r"bp\d+", # Bachelor program codes
-    r"mc\d+", # Master course codes
-    r"gc\d+", # Graduate certificate codes
-    r"gd\d+", # Graduate diploma codes
-    r"ad\d+", # Associate degree codes
-]
-
-# Create output directories
+# Create output directory
 Path(CONFIG["output_dir"]).mkdir(exist_ok=True)
-Path(f"{CONFIG['output_dir']}/chunks").mkdir(exist_ok=True)
 
-class ScraperState:
-    """Manages scraper state for incremental updates"""
+class RMITKnowledgeBaseScraper:
+    """Comprehensive scraper for RMIT knowledge base"""
     
-    def __init__(self, state_file: str):
-        self.state_file = state_file
-        self.state = self.load_state()
-    
-    def load_state(self) -> Dict:
-        """Load previous scraping state"""
-        if os.path.exists(self.state_file):
-            try:
-                with open(self.state_file, 'r') as f:
-                    return json.load(f)
-            except:
-                logger.warning("Could not load state file, starting fresh")
-        return {
-            "last_run": None,
-            "scraped_urls": {},
-            "content_hashes": {}
-        }
-    
-    def save_state(self):
-        """Save current state"""
-        self.state["last_run"] = datetime.now().isoformat()
-        with open(self.state_file, 'w') as f:
-            json.dump(self.state, f, indent=2)
-    
-    def get_url_hash(self, url: str, content: str) -> str:
-        """Generate hash for URL content"""
-        return hashlib.md5(f"{url}:{content}".encode()).hexdigest()
-    
-    def is_content_changed(self, url: str, content: str) -> bool:
-        """Check if content has changed since last scrape"""
-        current_hash = self.get_url_hash(url, content)
-        previous_hash = self.state["content_hashes"].get(url)
-        return current_hash != previous_hash
-    
-    def update_content_hash(self, url: str, content: str):
-        """Update content hash for URL"""
-        self.state["content_hashes"][url] = self.get_url_hash(url, content)
-    
-    def mark_url_scraped(self, url: str):
-        """Mark URL as scraped with timestamp"""
-        self.state["scraped_urls"][url] = datetime.now().isoformat()
-
-def validate_field(field_name: str, value: str) -> Tuple[bool, Optional[str]]:
-    """Validate a field against expected patterns"""
-    if field_name not in VALIDATION_PATTERNS:
-        return True, value  # No validation rules, accept as-is
-    
-    rules = VALIDATION_PATTERNS[field_name]
-    
-    # Apply transformation if exists
-    if "transform" in rules:
-        value = rules["transform"](value)
-    
-    # Check patterns
-    for pattern in rules["patterns"]:
-        if re.match(pattern, value, re.IGNORECASE):
-            return True, value
-    
-    logger.warning(f"Validation failed for {field_name}: '{value}' (expected format like: {rules['examples']})")
-    return False, None
-
-def chunk_text(text: str, chunk_size: int = 2000, overlap: int = 200) -> List[Dict[str, any]]:
-    """Split text into chunks for embeddings"""
-    chunks = []
-    text_length = len(text)
-    
-    if text_length <= chunk_size:
-        return [{"text": text, "chunk_index": 0, "total_chunks": 1}]
-    
-    start = 0
-    chunk_index = 0
-    
-    while start < text_length:
-        end = min(start + chunk_size, text_length)
+    def __init__(self):
+        self.thread_local = threading.local()
+        self.session = requests.Session()
+        self.session.headers.update({
+            'User-Agent': CONFIG["user_agent"],
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.5',
+            'Accept-Encoding': 'gzip, deflate',
+            'Connection': 'keep-alive',
+        })
+        self.all_content = []
+        self.visited_urls = set()
+        self.content_hashes = set()  # To avoid duplicate content
+        self.url_queue = Queue()
+        self.lock = threading.Lock()
+        self.stats = {category: 0 for category in CONFIG["content_categories"]}
+        self.stats["total"] = 0
+        self.stats["duplicates"] = 0
         
-        # Try to break at sentence boundary
-        if end < text_length:
-            # Look for sentence end
-            last_period = text.rfind('.', start, end)
-            if last_period > start + chunk_size // 2:  # Only if we're past halfway
-                end = last_period + 1
-        
-        chunk = text[start:end].strip()
-        if chunk:
-            chunks.append({
-                "text": chunk,
-                "chunk_index": chunk_index,
-                "start_char": start,
-                "end_char": end
+    def get_session(self):
+        """Get thread-local session"""
+        if not hasattr(self.thread_local, "session"):
+            self.thread_local.session = requests.Session()
+            self.thread_local.session.headers.update({
+                'User-Agent': CONFIG["user_agent"],
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                'Accept-Language': 'en-US,en;q=0.5',
+                'Accept-Encoding': 'gzip, deflate',
+                'Connection': 'keep-alive',
             })
-            chunk_index += 1
+        return self.thread_local.session
+    
+    def print_banner(self):
+        """Print a colorful banner"""
+        print(f"\n{Fore.CYAN}{'='*80}")
+        print(f"{Fore.YELLOW}✨ RMIT Comprehensive Knowledge Base Scraper ✨")
+        print(f"{Fore.GREEN}🗺️  Using RMIT sitemap.xml for complete coverage!")
+        print(f"{Fore.GREEN}Collecting ALL information: courses, policies, student services, and more!")
+        print(f"{Fore.MAGENTA}Multi-threaded for maximum efficiency")
+        print(f"{Fore.CYAN}{'='*80}{Style.RESET_ALL}\n")
+    
+    def print_stats(self):
+        """Print current statistics"""
+        print(f"\n{Fore.YELLOW}📊 Current Statistics:")
+        for category, count in self.stats.items():
+            if category not in ["total", "duplicates"] and count > 0:
+                print(f"  {Fore.CYAN}{category}: {Fore.WHITE}{count}")
+        print(f"  {Fore.GREEN}Total items: {Fore.WHITE}{self.stats['total']}")
+        print(f"  {Fore.YELLOW}Duplicates avoided: {Fore.WHITE}{self.stats['duplicates']}")
+        print(f"  {Fore.BLUE}URLs visited: {Fore.WHITE}{len(self.visited_urls)}\n")
+    
+    def categorize_content(self, url: str, title: str, content: str) -> str:
+        """Determine the category of content based on URL and content"""
+        url_lower = url.lower()
+        title_lower = title.lower() if title else ""
+        content_lower = content.lower()[:1000] if content else ""  # First 1000 chars
         
-        start = end - overlap if end < text_length else end
-    
-    # Add total chunks to each chunk
-    for chunk in chunks:
-        chunk["total_chunks"] = len(chunks)
-    
-    return chunks
-
-def normalize_url(url: str) -> str:
-    """Normalize URL for consistent comparison"""
-    # Remove fragment and trailing slash
-    normalized = url.split('#')[0].rstrip('/')
-    # Remove common query parameters that don't affect content
-    if '?' in normalized:
-        base, query = normalized.split('?', 1)
-        # Keep query params that might affect content (like course codes)
-        important_params = []
-        for param in query.split('&'):
-            if '=' in param:
-                key, value = param.split('=', 1)
-                if key.lower() in ['id', 'code', 'course', 'program']:
-                    important_params.append(param)
-        if important_params:
-            normalized = base + '?' + '&'.join(important_params)
-        else:
-            normalized = base
-    return normalized
-
-def is_course_code_url(url: str) -> bool:
-    """Check if URL contains a course code pattern"""
-    url_lower = url.lower()
-    return any(re.search(pattern, url_lower) for pattern in course_specific_patterns)
-
-def is_relevant_url(url: str, category_data: Dict) -> bool:
-    """Check if URL is relevant to the category using patterns and keywords"""
-    parsed = urlparse(url)
-    
-    # Basic validation
-    if not parsed.scheme or not parsed.netloc:
-        return False
-    if not parsed.netloc.endswith("rmit.edu.au"):
-        return False
-    
-    # Remove fragment and clean the URL for analysis
-    clean_url = url.split('#')[0].split('?')[0]
-    
-    # Skip actual file downloads
-    actual_file_extensions = ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.zip', '.rar', 
-                             '.jpg', '.jpeg', '.png', '.gif', '.svg', '.mp4', '.mp3']
-    if any(clean_url.lower().endswith(ext) for ext in actual_file_extensions):
-        return False
-    
-    url_lower = clean_url.lower()
-    
-    # Check master include patterns first
-    if any(pattern in url_lower for pattern in master_include_patterns):
-        return True
-    
-    # Check if it's a course code URL (high priority)
-    if is_course_code_url(url):
-        return True
-    
-    # Check URL patterns for this category
-    if any(pattern in url_lower for pattern in category_data["url_patterns"]):
-        return True
-    
-    # Check full URL (including domain parts) against keywords
-    full_url_text = url_lower.replace('/', ' ').replace('-', ' ').replace('_', ' ')
-    if any(keyword.lower() in full_url_text for keyword in category_data["keywords"]):
-        return True
-    
-    # Check path components against keywords
-    parsed_clean = urlparse(clean_url)
-    path_components = [comp for comp in parsed_clean.path.split('/') if comp]
-    path_text = ' '.join(path_components).lower().replace('-', ' ').replace('_', ' ')
-    if any(keyword.lower() in path_text for keyword in category_data["keywords"]):
-        return True
-    
-    return False
-
-def check_robots_txt(domain: str) -> Dict[str, any]:
-    """Check robots.txt for crawling permissions"""
-    robots_url = f"https://{domain}/robots.txt"
-    allowed_paths = []
-    disallowed_paths = []
-    crawl_delay = 0
-    
-    try:
-        response = requests.get(robots_url, timeout=10)
-        if response.status_code == 200:
-            lines = response.text.split('\n')
-            user_agent_applies = False
+        # Check each category
+        best_category = "general-information"
+        best_score = 0
+        
+        for category, keywords in CONFIG["content_categories"].items():
+            score = 0
+            for keyword in keywords:
+                if keyword in url_lower:
+                    score += 3
+                if keyword in title_lower:
+                    score += 2
+                if keyword in content_lower:
+                    score += 1
             
-            for line in lines:
-                line = line.strip()
-                if line.startswith('User-agent:'):
-                    # Check if rules apply to our crawler
-                    agent = line.split(':', 1)[1].strip()
-                    user_agent_applies = agent == '*' or 'bot' in agent.lower()
-                elif user_agent_applies:
-                    if line.startswith('Disallow:'):
-                        path = line.split(':', 1)[1].strip()
-                        if path:
-                            disallowed_paths.append(path)
-                    elif line.startswith('Allow:'):
-                        path = line.split(':', 1)[1].strip()
-                        if path:
-                            allowed_paths.append(path)
-                    elif line.startswith('Crawl-delay:'):
-                        try:
-                            crawl_delay = float(line.split(':', 1)[1].strip())
-                        except:
-                            pass
-            
-            logger.info(f"Checked robots.txt - found {len(disallowed_paths)} disallowed paths")
-            if crawl_delay > 0:
-                logger.info(f"Recommended crawl delay: {crawl_delay} seconds")
-    except:
-        logger.warning("Could not fetch robots.txt - proceeding with caution")
+            if score > best_score:
+                best_score = score
+                best_category = category
+        
+        return best_category
     
-    return {
-        'allowed': allowed_paths,
-        'disallowed': disallowed_paths,
-        'crawl_delay': crawl_delay
-    }
-
-def crawl_for_links(start_url: str, category_data: Dict, state: ScraperState, 
-                   max_depth: int = 4, delay: float = 0.5, max_urls: int = 500) -> List[str]:
-    """Crawl for all relevant links starting from a URL"""
-    visited = set()
-    to_visit = [(start_url, 0)]  # (url, depth)
-    all_relevant_urls = []
-    
-    # Add URL limits and progress tracking
-    start_time = time.time()
-    urls_found_at_depth = {i: 0 for i in range(max_depth + 1)}
-    
-    while to_visit and len(all_relevant_urls) < max_urls:
-        current_url, depth = to_visit.pop(0)
-        
-        # Normalize the URL
-        normalized = normalize_url(current_url)
-        
-        # Skip if already visited or depth exceeded
-        if normalized in visited or depth > max_depth:
-            continue
-            
-        visited.add(normalized)
-        
-        # Check if URL is relevant
-        if not is_relevant_url(current_url, category_data):
-            continue
-        
-        # Check if we need to re-scrape (incremental mode)
-        if CONFIG["incremental_mode"] and normalized in state.state["scraped_urls"]:
-            last_scraped = state.state["scraped_urls"][normalized]
-            logger.info(f"  URL previously scraped on {last_scraped}: {current_url}")
-            # Still add to list for content change detection
-        
-        all_relevant_urls.append(current_url)
-        logger.info(f"  Found relevant URL (depth {depth}): {current_url}")
-        
-        # Only crawl deeper if we haven't exceeded max depth
-        if depth < max_depth:
-            try:
-                # Rate limiting
-                time.sleep(delay)
-                
-                headers = {'User-Agent': CONFIG["user_agent"]}
-                response = requests.get(current_url, headers=headers, timeout=CONFIG["timeout"])
-                response.raise_for_status()
-                
-                soup = BeautifulSoup(response.text, 'html.parser')
-                
-                # Find all links
-                for a_tag in soup.find_all('a', href=True):
-                    href = a_tag['href']
-                    absolute_url = urljoin(current_url, href)
-                    normalized_new = normalize_url(absolute_url)
-                    
-                    # Only add if not visited
-                    if normalized_new not in visited:
-                        # Prioritize course-related URLs
-                        if is_course_code_url(absolute_url) or any(
-                            pattern in absolute_url.lower() 
-                            for pattern in ["/levels-of-study/", "/course/", "/program/"]
-                        ):
-                            # Add to front of queue for priority processing
-                            to_visit.insert(0, (absolute_url, depth + 1))
-                        else:
-                            to_visit.append((absolute_url, depth + 1))
-                
-            except Exception as e:
-                logger.error(f"Error crawling {current_url}: {e}")
-    
-    logger.info(f"Total unique relevant URLs found: {len(all_relevant_urls)}")
-    return all_relevant_urls
-
-def is_relevant_content(content: List[Tuple[str, str]], category_data: Dict) -> bool:
-    """Check if content is relevant to the category using keywords"""
-    combined_text = ' '.join([text for _, text in content]).lower()
-    
-    # For course information, be more lenient
-    if category_data.get("url") and "study-with-us" in category_data["url"]:
-        # Look for course-specific indicators
-        course_indicators = [
-            'course', 'program', 'degree', 'study', 'qualification', 'career',
-            'prerequisite', 'admission', 'duration', 'fees', 'structure',
-            'credit', 'subject', 'unit', 'semester', 'pathway', 'graduate'
+    def extract_course_codes_from_text(self, text: str) -> List[str]:
+        """Extract course codes from text using RMIT's patterns"""
+        patterns = [
+            r'\b([A-Z]{2,4}\d{3,5})\b',  # Standard codes like BP094, COSC1234
+            r'\b([A-Z]\d{4,5})\b',        # Codes like C4415
         ]
         
-        course_matches = sum(
-            1 for indicator in course_indicators 
-            if re.search(r'\b' + re.escape(indicator.lower()) + r'\b', combined_text)
-        )
+        course_codes = []
+        for pattern in patterns:
+            matches = re.findall(pattern, text)
+            course_codes.extend(matches)
         
-        if course_matches >= 2:
-            return True
-    
-    # Count keyword matches (whole words only)
-    keyword_matches = sum(
-        1 for keyword in category_data["keywords"] 
-        if re.search(r'\b' + re.escape(keyword.lower()) + r'\b', combined_text)
-    )
-    
-    # Consider content relevant if at least 2 keyword matches found
-    return keyword_matches >= 2
-
-def clean_and_extract_content(soup: BeautifulSoup, page_name: str) -> List[Tuple[str, str]]:
-    """Extract meaningful content from the soup object"""
-    
-    # Remove unwanted elements
-    unwanted_selectors = [
-        'script', 'style', 'nav', 'header', 'footer', 'aside',
-        '.nav', '.navigation', '.menu', '.breadcrumb', '.sidebar',
-        '.header', '.footer', '.banner', '.social', '.share',
-        '[class*="nav"]', '[class*="menu"]', '[class*="breadcrumb"]',
-        '[id*="nav"]', '[id*="menu"]', '[class*="skip"]',
-        '.cookie-banner', '.popup', '.modal', '.alert',
-        '[class*="cookie"]', '[class*="popup"]', '[class*="banner"]'
-    ]
-    
-    for selector in unwanted_selectors:
-        for element in soup.select(selector):
-            element.decompose()
-    
-    # Find the main content area
-    content_areas = []
-    
-    # Try different content selectors in order of preference
-    content_selectors = [
-        'main',
-        '[role="main"]',
-        '.main-content',
-        '.page-content',
-        '.content-area',
-        '.course-content',
-        '.program-content',
-        'article',
-        '.container .row',
-        '.content',
-        '.study-area',
-        '.course-details'
-    ]
-    
-    for selector in content_selectors:
-        elements = soup.select(selector)
-        if elements:
-            content_areas.extend(elements)
-            break
-    
-    # If no specific content area found, look for divs with substantial text
-    if not content_areas:
-        all_divs = soup.find_all('div')
-        for div in all_divs:
-            text = div.get_text(strip=True)
-            if len(text) > 200:
-                content_areas.append(div)
+        # Filter valid RMIT course codes
+        filtered_codes = []
+        valid_prefixes = ['BP', 'MC', 'GC', 'GD', 'AD', 'FS', 'C', 'COSC', 'MATH', 'BUSM', 
+                         'ARCH', 'COMM', 'DESI', 'ENGG', 'NURS', 'PSYC', 'EDUC', 'SCIEN',
+                         'MKTG', 'ACCT', 'ECON', 'MGMT', 'INFO', 'COMP', 'SOFT', 'DATA',
+                         'HUSO', 'LANG', 'BIOL', 'CHEM', 'PHYS', 'GEOM', 'STAT']
         
-        # Sort by text length and take the largest ones
-        content_areas.sort(key=lambda x: len(x.get_text(strip=True)), reverse=True)
-        content_areas = content_areas[:5]
+        for code in course_codes:
+            if len(code) >= 4 and len(code) <= 8:
+                if any(code.startswith(prefix) for prefix in valid_prefixes) or re.match(r'^[A-Z]\d{4,5}$', code):
+                    filtered_codes.append(code)
+        
+        return list(set(filtered_codes))
     
-    # Extract structured content
-    structured_content = []
+    def get_content_hash(self, content: str) -> str:
+        """Generate hash for content to avoid duplicates"""
+        return hashlib.md5(content.encode()).hexdigest()
     
-    for area in content_areas:
-        # Find tables first (often contain important course data)
-        tables = area.find_all('table')
-        for table in tables:
-            # Extract table headers
-            headers = []
-            header_row = table.find('thead')
-            if header_row:
-                headers = [th.get_text(strip=True) for th in header_row.find_all(['th', 'td'])]
+    def is_valid_rmit_url(self, url: str) -> bool:
+        """Check if URL is a valid RMIT URL"""
+        parsed = urlparse(url)
+        return 'rmit.edu.au' in parsed.netloc
+    
+    def should_crawl_url(self, url: str) -> bool:
+        """Determine if URL should be crawled"""
+        # Skip certain file types
+        skip_extensions = ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx', 
+                          '.jpg', '.jpeg', '.png', '.gif', '.zip', '.rar', '.mp4', '.mov']
+        
+        url_lower = url.lower()
+        if any(url_lower.endswith(ext) for ext in skip_extensions):
+            return False
+        
+        # Skip certain URL patterns - REDUCED for more comprehensive coverage
+        skip_patterns = [
+            '/login', '/logout', '/search?', '/print/', '#', 'javascript:',
+            '/news/', '/events/', '/staff/', '/media/',
+            '/give/', '/alumni/', '/employers/', '/commercial/', '/venues/', '/tours/'
+        ]
+        if any(pattern in url_lower for pattern in skip_patterns):
+            return False
+        
+        # Only crawl URLs with relevant keywords - EXPANDED for comprehensive coverage
+        relevant_keywords = [
+            'student', 'course', 'program', 'policy', 'support', 'help', 'service',
+            'bachelor', 'master', 'diploma', 'certificate', 'degree', 'subject',
+            'enrol', 'admission', 'apply', 'fees', 'scholarship', 'academic',
+            'undergraduate', 'postgraduate', 'vocational', 'contact', 'faq',
+            'unit', 'elective', 'core', 'prerequisite', 'curriculum', 'study',
+            'assessment', 'exam', 'timetable', 'semester', 'campus', 'facility',
+            'library', 'research', 'handbook', 'guide', 'information', 'detail',
+            'overview', 'description', 'requirement', 'outcome', 'graduate'
+        ]
+        
+        # Must contain at least one relevant keyword OR be a direct program page
+        if not any(keyword in url_lower for keyword in relevant_keywords):
+            # Allow direct program pages even without keywords
+            if not any(pattern in url_lower for pattern in ['/bachelor-', '/master-', '/diploma-', '/certificate-']):
+                return False
+        
+        return True
+    
+    def extract_structured_data(self, soup: BeautifulSoup, text_content: str, category: str) -> Dict:
+        """Extract structured data based on content category"""
+        structured_data = {}
+        
+        if category == "course-information":
+            # Extract course details
+            patterns = {
+                'course_code': [r'\b([A-Z]{2,4}\d{3,5})\b'],
+                'duration': [r'duration[:\s]+(\d+(?:\.\d+)?\s*(?:year|month|week|semester)s?)'],
+                'fees': [r'fees?[:\s]+\$?\s*([\d,]+(?:\.\d{2})?)'],
+                'credit_points': [r'(\d+)\s*credit\s*points?'],
+                'atar': [r'ATAR[:\s]+(\d{1,2}(?:\.\d{1,2})?)'],
+                'campus': [r'campus(?:es)?[:\s]+([^.;]+)'],
+                'intake': [r'intake[s]?[:\s]+([^.;]+)'],
+            }
             
-            # Extract table rows
-            for row in table.find_all('tr'):
-                cells = row.find_all(['td', 'th'])
-                row_text = ' | '.join([cell.get_text(strip=True) for cell in cells])
-                if row_text and len(row_text) > 5:
-                    structured_content.append(('paragraph', row_text))
+            for field, field_patterns in patterns.items():
+                for pattern in field_patterns:
+                    match = re.search(pattern, text_content, re.IGNORECASE)
+                    if match:
+                        structured_data[field] = match.group(1).strip()
+                        break
         
-        # Find headings and paragraphs
-        elements = area.find_all(['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div', 'li', 'td', 'dt', 'dd', 'span'])
-        
-        for element in elements:
-            text = element.get_text(strip=True)
+        elif category == "subject-information":
+            # Extract subject details
+            codes = self.extract_course_codes_from_text(text_content)
+            if codes:
+                structured_data['subject_codes'] = codes
             
-            # Skip if text is too short
-            if len(text) < 5:
-                continue
-                
-            # Skip common navigation phrases
-            nav_phrases = [
-                'skip to content', 'search', 'menu', 'home', 'about', 'contact',
-                'login', 'register', 'sign in', 'sign up', 'copyright', '©',
-                'facebook', 'twitter', 'linkedin', 'instagram', 'youtube'
+            # Look for credit points
+            credit_match = re.search(r'(\d+)\s*credit\s*points?', text_content, re.IGNORECASE)
+            if credit_match:
+                structured_data['credit_points'] = credit_match.group(1)
+        
+        elif category == "policies":
+            # Extract policy details
+            # Look for policy number
+            policy_match = re.search(r'policy\s*(?:number|#|no\.?)?[:\s]*([A-Z0-9\-\.]+)', text_content, re.IGNORECASE)
+            if policy_match:
+                structured_data['policy_number'] = policy_match.group(1)
+            
+            # Look for effective date
+            date_match = re.search(r'effective\s*(?:from|date)?[:\s]*([^.;]+)', text_content, re.IGNORECASE)
+            if date_match:
+                structured_data['effective_date'] = date_match.group(1).strip()
+        
+        elif category == "fees-scholarships":
+            # Extract fee/scholarship information
+            amount_pattern = r'\$\s*([\d,]+(?:\.\d{2})?)'
+            amounts = re.findall(amount_pattern, text_content)
+            if amounts:
+                structured_data['amounts'] = amounts
+        
+        # Add URL as source
+        structured_data['source_url'] = soup.find('link', {'rel': 'canonical'})['href'] if soup.find('link', {'rel': 'canonical'}) else None
+        
+        return structured_data
+    
+    def extract_content_from_page(self, url: str) -> Optional[Dict]:
+        """Extract all relevant content from a page"""
+        try:
+            session = self.get_session()
+            time.sleep(CONFIG["rate_limit"])
+            response = session.get(url, timeout=CONFIG["timeout"])
+            
+            if response.status_code != 200:
+                return None
+            
+            soup = BeautifulSoup(response.text, 'html.parser')
+            
+            # Remove script and style elements
+            for script in soup(["script", "style"]):
+                script.decompose()
+            
+            # Extract title
+            title = ""
+            if soup.title:
+                title = soup.title.string.strip()
+            elif soup.h1:
+                title = soup.h1.get_text(strip=True)
+            
+            # Extract main content
+            content = ""
+            content_selectors = [
+                'main', 'article', '.content', '.main-content', '#content',
+                '.text-content', '.page-content', '.entry-content'
             ]
             
-            if any(phrase in text.lower() for phrase in nav_phrases):
-                continue
-            
-            # Skip if text is mostly repeated characters or numbers
-            if len(set(text.replace(' ', ''))) < 3:
-                continue
-            
-            # Determine if it's a heading
-            tag_name = element.name.lower()
-            if tag_name in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
-                structured_content.append(('heading', text))
-            elif len(text) < 100 and (text.isupper() or element.get('class') and any('heading' in str(cls) for cls in element.get('class'))):
-                structured_content.append(('heading', text))
-            else:
-                structured_content.append(('paragraph', text))
-    
-    # Remove duplicates while preserving order
-    seen = set()
-    unique_content = []
-    for content_type, text in structured_content:
-        if text not in seen:
-            seen.add(text)
-            unique_content.append((content_type, text))
-    
-    return unique_content
-
-def extract_structured_data(content_items: List[Tuple[str, str]], url: str, category_data: Dict) -> Dict:
-    """Extract structured course data using advanced patterns"""
-    structured_data = {}
-    full_text = ' '.join([text for _, text in content_items])
-    
-    # Try to extract course code from URL first
-    course_code_match = re.search(r'([a-z]+\d+)', url.lower())
-    if course_code_match:
-        code = course_code_match.group(1).upper()
-        is_valid, validated_code = validate_field("course_code", code)
-        if is_valid:
-            structured_data['course_code'] = validated_code
-    
-    # Extract using category-specific rules
-    if "extraction_rules" in category_data:
-        for field, patterns in category_data["extraction_rules"].items():
-            for pattern in patterns:
-                matches = re.findall(pattern, full_text, re.IGNORECASE | re.MULTILINE)
-                if matches:
-                    # Clean and store the first match
-                    value = matches[0].strip()
-                    if len(value) > 10:  # Reasonable length
-                        structured_data[field] = value
-                    break
-    
-    # Standard field extraction with validation
-    extraction_patterns = {
-        "duration": [
-            r'duration[:\s]+(\d+(?:\.\d+)?\s*(?:year|month|week|day)s?)',
-            r'(\d+(?:\.\d+)?\s*(?:year|month|week|day)s?)\s*(?:full|part)[- ]?time',
-            r'length[:\s]+(\d+(?:\.\d+)?\s*(?:year|month|week|day|semester)s?)',
-            r'(\d+\s*-\s*\d+\s*(?:months|years))',  # 1-2 years
-            r'(full-time|part-time)\s*(\d+)\s*(months|years)'  # full-time 2 years
-        ],
-        "fees": [
-            r'fees?[:\s]+\$?\s*([\d,]+(?:\.\d{2})?)',  # $12,345.67
-            r'tuition[:\s]+\$?\s*([\d,]+(?:\.\d{2})?)',  # Tuition: $32,000
-            r'\$?\s*([\d,]+(?:\.\d{2})?)\s*per\s*(?:year|semester|course)',  # 15,500 per year
-            r'annual\s*fee[:\s]+\$?\s*([\d,]+(?:\.\d{2})?)',  # Annual fee: $32,000
-            r'[A-Z]{3}\s*\$?\s*([\d,]+(?:\.\d{2})?)'  # AUD 32,000
-        ],
-        "credit_points": [
-            r'(\d+)\s*credit\s*points?',
-            r'credit\s*points?[:\s]+(\d+)',
-            r'total\s*credits?[:\s]+(\d+)',
-            r'cp[:\s]+(\d+)',  # Added CP abbreviation
-            r'points[:\s]+(\d+)'  # More generic
-        ],
-        "atar": [
-            r'atar[:\s]+(\d{1,2}(?:\.\d{1,2})?)',
-            r'selection\s*rank[:\s]+(\d{1,2}(?:\.\d{1,2})?)',
-            r'minimum\s*atar[:\s]+(\d{1,2}(?:\.\d{1,2})?)'
-        ],
-        "campus": [
-            r'campus(?:es)?[:\s]+([^.;]+)',
-            r'location[s]?[:\s]+([^.;]+)',
-            r'delivered\s*at[:\s]+([^.;]+)'
-        ],
-        "intake": [
-            r'intake[s]?[:\s]+([^.;]+)',
-            r'start[s]?\s*date[s]?[:\s]+([^.;]+)',
-            r'commence[s]?[:\s]+([^.;]+)'
-        ]
-    }
-    
-    for field, patterns in extraction_patterns.items():
-        if field not in structured_data:  # Don't overwrite existing data
-            for pattern in patterns:
-                match = re.search(pattern, full_text, re.IGNORECASE)
-                if match:
-                    value = match.group(1).strip()
-                    # Validate if validation rules exist
-                    if field in VALIDATION_PATTERNS:
-                        is_valid, validated_value = validate_field(field, value)
-                        if is_valid and validated_value:
-                            structured_data[field] = validated_value
-                            break
-                    else:
-                        structured_data[field] = value
+            for selector in content_selectors:
+                element = soup.select_one(selector)
+                if element:
+                    content = element.get_text(separator=' ', strip=True)
+                    if len(content) > 100:  # Ensure meaningful content
                         break
-    
-    # Extract subjects/units if present
-    subject_patterns = [
-        r'(?:core|compulsory)\s*(?:subject|unit)s?[:\s]+([^.]+)',
-        r'(?:elective|optional)\s*(?:subject|unit)s?[:\s]+([^.]+)'
-    ]
-    
-    subjects = []
-    for pattern in subject_patterns:
-        matches = re.findall(pattern, full_text, re.IGNORECASE)
-        for match in matches:
-            # Split by common delimiters
-            items = re.split(r'[,;•·]|\n', match)
-            subjects.extend([item.strip() for item in items if len(item.strip()) > 3])
-    
-    if subjects:
-        structured_data['subjects'] = list(set(subjects))[:20]  # Limit to 20 subjects
-    
-    return structured_data
-
-def save_chunks(page_data: Dict, category_name: str, page_index: int):
-    """Save page content as chunks for embedding"""
-    chunks_dir = Path(f"{CONFIG['output_dir']}/chunks/{category_name}")
-    chunks_dir.mkdir(exist_ok=True)
-    
-    # Create full text from sections
-    full_text = page_data.get("full_text", "")
-    
-    # Generate chunks
-    chunks = chunk_text(full_text, CONFIG["chunk_size"], CONFIG["chunk_overlap"])
-    
-    # Save chunks with metadata
-    for chunk in chunks:
-        chunk_data = {
-            "page_title": page_data["title"],
-            "page_url": page_data["url"],
-            "page_index": page_index,
-            "chunk_index": chunk["chunk_index"],
-            "total_chunks": chunk["total_chunks"],
-            "text": chunk["text"],
-            "structured_data": page_data.get("structured_data", {}),
-            "metadata": {
-                "start_char": chunk.get("start_char"),
-                "end_char": chunk.get("end_char"),
-                "category": category_name
-            }
-        }
-        
-        # Save individual chunk file
-        chunk_filename = f"page_{page_index:04d}_chunk_{chunk['chunk_index']:03d}.json"
-        chunk_path = chunks_dir / chunk_filename
-        
-        with open(chunk_path, 'w', encoding='utf-8') as f:
-            json.dump(chunk_data, f, ensure_ascii=False, indent=2)
-
-def save_as_json(all_content: List[Tuple[str, List[Tuple[str, str]], str]], 
-                 category_name: str, category_data: Dict, metadata: Dict = None) -> Path:
-    """Save content as JSON for AI consumption with chunking"""
-    json_data = {
-        "category": category_name,
-        "scrape_date": datetime.now().isoformat(),
-        "total_pages": len(all_content),
-        "metadata": metadata or {},
-        "pages": []
-    }
-    
-    for page_index, (page_title, content_items, url) in enumerate(all_content):
-        page_data = {
-            "title": page_title,
-            "url": url,
-            "content_sections": [],
-            "structured_data": {}
-        }
-        
-        # Extract structured data with validation
-        page_data["structured_data"] = extract_structured_data(content_items, url, category_data)
-        
-        # Group content by sections
-        current_section = {"heading": None, "paragraphs": []}
-        
-        for content_type, text in content_items:
-            # Clean text for AI processing
-            cleaned_text = ' '.join(text.split())  # Normalize whitespace
             
-            if content_type == 'heading':
-                # Save previous section if it has content
-                if current_section["paragraphs"]:
-                    page_data["content_sections"].append(current_section)
-                current_section = {"heading": cleaned_text, "paragraphs": []}
-            else:
-                current_section["paragraphs"].append(cleaned_text)
-        
-        # Don't forget the last section
-        if current_section["paragraphs"] or current_section["heading"]:
-            page_data["content_sections"].append(current_section)
-        
-        # FIXED: Add full text for easy searching - safely handles None values
-        full_text_parts = []
-        for section in page_data["content_sections"]:
-            heading = section.get("heading") or ""  # Convert None to empty string
-            paragraphs = " ".join(section.get("paragraphs", []))
-            full_text_parts.append(f"{heading} {paragraphs}".strip())
-        
-        page_data["full_text"] = " ".join(full_text_parts)
-        
-        # Save chunks for this page
-        save_chunks(page_data, category_name, page_index)
-        
-        json_data["pages"].append(page_data)
-    
-    # Add validation summary to metadata
-    if CONFIG["validate_data"]:
-        validation_summary = {
-            "total_validated_fields": sum(
-                len(page.get("structured_data", {})) 
-                for page in json_data["pages"]
-            ),
-            "pages_with_course_codes": sum(
-                1 for page in json_data["pages"] 
-                if "course_code" in page.get("structured_data", {})
-            ),
-            "pages_with_fees": sum(
-                1 for page in json_data["pages"] 
-                if "fees" in page.get("structured_data", {})
-            ),
-            "pages_with_duration": sum(
-                1 for page in json_data["pages"] 
-                if "duration" in page.get("structured_data", {})
-            )
-        }
-        json_data["metadata"]["validation_summary"] = validation_summary
-    
-    # Save main JSON file
-    safe_name = re.sub(r'[\\/*?:"<>|]', "_", category_name)
-    json_path = Path(f"{CONFIG['output_dir']}/{safe_name}.json")
-    
-    with open(json_path, "w", encoding="utf-8") as f:
-        json.dump(json_data, f, ensure_ascii=False, indent=2)
-    
-    logger.info(f"Saved JSON for AI: {json_path}")
-    
-    # Save minified version
-    minified_path = Path(f"{CONFIG['output_dir']}/{safe_name}_min.json")
-    with open(minified_path, "w", encoding="utf-8") as f:
-        json.dump(json_data, f, ensure_ascii=False, separators=(',', ':'))
-    
-    logger.info(f"Saved minified JSON: {minified_path}")
-    
-    # Save metadata file
-    meta_path = Path(f"{CONFIG['output_dir']}/{safe_name}_metadata.json")
-    with open(meta_path, "w", encoding="utf-8") as f:
-        json.dump({
-            "category": category_name,
-            "scrape_date": json_data["scrape_date"],
-            "statistics": json_data["metadata"],
-            "config_used": CONFIG,
-            "total_chunks": sum(len(chunk_text(page["full_text"], CONFIG["chunk_size"], CONFIG["chunk_overlap"])) 
-                              for page in json_data["pages"])
-        }, f, ensure_ascii=False, indent=2)
-    
-    return json_path
-
-def retry_request(url: str, headers: Dict, max_retries: int = 3) -> Optional[requests.Response]:
-    """Retry failed requests with exponential backoff and handle 404s"""
-    for attempt in range(max_retries):
-        try:
-            response = requests.get(url, headers=headers, timeout=CONFIG["timeout"])
+            # If no main content found, get all text
+            if not content or len(content) < 100:
+                content = soup.get_text(separator=' ', strip=True)
             
-            # Handle 404 specifically
-            if response.status_code == 404:
-                logger.warning(f"URL not found (404): {url}")
+            # Skip if content is too short
+            if len(content) < 50:
                 return None
+            
+            # Check for duplicate content
+            content_hash = self.get_content_hash(content)
+            with self.lock:
+                if content_hash in self.content_hashes:
+                    self.stats["duplicates"] += 1
+                    return None
+                self.content_hashes.add(content_hash)
+            
+            # Categorize content
+            category = self.categorize_content(url, title, content)
+            
+            # Extract structured data
+            structured_data = self.extract_structured_data(soup, content, category)
+            
+            # Extract all links for further crawling
+            links = []
+            for link in soup.find_all('a', href=True):
+                href = link.get('href')
+                full_url = urljoin(url, href)
+                if self.is_valid_rmit_url(full_url) and self.should_crawl_url(full_url):
+                    links.append(full_url)
+            
+            # Generate tags
+            tags = [category]
+            
+            # Add specific tags based on content
+            if 'course' in content.lower():
+                tags.append('course')
+            if 'policy' in content.lower() or 'procedure' in content.lower():
+                tags.append('policy')
+            if 'student' in content.lower():
+                tags.append('student')
+            if 'support' in content.lower() or 'service' in content.lower():
+                tags.append('support')
+            
+            # Extract any course codes mentioned
+            course_codes = self.extract_course_codes_from_text(content)
+            tags.extend(course_codes)
+            
+            return {
+                'url': url,
+                'title': title,
+                'content': content[:5000],  # Limit content length
+                'category': category,
+                'structured_data': structured_data,
+                'tags': list(set(tags)),
+                'links': links
+            }
+            
+        except Exception as e:
+            logger.debug(f"Error extracting content from {url}: {e}")
+            return None
+    
+    def crawler_worker(self):
+        """Worker thread for crawling"""        
+        while True:
+            try:
+                # Get URL from queue
+                url, depth = self.url_queue.get(timeout=5)
                 
+                # Check for poison pill (graceful shutdown)
+                if url is None:
+                    self.url_queue.task_done()
+                    break
+                
+                # Skip if already visited or too deep
+                with self.lock:
+                    if url in self.visited_urls or depth > CONFIG["max_depth"]:
+                        self.url_queue.task_done()
+                        continue
+                    self.visited_urls.add(url)
+                
+                # Extract content
+                content_data = self.extract_content_from_page(url)
+                
+                if content_data:
+                    # Add to results
+                    with self.lock:
+                        self.all_content.append(content_data)
+                        self.stats[content_data['category']] += 1
+                        self.stats["total"] += 1
+                        
+                        # Log progress
+                        if self.stats["total"] % 10 == 0:
+                            logger.info(f"{Fore.GREEN}✓ Scraped {self.stats['total']} items | {Fore.BLUE}Queue: {self.url_queue.qsize()} | {Fore.YELLOW}Category: {content_data['category']}")
+                        
+                        # Save progress periodically
+                        if self.stats["total"] % CONFIG["save_progress_every"] == 0:
+                            self.save_progress()
+                    
+                    # Add new links to queue (with queue size limit)
+                    for link in content_data.get('links', []):
+                        with self.lock:
+                            if (link not in self.visited_urls and 
+                                self.url_queue.qsize() < CONFIG["max_queue_size"]):
+                                self.url_queue.put((link, depth + 1))
+                
+                self.url_queue.task_done()
+                
+            except:
+                # Queue is empty or timeout
+                break
+    
+    def save_progress(self):
+        """Save current progress"""
+        logger.info(f"{Fore.BLUE}💾 Saving progress: {len(self.all_content)} items...")
+        self.save_to_database_format()
+    
+    def fetch_sitemap_urls(self) -> List[str]:
+        """Fetch and parse URLs from RMIT sitemap.xml"""
+        sitemap_url = "https://www.rmit.edu.au/sitemap.xml"
+        urls = []
+        
+        try:
+            logger.info(f"{Fore.YELLOW}📄 Fetching sitemap from: {sitemap_url}")
+            response = self.session.get(sitemap_url, timeout=CONFIG["timeout"])
             response.raise_for_status()
-            return response
-        except requests.exceptions.HTTPError as e:
-            if e.response.status_code == 404:
-                logger.warning(f"URL not found (404): {url}")
-                return None
-            elif attempt == max_retries - 1:
-                raise
-        except requests.exceptions.RequestException as e:
-            if attempt == max_retries - 1:
-                raise
-                
-        wait_time = 2 ** attempt  # Exponential backoff
-        logger.warning(f"Request failed (attempt {attempt+1}/{max_retries}), retrying in {wait_time}s: {e}")
-        time.sleep(wait_time)
-    return None
-
-def process_category(category_name: str, category_data: Dict, state: ScraperState, crawl_delay: float = 0.5):
-    """Process a category and save as JSON for AI consumption"""
-    logger.info(f"\nProcessing category: {category_name}")
-    logger.info(f"Starting at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    
-    all_content = []
-    processed_urls = set()  # Track URLs we've actually processed content from
-    errors = []  # Track errors for debugging
-    skipped_unchanged = 0  # Track unchanged content
-
-    main_url = category_data["url"]
-    
-    # Crawl for all relevant URLs
-    logger.info("Starting crawl for relevant URLs...")
-    max_depth = CONFIG["max_crawl_depth"] if CONFIG["focused_mode"] else 5
-    max_urls = CONFIG["max_urls_per_category"] if CONFIG["focused_mode"] else 800
-    
-    urls_to_process = crawl_for_links(
-        main_url, 
-        category_data, 
-        state, 
-        max_depth=max_depth,
-        delay=crawl_delay,
-        max_urls=max_urls
-    )
-    
-    # Sort URLs to process course codes last (they tend to have the most detailed info)
-    urls_to_process.sort(key=lambda x: (is_course_code_url(x), x))
-    
-    for i, url in enumerate(urls_to_process):
-        # Normalize URL for tracking
-        normalized = normalize_url(url)
-        
-        # Skip if we've already processed this URL's content
-        if normalized in processed_urls:
-            logger.info(f"  Skipping duplicate ({i+1}/{len(urls_to_process)}): {url}")
-            continue
             
-        logger.info(f"  Processing ({i+1}/{len(urls_to_process)}): {url}")
-        processed_urls.add(normalized)
-        
-        try:
-            # Rate limiting
-            time.sleep(crawl_delay)
+            # Parse XML
+            root = ET.fromstring(response.content)
             
-            headers = {'User-Agent': CONFIG["user_agent"]}
-            response = retry_request(url, headers, CONFIG["max_retries"])
+            # Handle XML namespace
+            namespace = {'ns': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
             
-            if not response:
-                raise Exception("Failed after all retries")
+            # Extract all URLs
+            for url_element in root.findall('.//ns:url', namespace):
+                loc_element = url_element.find('ns:loc', namespace)
+                if loc_element is not None:
+                    url = loc_element.text.strip()
+                    if self.is_valid_rmit_url(url) and self.should_crawl_url(url):
+                        urls.append(url)
             
-            # Check if content has changed (incremental mode)
-            content_text = response.text
-            if CONFIG["incremental_mode"] and not state.is_content_changed(url, content_text):
-                logger.info(f"    ✗ Content unchanged, skipping")
-                skipped_unchanged += 1
-                continue
+            logger.info(f"{Fore.GREEN}✓ Found {len(urls)} valid URLs in sitemap")
+            return urls
             
-            soup = BeautifulSoup(content_text, 'html.parser')
-            
-            # Create a page title
-            if url == main_url:
-                page_title = category_name.replace('-', ' ').title()
-            else:
-                # Better title extraction for course pages
-                title_tag = soup.find('title')
-                if title_tag and title_tag.text.strip():
-                    page_title = title_tag.text.strip()
-                    # Clean RMIT suffix if present
-                    page_title = re.sub(r'\s*[-|]\s*RMIT University.*$', '', page_title)
-                else:
-                    parsed_url = urlparse(url)
-                    path_parts = [comp for comp in parsed_url.path.strip('/').split('/') if comp]
-                    if path_parts:
-                        # Check if last part is a course code
-                        if re.search(r'[a-z]\d+', path_parts[-1]):
-                            page_title = f"Course: {path_parts[-1].upper()}"
-                        else:
-                            page_title = ' '.join([comp.replace('-', ' ').title() for comp in path_parts[-2:]])
-                    else:
-                        page_title = "Additional Information"
-            
-            # Extract content
-            content_items = clean_and_extract_content(soup, page_title)
-            
-            # Check if content is relevant
-            if content_items and (is_relevant_content(content_items, category_data) or len(content_items) >= 5):
-                # Store with URL for reference
-                all_content.append((page_title, content_items, url))
-                
-                # Update state
-                state.update_content_hash(url, content_text)
-                state.mark_url_scraped(url)
-                
-                logger.info(f"    ✓ Added content ({len(content_items)} items)")
-            else:
-                logger.info(f"    ✗ Excluded - not relevant enough ({len(content_items)} items)")
-            
-        except requests.exceptions.RequestException as e:
-            error_msg = f"Network error for {url}: {str(e)}"
-            logger.error(f"    ✗ {error_msg}")
-            errors.append(error_msg)
         except Exception as e:
-            error_msg = f"Processing error for {url}: {str(e)}"
-            logger.error(f"    ✗ {error_msg}")
-            errors.append(error_msg)
+            logger.error(f"{Fore.RED}✗ Error fetching sitemap: {e}")
+            logger.warning(f"{Fore.YELLOW}⚠ Falling back to default start URLs")
+            # Return a few essential URLs as fallback
+            return [
+                "https://www.rmit.edu.au",
+                "https://www.rmit.edu.au/study-with-us",
+                "https://www.rmit.edu.au/students",
+                "https://www.rmit.edu.au/courses"
+            ]
     
-    if not all_content:
-        logger.warning(f"No relevant content found for category {category_name}")
-        return
+    def categorize_sitemap_url(self, url: str) -> str:
+        """Categorize URLs from sitemap based on URL patterns"""
+        url_lower = url.lower()
+        
+        # More specific categorization based on URL patterns
+        if any(pattern in url_lower for pattern in ['microcredentials', 'courses', 'bachelor', 'master', 'diploma', 'certificate']):
+            return 'course-information'
+        elif any(pattern in url_lower for pattern in ['vocational-study', 'pre-university', 'apprenticeships']):
+            return 'course-information'
+        elif any(pattern in url_lower for pattern in ['policies', 'policy', 'procedure', 'regulation']):
+            return 'policies'
+        elif any(pattern in url_lower for pattern in ['students/support', 'student-support', 'help', 'service']):
+            return 'student-support'
+        elif any(pattern in url_lower for pattern in ['enrol', 'admission', 'apply', 'application']):
+            return 'enrollment'
+        elif any(pattern in url_lower for pattern in ['fees', 'scholarship', 'financial']):
+            return 'fees-scholarships'
+        elif any(pattern in url_lower for pattern in ['student-life', 'campus', 'facilities']):
+            return 'student-life'
+        elif any(pattern in url_lower for pattern in ['international', 'visa', 'overseas']):
+            return 'international'
+        else:
+            return 'general-information'
     
-    logger.info(f"\nSummary:")
-    logger.info(f"  Total pages with content: {len(all_content)}")
-    logger.info(f"  Total URLs processed: {len(processed_urls)}")
-    logger.info(f"  Unchanged content skipped: {skipped_unchanged}")
-    logger.info(f"  Total errors: {len(errors)}")
-    
-    # Save as JSON for AI consumption
-    metadata = {
-        "total_urls_found": len(urls_to_process),
-        "urls_processed": len(processed_urls),
-        "pages_with_content": len(all_content),
-        "unchanged_skipped": skipped_unchanged,
-        "errors": len(errors),
-        "error_details": errors[:10],  # First 10 errors for debugging
-        "crawl_delay_used": crawl_delay,
-        "incremental_mode": CONFIG["incremental_mode"],
-        "validation_enabled": CONFIG["validate_data"]
-    }
-    
-    json_path = save_as_json(all_content, category_name, category_data, metadata)
-    
-    # Save state
-    state.save_state()
-    
-    logger.info(f"\nCompleted processing {category_name}")
-    logger.info(f"Data saved for AI knowledge base at: {json_path}")
-
-def generate_summary_report():
-    """Generate a summary report of all scraped data"""
-    output_dir = Path(CONFIG["output_dir"])
-    report = {
-        "generated_at": datetime.now().isoformat(),
-        "categories": {}
-    }
-    
-    # Analyze each category file
-    for json_file in output_dir.glob("*.json"):
-        if json_file.name.endswith("_min.json") or json_file.name.endswith("_metadata.json"):
-            continue
+    def scrape_rmit_knowledge_base(self):
+        """Main method to scrape entire RMIT knowledge base"""
+        self.print_banner()
+        
+        # Get URLs from sitemap instead of hardcoded list
+        start_urls = self.fetch_sitemap_urls()
+        
+        # Add a few important URLs that might not be in sitemap
+        additional_urls = [
+            "https://www.rmit.edu.au/about/governance-and-management/policies",
+            "https://policies.rmit.edu.au/browse",
+            "https://www.rmit.edu.au/students/support-and-facilities",
+            "https://www.rmit.edu.au/students/contact-and-help"
+        ]
+        
+        # Combine sitemap URLs with additional important URLs
+        for url in additional_urls:
+            if url not in start_urls:
+                start_urls.append(url)
+        
+        # Add all URLs to queue with priority based on category
+        logger.info(f"{Fore.YELLOW}Adding {len(start_urls)} URLs from sitemap to crawl queue...")
+        
+        # Prioritize certain URLs (add them first)
+        priority_patterns = ['courses', 'policies', 'students', 'support']
+        priority_urls = []
+        regular_urls = []
+        
+        for url in start_urls:
+            if any(pattern in url.lower() for pattern in priority_patterns):
+                priority_urls.append(url)
+            else:
+                regular_urls.append(url)
+        
+        # Add priority URLs first
+        for url in priority_urls:
+            self.url_queue.put((url, 0))
+        
+        # Then add regular URLs
+        for url in regular_urls:
+            self.url_queue.put((url, 0))
+        
+        # Start crawler threads
+        logger.info(f"{Fore.YELLOW}Starting {CONFIG['max_threads']} crawler threads...")
+        threads = []
+        for i in range(CONFIG["max_threads"]):
+            t = threading.Thread(target=self.crawler_worker, name=f"Crawler-{i+1}")
+            t.daemon = True
+            t.start()
+            threads.append(t)
+        
+        # Monitor progress
+        last_total = 0
+        stall_count = 0
+        
+        while True:
+            time.sleep(10)  # Check every 10 seconds
             
-        try:
-            with open(json_file, 'r', encoding='utf-8') as f:
-                data = json.load(f)
+            with self.lock:
+                current_total = self.stats["total"]
+                queue_size = self.url_queue.qsize()
+                active_threads = sum(1 for t in threads if t.is_alive())
             
-            category_name = data.get("category", json_file.stem)
-            report["categories"][category_name] = {
-                "total_pages": data.get("total_pages", 0),
-                "scrape_date": data.get("scrape_date"),
-                "courses_found": sum(1 for page in data.get("pages", []) 
-                                   if "course_code" in page.get("structured_data", {})),
-                "sample_courses": [
-                    {
-                        "title": page["title"],
-                        "code": page["structured_data"].get("course_code"),
-                        "duration": page["structured_data"].get("duration"),
-                        "fees": page["structured_data"].get("fees")
-                    }
-                    for page in data.get("pages", [])[:5]
-                    if "course_code" in page.get("structured_data", {})
-                ]
+            # Print statistics
+            self.print_stats()
+            
+            # Check if scraping is complete
+            if queue_size == 0 and active_threads == 0:
+                logger.info(f"{Fore.GREEN}✓ All threads completed!")
+                break
+            
+            # Check if we're making progress
+            if current_total == last_total:
+                stall_count += 1
+                if stall_count > 6:  # No progress for 60 seconds
+                    logger.warning(f"{Fore.YELLOW}⚠ No progress for 60 seconds, stopping...")
+                    break
+            else:
+                stall_count = 0
+                last_total = current_total
+            
+            # Check if we've hit limits
+            if len(self.visited_urls) >= CONFIG["max_pages"]:
+                logger.info(f"{Fore.YELLOW}Reached maximum page limit ({CONFIG['max_pages']})")
+                break
+            
+            # Check if queue is too large (infinite loop protection)
+            if queue_size >= CONFIG["max_queue_size"]:
+                logger.warning(f"{Fore.YELLOW}⚠ Queue size limit reached ({CONFIG['max_queue_size']}), stopping to prevent infinite crawling...")
+                break
+            
+            # Check if we have enough content already (comprehensive coverage)
+            if current_total >= 8000:
+                logger.info(f"{Fore.GREEN}✓ Collected comprehensive content ({current_total} items), stopping...")
+                break
+        
+        # Signal threads to stop gracefully
+        logger.info(f"{Fore.YELLOW}🛑 Stopping crawler threads...")
+        for _ in range(CONFIG["max_threads"]):
+            self.url_queue.put((None, 0))  # Poison pill to stop threads
+        
+        # Wait for threads to finish (with timeout)
+        for t in threads:
+            t.join(timeout=10)
+            if t.is_alive():
+                logger.warning(f"{Fore.YELLOW}⚠ Thread {t.name} did not stop gracefully")
+        
+        # Final save
+        self.save_to_database_format()
+        
+        # Print final summary
+        print(f"\n{Fore.CYAN}{'='*80}")
+        print(f"{Fore.YELLOW}✨ Scraping Complete! ✨")
+        print(f"{Fore.GREEN}Total items collected: {self.stats['total']}")
+        print(f"{Fore.BLUE}Total URLs visited: {len(self.visited_urls)}")
+        print(f"{Fore.YELLOW}Duplicates avoided: {self.stats['duplicates']}")
+        print(f"\n{Fore.CYAN}Content breakdown:")
+        for category, count in sorted(self.stats.items(), key=lambda x: x[1], reverse=True):
+            if category not in ["total", "duplicates"] and count > 0:
+                print(f"  {Fore.WHITE}{category}: {Fore.GREEN}{count}")
+        print(f"{Fore.CYAN}{'='*80}{Style.RESET_ALL}\n")
+    
+    def save_to_database_format(self):
+        """Save data in format compatible with Prisma database"""
+        output_file = Path(CONFIG["output_dir"]) / "rmit_knowledge_base.json"
+        
+        # Format data for database import
+        db_records = []
+        
+        for item in self.all_content:
+            # Create a record for each item
+            record = {
+                "title": item['title'][:500],  # Limit title length
+                "content": item['content'][:5000],  # Limit content length
+                "category": item['category'],
+                "sourceUrl": item['url'],
+                "tags": item['tags'][:20],  # Limit number of tags
+                "priority": self.calculate_priority(item),
+                "isActive": True,
+                "structuredData": item['structured_data']
             }
-        except Exception as e:
-            logger.error(f"Error processing {json_file}: {e}")
+            
+            db_records.append(record)
+        
+        # Save to file
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(db_records, f, ensure_ascii=False, indent=2)
+        
+        logger.info(f"\n{Fore.GREEN}✓ Saved {len(db_records)} records to: {output_file}")
+        
+        # Save detailed summary
+        summary_file = Path(CONFIG["output_dir"]) / "scraping_summary.json"
+        summary = {
+            "scrape_date": datetime.now().isoformat(),
+            "total_items": self.stats["total"],
+            "total_urls_visited": len(self.visited_urls),
+            "duplicates_avoided": self.stats["duplicates"],
+            "content_breakdown": {cat: count for cat, count in self.stats.items() 
+                               if cat not in ["total", "duplicates"]},
+            "sample_items": {
+                category: [
+                    {
+                        "title": item['title'],
+                        "url": item['url'],
+                        "tags": item['tags'][:5]
+                    }
+                    for item in self.all_content 
+                    if item['category'] == category
+                ][:3]
+                for category in CONFIG["content_categories"]
+            }
+        }
+        
+        with open(summary_file, 'w', encoding='utf-8') as f:
+            json.dump(summary, f, ensure_ascii=False, indent=2)
+        
+        logger.info(f"{Fore.GREEN}✓ Saved summary to: {summary_file}")
+        logger.info(f"\n{Fore.YELLOW}📁 Output files ready in: {CONFIG['output_dir']}/")
+        logger.info(f"{Fore.CYAN}Use rmit_knowledge_base.json for your database seeding script{Style.RESET_ALL}")
     
-    # Save report
-    report_path = output_dir / "scraping_summary.json"
-    with open(report_path, 'w', encoding='utf-8') as f:
-        json.dump(report, f, ensure_ascii=False, indent=2)
-    
-    logger.info(f"\nGenerated summary report: {report_path}")
+    def calculate_priority(self, item: Dict) -> int:
+        """Calculate priority score for content"""
+        priority = 5  # Base priority
+        
+        # Higher priority for certain categories
+        priority_categories = {
+            "course-information": 10,
+            "subject-information": 9,
+            "policies": 8,
+            "student-support": 8,
+            "enrollment": 7,
+            "fees-scholarships": 7,
+        }
+        
+        if item['category'] in priority_categories:
+            priority = priority_categories[item['category']]
+        
+        # Boost priority if contains course codes
+        if any(re.match(r'^[A-Z]{2,4}\d{3,5}$', tag) for tag in item['tags']):
+            priority += 2
+        
+        # Boost priority for longer, more detailed content
+        if len(item['content']) > 1000:
+            priority += 1
+        
+        return min(priority, 10)  # Cap at 10
+
 
 # Main execution
 if __name__ == "__main__":
-    print("""
-╔═══════════════════════════════════════════════════════════════╗
-║        RMIT Course Information Scraper for AI Knowledge Base   ║
-║                    Advanced Version with:                      ║
-║    • Incremental Updates  • Data Validation  • Chunking       ║
-╚═══════════════════════════════════════════════════════════════╝
-    """)
+    scraper = RMITKnowledgeBaseScraper()
     
-    # Initialize state management
-    state = ScraperState(CONFIG["state_file"])
-    
-    if CONFIG["incremental_mode"] and state.state["last_run"]:
-        logger.info(f"Last run: {state.state['last_run']}")
-        logger.info(f"Previously scraped URLs: {len(state.state['scraped_urls'])}")
-    
-    # Check robots.txt before processing
-    logger.info("\nChecking robots.txt compliance...")
-    robots_info = check_robots_txt("www.rmit.edu.au")
-    recommended_delay = max(0.5, robots_info.get('crawl_delay', 0.5))
-    
-    logger.info(f"\nUsing crawl delay: {recommended_delay} seconds")
-    
-    # Process each category
-    for name, data in base_urls.items():
-        try:
-            process_category(name, data, state, recommended_delay)
-        except KeyboardInterrupt:
-            logger.warning("\nScraping interrupted by user")
-            state.save_state()
-            break
-        except Exception as e:
-            logger.error(f"Error processing category {name}: {e}")
-    
-    # Generate summary report
-    generate_summary_report()
-    
-    print("\n" + "="*60)
-    print("SCRAPING COMPLETED!")
-    print("="*60)
-    print(f"\nOutput directory: {CONFIG['output_dir']}/")
-    print("\nFiles created:")
-    print("  • Main JSON files (formatted for readability)")
-    print("  • Minified JSON files (for production)")
-    print("  • Metadata files (scraping statistics)")
-    print("  • Chunk files (for embeddings)")
-    print("  • Summary report (scraping_summary.json)")
-    print("\nFeatures used:")
-    print(f"  • Incremental updates: {'✓' if CONFIG['incremental_mode'] else '✗'}")
-    print(f"  • Data validation: {'✓' if CONFIG['validate_data'] else '✗'}")
-    print(f"  • Chunking for embeddings: ✓ (size: {CONFIG['chunk_size']})")
-    print("\n" + "="*60)
+    try:
+        scraper.scrape_rmit_knowledge_base()
+        
+    except KeyboardInterrupt:
+        logger.warning(f"\n{Fore.YELLOW}⚠️  Scraping interrupted by user")
+        if scraper.all_content:
+            scraper.save_to_database_format()
+            logger.info(f"{Fore.GREEN}✓ Partial data saved")
+        else:
+            logger.warning(f"{Fore.YELLOW}⚠️  No data to save")
+        
+    except Exception as e:
+        logger.error(f"\n{Fore.RED}✗ Fatal error: {e}")
+        if scraper.all_content:
+            scraper.save_to_database_format()
+            logger.info(f"{Fore.GREEN}✓ Partial data saved")
+        raise

@@ -1,0 +1,1028 @@
+2025-06-08 16:53:10,293 - [32mINFO[0m - [32m[33m📄 Fetching sitemap from: https://www.rmit.edu.au/sitemap.xml[0m
+2025-06-08 16:53:11,136 - [32mINFO[0m - [32m[32m✓ Found 3568 valid URLs in sitemap[0m
+2025-06-08 16:53:11,137 - [32mINFO[0m - [32m[33mAdding 3572 URLs from sitemap to crawl queue...[0m
+2025-06-08 16:53:11,144 - [32mINFO[0m - [32m[33mStarting 5 crawler threads...[0m
+2025-06-08 16:53:13,216 - [32mINFO[0m - [32m[32m✓ Scraped 10 items | [34mQueue: 4812 | [33mCategory: course-information[0m
+2025-06-08 16:53:15,509 - [32mINFO[0m - [32m[32m✓ Scraped 20 items | [34mQueue: 6590 | [33mCategory: online-learning[0m
+2025-06-08 16:53:17,110 - [32mINFO[0m - [32m[32m✓ Scraped 30 items | [34mQueue: 8544 | [33mCategory: course-information[0m
+2025-06-08 16:53:19,017 - [32mINFO[0m - [32m[32m✓ Scraped 40 items | [34mQueue: 9999 | [33mCategory: course-information[0m
+2025-06-08 16:53:20,516 - [32mINFO[0m - [32m[32m✓ Scraped 50 items | [34mQueue: 9999 | [33mCategory: international[0m
+2025-06-08 16:53:20,516 - [32mINFO[0m - [32m[34m💾 Saving progress: 50 items...[0m
+2025-06-08 16:53:20,518 - [32mINFO[0m - [32m
+[32m✓ Saved 50 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:53:20,518 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:53:20,518 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:53:20,518 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:53:21,582 - [32mINFO[0m - [32m[32m✓ Scraped 60 items | [34mQueue: 9999 | [33mCategory: enrollment[0m
+2025-06-08 16:53:22,603 - [32mINFO[0m - [32m[32m✓ Scraped 70 items | [34mQueue: 9999 | [33mCategory: enrollment[0m
+2025-06-08 16:53:23,641 - [32mINFO[0m - [32m[32m✓ Scraped 80 items | [34mQueue: 9999 | [33mCategory: enrollment[0m
+2025-06-08 16:53:24,497 - [32mINFO[0m - [32m[32m✓ Scraped 90 items | [34mQueue: 9999 | [33mCategory: enrollment[0m
+2025-06-08 16:53:25,826 - [32mINFO[0m - [32m[32m✓ Scraped 100 items | [34mQueue: 9999 | [33mCategory: fees-scholarships[0m
+2025-06-08 16:53:25,826 - [32mINFO[0m - [32m[34m💾 Saving progress: 100 items...[0m
+2025-06-08 16:53:25,829 - [32mINFO[0m - [32m
+[32m✓ Saved 100 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:53:25,830 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:53:25,831 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:53:25,831 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:53:27,143 - [32mINFO[0m - [32m[32m✓ Scraped 110 items | [34mQueue: 9999 | [33mCategory: fees-scholarships[0m
+2025-06-08 16:53:29,332 - [32mINFO[0m - [32m[32m✓ Scraped 120 items | [34mQueue: 9999 | [33mCategory: fees-scholarships[0m
+2025-06-08 16:53:30,686 - [32mINFO[0m - [32m[32m✓ Scraped 130 items | [34mQueue: 9999 | [33mCategory: enrollment[0m
+2025-06-08 16:53:31,962 - [32mINFO[0m - [32m[32m✓ Scraped 140 items | [34mQueue: 9999 | [33mCategory: international[0m
+2025-06-08 16:53:34,230 - [32mINFO[0m - [32m[32m✓ Scraped 150 items | [34mQueue: 9992 | [33mCategory: course-information[0m
+2025-06-08 16:53:34,231 - [32mINFO[0m - [32m[34m💾 Saving progress: 150 items...[0m
+2025-06-08 16:53:34,445 - [32mINFO[0m - [32m
+[32m✓ Saved 150 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:53:34,488 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:53:34,501 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:53:34,514 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:53:35,883 - [32mINFO[0m - [32m[32m✓ Scraped 160 items | [34mQueue: 9998 | [33mCategory: forms[0m
+2025-06-08 16:53:37,177 - [32mINFO[0m - [32m[32m✓ Scraped 170 items | [34mQueue: 9999 | [33mCategory: academic-info[0m
+2025-06-08 16:53:38,412 - [32mINFO[0m - [32m[32m✓ Scraped 180 items | [34mQueue: 9999 | [33mCategory: contact[0m
+2025-06-08 16:53:44,266 - [32mINFO[0m - [32m[32m✓ Scraped 190 items | [34mQueue: 9998 | [33mCategory: international[0m
+2025-06-08 16:53:45,542 - [32mINFO[0m - [32m[32m✓ Scraped 200 items | [34mQueue: 9999 | [33mCategory: international[0m
+2025-06-08 16:53:45,542 - [32mINFO[0m - [32m[34m💾 Saving progress: 200 items...[0m
+2025-06-08 16:53:45,619 - [32mINFO[0m - [32m
+[32m✓ Saved 200 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:53:45,651 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:53:45,657 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:53:45,669 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:53:46,753 - [32mINFO[0m - [32m[32m✓ Scraped 210 items | [34mQueue: 9999 | [33mCategory: international[0m
+2025-06-08 16:53:47,930 - [32mINFO[0m - [32m[32m✓ Scraped 220 items | [34mQueue: 9999 | [33mCategory: international[0m
+2025-06-08 16:53:49,243 - [32mINFO[0m - [32m[32m✓ Scraped 230 items | [34mQueue: 9999 | [33mCategory: course-information[0m
+2025-06-08 16:53:50,338 - [32mINFO[0m - [32m[32m✓ Scraped 240 items | [34mQueue: 9999 | [33mCategory: enrollment[0m
+2025-06-08 16:53:53,904 - [32mINFO[0m - [32m[32m✓ Scraped 250 items | [34mQueue: 9999 | [33mCategory: course-information[0m
+2025-06-08 16:53:53,905 - [32mINFO[0m - [32m[34m💾 Saving progress: 250 items...[0m
+2025-06-08 16:53:53,911 - [32mINFO[0m - [32m
+[32m✓ Saved 250 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:53:53,912 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:53:53,912 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:53:53,912 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:53:56,578 - [32mINFO[0m - [32m[32m✓ Scraped 260 items | [34mQueue: 9999 | [33mCategory: course-information[0m
+2025-06-08 16:53:58,429 - [32mINFO[0m - [32m[32m✓ Scraped 270 items | [34mQueue: 9999 | [33mCategory: course-information[0m
+2025-06-08 16:54:03,009 - [32mINFO[0m - [32m[32m✓ Scraped 280 items | [34mQueue: 9998 | [33mCategory: course-information[0m
+2025-06-08 16:54:04,009 - [32mINFO[0m - [32m[32m✓ Scraped 290 items | [34mQueue: 9999 | [33mCategory: careers[0m
+2025-06-08 16:54:04,953 - [32mINFO[0m - [32m[32m✓ Scraped 300 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:54:04,953 - [32mINFO[0m - [32m[34m💾 Saving progress: 300 items...[0m
+2025-06-08 16:54:04,962 - [32mINFO[0m - [32m
+[32m✓ Saved 300 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:54:04,963 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:54:04,963 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:54:04,963 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:54:06,211 - [32mINFO[0m - [32m[32m✓ Scraped 310 items | [34mQueue: 9999 | [33mCategory: student-support[0m
+2025-06-08 16:54:07,339 - [32mINFO[0m - [32m[32m✓ Scraped 320 items | [34mQueue: 9999 | [33mCategory: student-support[0m
+2025-06-08 16:54:08,279 - [32mINFO[0m - [32m[32m✓ Scraped 330 items | [34mQueue: 9999 | [33mCategory: student-support[0m
+2025-06-08 16:54:09,264 - [32mINFO[0m - [32m[32m✓ Scraped 340 items | [34mQueue: 9999 | [33mCategory: enrollment[0m
+2025-06-08 16:54:10,701 - [32mINFO[0m - [32m[32m✓ Scraped 350 items | [34mQueue: 9999 | [33mCategory: enrollment[0m
+2025-06-08 16:54:10,702 - [32mINFO[0m - [32m[34m💾 Saving progress: 350 items...[0m
+2025-06-08 16:54:10,882 - [32mINFO[0m - [32m
+[32m✓ Saved 350 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:54:10,883 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:54:10,883 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:54:10,883 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:54:11,953 - [32mINFO[0m - [32m[32m✓ Scraped 360 items | [34mQueue: 9999 | [33mCategory: course-information[0m
+2025-06-08 16:54:13,013 - [32mINFO[0m - [32m[32m✓ Scraped 370 items | [34mQueue: 9999 | [33mCategory: course-information[0m
+2025-06-08 16:54:14,053 - [32mINFO[0m - [32m[32m✓ Scraped 380 items | [34mQueue: 9999 | [33mCategory: course-information[0m
+2025-06-08 16:54:15,105 - [32mINFO[0m - [32m[32m✓ Scraped 390 items | [34mQueue: 9999 | [33mCategory: course-information[0m
+2025-06-08 16:54:16,332 - [32mINFO[0m - [32m[32m✓ Scraped 400 items | [34mQueue: 9999 | [33mCategory: course-information[0m
+2025-06-08 16:54:16,338 - [32mINFO[0m - [32m[34m💾 Saving progress: 400 items...[0m
+2025-06-08 16:54:16,454 - [32mINFO[0m - [32m
+[32m✓ Saved 400 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:54:16,500 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:54:16,507 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:54:16,526 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:54:17,397 - [32mINFO[0m - [32m[32m✓ Scraped 410 items | [34mQueue: 9999 | [33mCategory: course-information[0m
+2025-06-08 16:54:18,644 - [32mINFO[0m - [32m[32m✓ Scraped 420 items | [34mQueue: 9999 | [33mCategory: course-information[0m
+2025-06-08 16:54:19,718 - [32mINFO[0m - [32m[32m✓ Scraped 430 items | [34mQueue: 9999 | [33mCategory: course-information[0m
+2025-06-08 16:54:20,985 - [32mINFO[0m - [32m[32m✓ Scraped 440 items | [34mQueue: 9999 | [33mCategory: course-information[0m
+2025-06-08 16:54:22,156 - [32mINFO[0m - [32m[32m✓ Scraped 450 items | [34mQueue: 9999 | [33mCategory: course-information[0m
+2025-06-08 16:54:22,156 - [32mINFO[0m - [32m[34m💾 Saving progress: 450 items...[0m
+2025-06-08 16:54:22,316 - [32mINFO[0m - [32m
+[32m✓ Saved 450 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:54:22,318 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:54:22,318 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:54:22,318 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:54:23,250 - [32mINFO[0m - [32m[32m✓ Scraped 460 items | [34mQueue: 9999 | [33mCategory: student-support[0m
+2025-06-08 16:54:24,287 - [32mINFO[0m - [32m[32m✓ Scraped 470 items | [34mQueue: 9999 | [33mCategory: course-information[0m
+2025-06-08 16:54:25,385 - [32mINFO[0m - [32m[32m✓ Scraped 480 items | [34mQueue: 9999 | [33mCategory: academic-info[0m
+2025-06-08 16:54:26,610 - [32mINFO[0m - [32m[32m✓ Scraped 490 items | [34mQueue: 9999 | [33mCategory: course-information[0m
+2025-06-08 16:54:27,720 - [32mINFO[0m - [32m[32m✓ Scraped 500 items | [34mQueue: 9999 | [33mCategory: academic-info[0m
+2025-06-08 16:54:27,733 - [32mINFO[0m - [32m[34m💾 Saving progress: 500 items...[0m
+2025-06-08 16:54:27,833 - [32mINFO[0m - [32m
+[32m✓ Saved 500 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:54:27,835 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:54:27,835 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:54:27,835 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:54:29,885 - [32mINFO[0m - [32m[32m✓ Scraped 510 items | [34mQueue: 9999 | [33mCategory: course-information[0m
+2025-06-08 16:54:30,991 - [32mINFO[0m - [32m[32m✓ Scraped 520 items | [34mQueue: 9999 | [33mCategory: course-information[0m
+2025-06-08 16:54:31,960 - [32mINFO[0m - [32m[32m✓ Scraped 530 items | [34mQueue: 9999 | [33mCategory: forms[0m
+2025-06-08 16:54:33,127 - [32mINFO[0m - [32m[32m✓ Scraped 540 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:54:34,305 - [32mINFO[0m - [32m[32m✓ Scraped 550 items | [34mQueue: 9999 | [33mCategory: student-support[0m
+2025-06-08 16:54:34,305 - [32mINFO[0m - [32m[34m💾 Saving progress: 550 items...[0m
+2025-06-08 16:54:34,322 - [32mINFO[0m - [32m
+[32m✓ Saved 550 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:54:34,325 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:54:34,325 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:54:34,325 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:54:35,517 - [32mINFO[0m - [32m[32m✓ Scraped 560 items | [34mQueue: 9999 | [33mCategory: student-support[0m
+2025-06-08 16:54:36,515 - [32mINFO[0m - [32m[32m✓ Scraped 570 items | [34mQueue: 9999 | [33mCategory: student-support[0m
+2025-06-08 16:54:37,518 - [32mINFO[0m - [32m[32m✓ Scraped 580 items | [34mQueue: 9999 | [33mCategory: student-support[0m
+2025-06-08 16:54:38,585 - [32mINFO[0m - [32m[32m✓ Scraped 590 items | [34mQueue: 9999 | [33mCategory: student-support[0m
+2025-06-08 16:54:39,645 - [32mINFO[0m - [32m[32m✓ Scraped 600 items | [34mQueue: 9999 | [33mCategory: student-support[0m
+2025-06-08 16:54:39,645 - [32mINFO[0m - [32m[34m💾 Saving progress: 600 items...[0m
+2025-06-08 16:54:39,851 - [32mINFO[0m - [32m
+[32m✓ Saved 600 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:54:39,852 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:54:39,852 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:54:39,852 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:54:40,807 - [32mINFO[0m - [32m[32m✓ Scraped 610 items | [34mQueue: 9999 | [33mCategory: student-support[0m
+2025-06-08 16:54:41,850 - [32mINFO[0m - [32m[32m✓ Scraped 620 items | [34mQueue: 9999 | [33mCategory: student-support[0m
+2025-06-08 16:54:42,925 - [32mINFO[0m - [32m[32m✓ Scraped 630 items | [34mQueue: 9999 | [33mCategory: student-support[0m
+2025-06-08 16:54:44,037 - [32mINFO[0m - [32m[32m✓ Scraped 640 items | [34mQueue: 9999 | [33mCategory: student-life[0m
+2025-06-08 16:54:45,233 - [32mINFO[0m - [32m[32m✓ Scraped 650 items | [34mQueue: 9999 | [33mCategory: contact[0m
+2025-06-08 16:54:45,234 - [32mINFO[0m - [32m[34m💾 Saving progress: 650 items...[0m
+2025-06-08 16:54:45,526 - [32mINFO[0m - [32m
+[32m✓ Saved 650 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:54:45,564 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:54:45,582 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:54:45,589 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:54:46,615 - [32mINFO[0m - [32m[32m✓ Scraped 660 items | [34mQueue: 9999 | [33mCategory: student-life[0m
+2025-06-08 16:54:47,900 - [32mINFO[0m - [32m[32m✓ Scraped 670 items | [34mQueue: 9999 | [33mCategory: student-support[0m
+2025-06-08 16:54:49,151 - [32mINFO[0m - [32m[32m✓ Scraped 680 items | [34mQueue: 9999 | [33mCategory: student-support[0m
+2025-06-08 16:54:50,313 - [32mINFO[0m - [32m[32m✓ Scraped 690 items | [34mQueue: 9999 | [33mCategory: careers[0m
+2025-06-08 16:54:51,573 - [32mINFO[0m - [32m[32m✓ Scraped 700 items | [34mQueue: 9999 | [33mCategory: course-information[0m
+2025-06-08 16:54:51,573 - [32mINFO[0m - [32m[34m💾 Saving progress: 701 items...[0m
+2025-06-08 16:54:51,593 - [32mINFO[0m - [32m
+[32m✓ Saved 701 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:54:51,595 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:54:51,595 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:54:51,595 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:54:53,037 - [32mINFO[0m - [32m[32m✓ Scraped 710 items | [34mQueue: 9999 | [33mCategory: fees-scholarships[0m
+2025-06-08 16:54:54,426 - [32mINFO[0m - [32m[32m✓ Scraped 720 items | [34mQueue: 9999 | [33mCategory: fees-scholarships[0m
+2025-06-08 16:54:55,835 - [32mINFO[0m - [32m[32m✓ Scraped 730 items | [34mQueue: 9999 | [33mCategory: fees-scholarships[0m
+2025-06-08 16:54:57,273 - [32mINFO[0m - [32m[32m✓ Scraped 740 items | [34mQueue: 9999 | [33mCategory: fees-scholarships[0m
+2025-06-08 16:54:58,896 - [32mINFO[0m - [32m[32m✓ Scraped 750 items | [34mQueue: 9999 | [33mCategory: fees-scholarships[0m
+2025-06-08 16:54:58,902 - [32mINFO[0m - [32m[34m💾 Saving progress: 751 items...[0m
+2025-06-08 16:54:59,345 - [32mINFO[0m - [32m
+[32m✓ Saved 751 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:54:59,347 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:54:59,347 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:54:59,347 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:55:00,810 - [32mINFO[0m - [32m[32m✓ Scraped 760 items | [34mQueue: 9999 | [33mCategory: course-information[0m
+2025-06-08 16:55:02,225 - [32mINFO[0m - [32m[32m✓ Scraped 770 items | [34mQueue: 9999 | [33mCategory: fees-scholarships[0m
+2025-06-08 16:55:03,696 - [32mINFO[0m - [32m[32m✓ Scraped 780 items | [34mQueue: 9999 | [33mCategory: fees-scholarships[0m
+2025-06-08 16:55:05,296 - [32mINFO[0m - [32m[32m✓ Scraped 790 items | [34mQueue: 9999 | [33mCategory: fees-scholarships[0m
+2025-06-08 16:55:06,624 - [32mINFO[0m - [32m[32m✓ Scraped 800 items | [34mQueue: 9999 | [33mCategory: fees-scholarships[0m
+2025-06-08 16:55:06,624 - [32mINFO[0m - [32m[34m💾 Saving progress: 801 items...[0m
+2025-06-08 16:55:06,809 - [32mINFO[0m - [32m
+[32m✓ Saved 801 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:55:06,835 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:55:06,840 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:55:06,840 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:55:08,114 - [32mINFO[0m - [32m[32m✓ Scraped 810 items | [34mQueue: 9999 | [33mCategory: fees-scholarships[0m
+2025-06-08 16:55:09,448 - [32mINFO[0m - [32m[32m✓ Scraped 820 items | [34mQueue: 9999 | [33mCategory: fees-scholarships[0m
+2025-06-08 16:55:10,752 - [32mINFO[0m - [32m[32m✓ Scraped 830 items | [34mQueue: 9999 | [33mCategory: fees-scholarships[0m
+2025-06-08 16:55:12,192 - [32mINFO[0m - [32m[32m✓ Scraped 840 items | [34mQueue: 9999 | [33mCategory: fees-scholarships[0m
+2025-06-08 16:55:14,134 - [32mINFO[0m - [32m[32m✓ Scraped 850 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:55:14,147 - [32mINFO[0m - [32m[34m💾 Saving progress: 851 items...[0m
+2025-06-08 16:55:14,683 - [32mINFO[0m - [32m
+[32m✓ Saved 851 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:55:14,685 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:55:14,685 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:55:14,685 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:55:16,359 - [32mINFO[0m - [32m[32m✓ Scraped 860 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:55:18,005 - [32mINFO[0m - [32m[32m✓ Scraped 870 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:55:19,580 - [32mINFO[0m - [32m[32m✓ Scraped 880 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:55:21,069 - [32mINFO[0m - [32m[32m✓ Scraped 890 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:55:22,725 - [32mINFO[0m - [32m[32m✓ Scraped 900 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:55:22,725 - [32mINFO[0m - [32m[34m💾 Saving progress: 901 items...[0m
+2025-06-08 16:55:22,899 - [32mINFO[0m - [32m
+[32m✓ Saved 901 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:55:22,950 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:55:22,976 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:55:22,988 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:55:24,523 - [32mINFO[0m - [32m[32m✓ Scraped 910 items | [34mQueue: 9999 | [33mCategory: course-information[0m
+2025-06-08 16:55:26,038 - [32mINFO[0m - [32m[32m✓ Scraped 920 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:55:27,674 - [32mINFO[0m - [32m[32m✓ Scraped 930 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:55:29,335 - [32mINFO[0m - [32m[32m✓ Scraped 940 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:55:31,020 - [32mINFO[0m - [32m[32m✓ Scraped 950 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:55:31,020 - [32mINFO[0m - [32m[34m💾 Saving progress: 951 items...[0m
+2025-06-08 16:55:31,549 - [32mINFO[0m - [32m
+[32m✓ Saved 951 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:55:31,551 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:55:31,551 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:55:31,552 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:55:31,594 - [33mWARNING[0m - [33m[33m⚠ Queue size limit reached (10000), stopping to prevent infinite crawling...[0m
+2025-06-08 16:55:31,595 - [32mINFO[0m - [32m[33m🛑 Stopping crawler threads...[0m
+2025-06-08 16:55:33,286 - [32mINFO[0m - [32m[32m✓ Scraped 960 items | [34mQueue: 9999 | [33mCategory: fees-scholarships[0m
+2025-06-08 16:55:34,857 - [32mINFO[0m - [32m[32m✓ Scraped 970 items | [34mQueue: 9999 | [33mCategory: fees-scholarships[0m
+2025-06-08 16:55:36,582 - [32mINFO[0m - [32m[32m✓ Scraped 980 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:55:38,202 - [32mINFO[0m - [32m[32m✓ Scraped 990 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:55:39,893 - [32mINFO[0m - [32m[32m✓ Scraped 1000 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:55:39,906 - [32mINFO[0m - [32m[34m💾 Saving progress: 1001 items...[0m
+2025-06-08 16:55:40,297 - [32mINFO[0m - [32m
+[32m✓ Saved 1001 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:55:40,299 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:55:40,299 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:55:40,299 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:55:41,596 - [33mWARNING[0m - [33m[33m⚠ Thread Crawler-1 did not stop gracefully[0m
+2025-06-08 16:55:42,055 - [32mINFO[0m - [32m[32m✓ Scraped 1010 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:55:43,697 - [32mINFO[0m - [32m[32m✓ Scraped 1020 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:55:45,394 - [32mINFO[0m - [32m[32m✓ Scraped 1030 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:55:48,228 - [32mINFO[0m - [32m[32m✓ Scraped 1040 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:55:49,942 - [32mINFO[0m - [32m[32m✓ Scraped 1050 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:55:49,945 - [32mINFO[0m - [32m[34m💾 Saving progress: 1051 items...[0m
+2025-06-08 16:55:50,628 - [32mINFO[0m - [32m
+[32m✓ Saved 1051 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:55:50,631 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:55:50,631 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:55:50,631 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:55:51,598 - [33mWARNING[0m - [33m[33m⚠ Thread Crawler-2 did not stop gracefully[0m
+2025-06-08 16:55:52,409 - [32mINFO[0m - [32m[32m✓ Scraped 1060 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:55:54,403 - [32mINFO[0m - [32m[32m✓ Scraped 1070 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:55:56,471 - [32mINFO[0m - [32m[32m✓ Scraped 1080 items | [34mQueue: 9999 | [33mCategory: fees-scholarships[0m
+2025-06-08 16:55:58,200 - [32mINFO[0m - [32m[32m✓ Scraped 1090 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:55:59,881 - [32mINFO[0m - [32m[32m✓ Scraped 1100 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:55:59,888 - [32mINFO[0m - [32m[34m💾 Saving progress: 1101 items...[0m
+2025-06-08 16:56:00,216 - [32mINFO[0m - [32m
+[32m✓ Saved 1101 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:56:00,218 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:56:00,218 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:56:00,219 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:56:01,613 - [33mWARNING[0m - [33m[33m⚠ Thread Crawler-3 did not stop gracefully[0m
+2025-06-08 16:56:01,704 - [32mINFO[0m - [32m[32m✓ Scraped 1110 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:56:03,535 - [32mINFO[0m - [32m[32m✓ Scraped 1120 items | [34mQueue: 9999 | [33mCategory: research[0m
+2025-06-08 16:56:05,382 - [32mINFO[0m - [32m[32m✓ Scraped 1130 items | [34mQueue: 9999 | [33mCategory: international[0m
+2025-06-08 16:56:06,661 - [32mINFO[0m - [32m[32m✓ Scraped 1140 items | [34mQueue: 9999 | [33mCategory: fees-scholarships[0m
+2025-06-08 16:56:07,865 - [32mINFO[0m - [32m[32m✓ Scraped 1150 items | [34mQueue: 9999 | [33mCategory: international[0m
+2025-06-08 16:56:07,865 - [32mINFO[0m - [32m[34m💾 Saving progress: 1151 items...[0m
+2025-06-08 16:56:07,989 - [32mINFO[0m - [32m
+[32m✓ Saved 1151 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:56:07,991 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:56:07,997 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:56:08,009 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 16:56:09,130 - [32mINFO[0m - [32m[32m✓ Scraped 1160 items | [34mQueue: 9999 | [33mCategory: student-support[0m
+2025-06-08 16:56:10,542 - [32mINFO[0m - [32m[32m✓ Scraped 1170 items | [34mQueue: 9999 | [33mCategory: student-support[0m
+2025-06-08 16:56:11,621 - [33mWARNING[0m - [33m[33m⚠ Thread Crawler-4 did not stop gracefully[0m
+2025-06-08 16:56:11,802 - [32mINFO[0m - [32m
+[32m✓ Saved 1175 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 16:56:11,804 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 16:56:11,804 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 16:56:11,804 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:51:50,830 - [32mINFO[0m - [32m[33m📄 Fetching sitemap from: https://www.rmit.edu.au/sitemap.xml[0m
+2025-06-08 17:51:51,852 - [32mINFO[0m - [32m[32m✓ Found 5668 valid URLs in sitemap[0m
+2025-06-08 17:51:51,853 - [32mINFO[0m - [32m[33mAdding 5672 URLs from sitemap to crawl queue...[0m
+2025-06-08 17:51:51,865 - [32mINFO[0m - [32m[33mStarting 5 crawler threads...[0m
+2025-06-08 17:51:53,866 - [32mINFO[0m - [32m[32m✓ Scraped 10 items | [34mQueue: 7518 | [33mCategory: course-information[0m
+2025-06-08 17:51:56,035 - [32mINFO[0m - [32m[32m✓ Scraped 20 items | [34mQueue: 10020 | [33mCategory: online-learning[0m
+2025-06-08 17:51:57,667 - [32mINFO[0m - [32m[32m✓ Scraped 30 items | [34mQueue: 12659 | [33mCategory: course-information[0m
+2025-06-08 17:51:59,550 - [32mINFO[0m - [32m[32m✓ Scraped 40 items | [34mQueue: 14917 | [33mCategory: course-information[0m
+2025-06-08 17:52:01,118 - [32mINFO[0m - [32m[32m✓ Scraped 50 items | [34mQueue: 14999 | [33mCategory: international[0m
+2025-06-08 17:52:01,151 - [32mINFO[0m - [32m[34m💾 Saving progress: 50 items...[0m
+2025-06-08 17:52:01,251 - [32mINFO[0m - [32m
+[32m✓ Saved 50 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:52:01,291 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:52:01,298 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:52:01,298 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:52:02,251 - [32mINFO[0m - [32m[32m✓ Scraped 60 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 17:52:03,233 - [32mINFO[0m - [32m[32m✓ Scraped 70 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 17:52:04,212 - [32mINFO[0m - [32m[32m✓ Scraped 80 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 17:52:05,112 - [32mINFO[0m - [32m[32m✓ Scraped 90 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 17:52:06,615 - [32mINFO[0m - [32m[32m✓ Scraped 100 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:52:06,620 - [32mINFO[0m - [32m[34m💾 Saving progress: 100 items...[0m
+2025-06-08 17:52:06,631 - [32mINFO[0m - [32m
+[32m✓ Saved 100 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:52:06,644 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:52:06,651 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:52:06,651 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:52:07,786 - [32mINFO[0m - [32m[32m✓ Scraped 110 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:52:09,925 - [32mINFO[0m - [32m[32m✓ Scraped 120 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:52:11,272 - [32mINFO[0m - [32m[32m✓ Scraped 130 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 17:52:12,629 - [32mINFO[0m - [32m[32m✓ Scraped 140 items | [34mQueue: 14999 | [33mCategory: international[0m
+2025-06-08 17:52:14,761 - [32mINFO[0m - [32m[32m✓ Scraped 150 items | [34mQueue: 14992 | [33mCategory: course-information[0m
+2025-06-08 17:52:14,767 - [32mINFO[0m - [32m[34m💾 Saving progress: 150 items...[0m
+2025-06-08 17:52:14,898 - [32mINFO[0m - [32m
+[32m✓ Saved 150 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:52:15,011 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:52:15,036 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:52:15,036 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:52:16,368 - [32mINFO[0m - [32m[32m✓ Scraped 160 items | [34mQueue: 14999 | [33mCategory: forms[0m
+2025-06-08 17:52:17,726 - [32mINFO[0m - [32m[32m✓ Scraped 170 items | [34mQueue: 14999 | [33mCategory: academic-info[0m
+2025-06-08 17:52:19,113 - [32mINFO[0m - [32m[32m✓ Scraped 180 items | [34mQueue: 14999 | [33mCategory: contact[0m
+2025-06-08 17:52:24,132 - [32mINFO[0m - [32m[32m✓ Scraped 190 items | [34mQueue: 14997 | [33mCategory: international[0m
+2025-06-08 17:52:25,416 - [32mINFO[0m - [32m[32m✓ Scraped 200 items | [34mQueue: 14999 | [33mCategory: international[0m
+2025-06-08 17:52:25,435 - [32mINFO[0m - [32m[34m💾 Saving progress: 200 items...[0m
+2025-06-08 17:52:25,658 - [32mINFO[0m - [32m
+[32m✓ Saved 200 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:52:25,751 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:52:25,772 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:52:25,784 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:52:27,011 - [32mINFO[0m - [32m[32m✓ Scraped 210 items | [34mQueue: 14999 | [33mCategory: international[0m
+2025-06-08 17:52:28,579 - [32mINFO[0m - [32m[32m✓ Scraped 220 items | [34mQueue: 14999 | [33mCategory: international[0m
+2025-06-08 17:52:29,922 - [32mINFO[0m - [32m[32m✓ Scraped 230 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:52:31,008 - [32mINFO[0m - [32m[32m✓ Scraped 240 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 17:52:34,138 - [32mINFO[0m - [32m[32m✓ Scraped 250 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:52:34,139 - [32mINFO[0m - [32m[34m💾 Saving progress: 250 items...[0m
+2025-06-08 17:52:34,146 - [32mINFO[0m - [32m
+[32m✓ Saved 250 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:52:34,147 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:52:34,147 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:52:34,148 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:52:36,593 - [32mINFO[0m - [32m[32m✓ Scraped 260 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:52:39,082 - [32mINFO[0m - [32m[32m✓ Scraped 270 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:52:43,369 - [32mINFO[0m - [32m[32m✓ Scraped 280 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:52:44,404 - [32mINFO[0m - [32m[32m✓ Scraped 290 items | [34mQueue: 14999 | [33mCategory: student-support[0m
+2025-06-08 17:52:45,468 - [32mINFO[0m - [32m[32m✓ Scraped 300 items | [34mQueue: 14999 | [33mCategory: research[0m
+2025-06-08 17:52:45,468 - [32mINFO[0m - [32m[34m💾 Saving progress: 300 items...[0m
+2025-06-08 17:52:45,478 - [32mINFO[0m - [32m
+[32m✓ Saved 300 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:52:45,479 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:52:45,479 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:52:45,479 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:52:46,794 - [32mINFO[0m - [32m[32m✓ Scraped 310 items | [34mQueue: 14999 | [33mCategory: policies[0m
+2025-06-08 17:52:47,961 - [32mINFO[0m - [32m[32m✓ Scraped 320 items | [34mQueue: 14999 | [33mCategory: careers[0m
+2025-06-08 17:52:49,266 - [32mINFO[0m - [32m[32m✓ Scraped 330 items | [34mQueue: 14999 | [33mCategory: student-life[0m
+2025-06-08 17:52:50,554 - [32mINFO[0m - [32m[32m✓ Scraped 340 items | [34mQueue: 14998 | [33mCategory: student-support[0m
+2025-06-08 17:52:51,634 - [32mINFO[0m - [32m[32m✓ Scraped 350 items | [34mQueue: 14999 | [33mCategory: student-support[0m
+2025-06-08 17:52:51,635 - [32mINFO[0m - [32m[34m💾 Saving progress: 350 items...[0m
+2025-06-08 17:52:51,684 - [32mINFO[0m - [32m
+[32m✓ Saved 350 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:52:51,685 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:52:51,685 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:52:51,686 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:52:52,726 - [32mINFO[0m - [32m[32m✓ Scraped 360 items | [34mQueue: 14999 | [33mCategory: student-support[0m
+2025-06-08 17:52:53,789 - [32mINFO[0m - [32m[32m✓ Scraped 370 items | [34mQueue: 14999 | [33mCategory: student-support[0m
+2025-06-08 17:52:54,861 - [32mINFO[0m - [32m[32m✓ Scraped 380 items | [34mQueue: 14997 | [33mCategory: enrollment[0m
+2025-06-08 17:52:56,263 - [32mINFO[0m - [32m[32m✓ Scraped 390 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 17:52:57,322 - [32mINFO[0m - [32m[32m✓ Scraped 400 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:52:57,323 - [32mINFO[0m - [32m[34m💾 Saving progress: 400 items...[0m
+2025-06-08 17:52:57,400 - [32mINFO[0m - [32m
+[32m✓ Saved 400 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:52:57,402 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:52:57,403 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:52:57,403 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:52:58,348 - [32mINFO[0m - [32m[32m✓ Scraped 410 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:52:59,443 - [32mINFO[0m - [32m[32m✓ Scraped 420 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:53:00,679 - [32mINFO[0m - [32m[32m✓ Scraped 430 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:53:01,918 - [32mINFO[0m - [32m[32m✓ Scraped 440 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:53:02,987 - [32mINFO[0m - [32m[32m✓ Scraped 450 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:53:02,993 - [32mINFO[0m - [32m[34m💾 Saving progress: 450 items...[0m
+2025-06-08 17:53:03,392 - [32mINFO[0m - [32m
+[32m✓ Saved 450 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:53:03,393 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:53:03,393 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:53:03,393 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:53:04,418 - [32mINFO[0m - [32m[32m✓ Scraped 460 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:53:05,708 - [32mINFO[0m - [32m[32m✓ Scraped 470 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:53:06,843 - [32mINFO[0m - [32m[32m✓ Scraped 480 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:53:07,921 - [32mINFO[0m - [32m[32m✓ Scraped 490 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:53:09,179 - [32mINFO[0m - [32m[32m✓ Scraped 500 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:53:09,184 - [32mINFO[0m - [32m[34m💾 Saving progress: 500 items...[0m
+2025-06-08 17:53:09,283 - [32mINFO[0m - [32m
+[32m✓ Saved 500 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:53:09,284 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:53:09,284 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:53:09,284 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:53:10,425 - [32mINFO[0m - [32m[32m✓ Scraped 510 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:53:11,355 - [32mINFO[0m - [32m[32m✓ Scraped 520 items | [34mQueue: 14999 | [33mCategory: academic-info[0m
+2025-06-08 17:53:12,603 - [32mINFO[0m - [32m[32m✓ Scraped 530 items | [34mQueue: 14999 | [33mCategory: academic-info[0m
+2025-06-08 17:53:13,740 - [32mINFO[0m - [32m[32m✓ Scraped 540 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:53:14,780 - [32mINFO[0m - [32m[32m✓ Scraped 550 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:53:14,781 - [32mINFO[0m - [32m[34m💾 Saving progress: 550 items...[0m
+2025-06-08 17:53:15,002 - [32mINFO[0m - [32m
+[32m✓ Saved 550 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:53:15,010 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:53:15,010 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:53:15,010 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:53:15,983 - [32mINFO[0m - [32m[32m✓ Scraped 560 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:53:17,170 - [32mINFO[0m - [32m[32m✓ Scraped 570 items | [34mQueue: 14999 | [33mCategory: academic-info[0m
+2025-06-08 17:53:18,235 - [32mINFO[0m - [32m[32m✓ Scraped 580 items | [34mQueue: 14999 | [33mCategory: online-learning[0m
+2025-06-08 17:53:19,537 - [32mINFO[0m - [32m[32m✓ Scraped 590 items | [34mQueue: 14999 | [33mCategory: student-support[0m
+2025-06-08 17:53:20,639 - [32mINFO[0m - [32m[32m✓ Scraped 600 items | [34mQueue: 14999 | [33mCategory: student-support[0m
+2025-06-08 17:53:20,639 - [32mINFO[0m - [32m[34m💾 Saving progress: 600 items...[0m
+2025-06-08 17:53:20,657 - [32mINFO[0m - [32m
+[32m✓ Saved 600 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:53:20,659 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:53:20,659 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:53:20,659 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:53:21,684 - [32mINFO[0m - [32m[32m✓ Scraped 610 items | [34mQueue: 14999 | [33mCategory: student-support[0m
+2025-06-08 17:53:22,693 - [32mINFO[0m - [32m[32m✓ Scraped 620 items | [34mQueue: 14999 | [33mCategory: student-support[0m
+2025-06-08 17:53:23,764 - [32mINFO[0m - [32m[32m✓ Scraped 630 items | [34mQueue: 14999 | [33mCategory: student-support[0m
+2025-06-08 17:53:24,820 - [32mINFO[0m - [32m[32m✓ Scraped 640 items | [34mQueue: 14999 | [33mCategory: student-support[0m
+2025-06-08 17:53:25,837 - [32mINFO[0m - [32m[32m✓ Scraped 650 items | [34mQueue: 14999 | [33mCategory: student-support[0m
+2025-06-08 17:53:25,838 - [32mINFO[0m - [32m[34m💾 Saving progress: 650 items...[0m
+2025-06-08 17:53:25,880 - [32mINFO[0m - [32m
+[32m✓ Saved 650 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:53:25,907 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:53:25,913 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:53:25,913 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:53:26,890 - [32mINFO[0m - [32m[32m✓ Scraped 660 items | [34mQueue: 14999 | [33mCategory: student-support[0m
+2025-06-08 17:53:27,956 - [32mINFO[0m - [32m[32m✓ Scraped 670 items | [34mQueue: 14999 | [33mCategory: student-support[0m
+2025-06-08 17:53:28,984 - [32mINFO[0m - [32m[32m✓ Scraped 680 items | [34mQueue: 14999 | [33mCategory: student-life[0m
+2025-06-08 17:53:30,284 - [32mINFO[0m - [32m[32m✓ Scraped 690 items | [34mQueue: 14999 | [33mCategory: contact[0m
+2025-06-08 17:53:31,329 - [32mINFO[0m - [32m[32m✓ Scraped 700 items | [34mQueue: 14999 | [33mCategory: student-life[0m
+2025-06-08 17:53:31,329 - [32mINFO[0m - [32m[34m💾 Saving progress: 700 items...[0m
+2025-06-08 17:53:31,403 - [32mINFO[0m - [32m
+[32m✓ Saved 700 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:53:31,404 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:53:31,404 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:53:31,405 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:53:32,674 - [32mINFO[0m - [32m[32m✓ Scraped 710 items | [34mQueue: 14999 | [33mCategory: student-support[0m
+2025-06-08 17:53:33,893 - [32mINFO[0m - [32m[32m✓ Scraped 720 items | [34mQueue: 14999 | [33mCategory: student-support[0m
+2025-06-08 17:53:35,105 - [32mINFO[0m - [32m[32m✓ Scraped 730 items | [34mQueue: 14999 | [33mCategory: careers[0m
+2025-06-08 17:53:36,351 - [32mINFO[0m - [32m[32m✓ Scraped 740 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:53:37,752 - [32mINFO[0m - [32m[32m✓ Scraped 750 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:53:37,752 - [32mINFO[0m - [32m[34m💾 Saving progress: 751 items...[0m
+2025-06-08 17:53:37,893 - [32mINFO[0m - [32m
+[32m✓ Saved 751 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:53:37,895 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:53:37,895 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:53:37,895 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:53:39,208 - [32mINFO[0m - [32m[32m✓ Scraped 760 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:53:40,636 - [32mINFO[0m - [32m[32m✓ Scraped 770 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:53:41,977 - [32mINFO[0m - [32m[32m✓ Scraped 780 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:53:43,383 - [32mINFO[0m - [32m[32m✓ Scraped 790 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:53:44,756 - [32mINFO[0m - [32m[32m✓ Scraped 800 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:53:44,756 - [32mINFO[0m - [32m[34m💾 Saving progress: 801 items...[0m
+2025-06-08 17:53:45,018 - [32mINFO[0m - [32m
+[32m✓ Saved 801 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:53:45,019 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:53:45,020 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:53:45,020 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:53:46,469 - [32mINFO[0m - [32m[32m✓ Scraped 810 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:53:47,850 - [32mINFO[0m - [32m[32m✓ Scraped 820 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:53:49,186 - [32mINFO[0m - [32m[32m✓ Scraped 830 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:53:50,568 - [32mINFO[0m - [32m[32m✓ Scraped 840 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:53:51,955 - [32mINFO[0m - [32m[32m✓ Scraped 850 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:53:51,955 - [32mINFO[0m - [32m[34m💾 Saving progress: 851 items...[0m
+2025-06-08 17:53:52,236 - [32mINFO[0m - [32m
+[32m✓ Saved 851 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:53:52,237 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:53:52,237 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:53:52,237 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:53:53,614 - [32mINFO[0m - [32m[32m✓ Scraped 860 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:53:54,969 - [32mINFO[0m - [32m[32m✓ Scraped 870 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:53:56,343 - [32mINFO[0m - [32m[32m✓ Scraped 880 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:53:58,164 - [32mINFO[0m - [32m[32m✓ Scraped 890 items | [34mQueue: 14999 | [33mCategory: research[0m
+2025-06-08 17:53:59,867 - [32mINFO[0m - [32m[32m✓ Scraped 900 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:53:59,868 - [32mINFO[0m - [32m[34m💾 Saving progress: 901 items...[0m
+2025-06-08 17:54:00,377 - [32mINFO[0m - [32m
+[32m✓ Saved 901 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:54:00,379 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:54:00,379 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:54:00,379 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:54:02,116 - [32mINFO[0m - [32m[32m✓ Scraped 910 items | [34mQueue: 14999 | [33mCategory: research[0m
+2025-06-08 17:54:03,664 - [32mINFO[0m - [32m[32m✓ Scraped 920 items | [34mQueue: 14999 | [33mCategory: research[0m
+2025-06-08 17:54:05,050 - [32mINFO[0m - [32m[32m✓ Scraped 930 items | [34mQueue: 14999 | [33mCategory: research[0m
+2025-06-08 17:54:06,667 - [32mINFO[0m - [32m[32m✓ Scraped 940 items | [34mQueue: 14999 | [33mCategory: research[0m
+2025-06-08 17:54:08,365 - [32mINFO[0m - [32m[32m✓ Scraped 950 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:54:08,365 - [32mINFO[0m - [32m[34m💾 Saving progress: 951 items...[0m
+2025-06-08 17:54:08,581 - [32mINFO[0m - [32m
+[32m✓ Saved 951 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:54:08,583 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:54:08,583 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:54:08,584 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:54:10,158 - [32mINFO[0m - [32m[32m✓ Scraped 960 items | [34mQueue: 14999 | [33mCategory: research[0m
+2025-06-08 17:54:11,733 - [32mINFO[0m - [32m[32m✓ Scraped 970 items | [34mQueue: 14999 | [33mCategory: research[0m
+2025-06-08 17:54:13,347 - [32mINFO[0m - [32m[32m✓ Scraped 980 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:54:14,949 - [32mINFO[0m - [32m[32m✓ Scraped 990 items | [34mQueue: 14999 | [33mCategory: research[0m
+2025-06-08 17:54:16,614 - [32mINFO[0m - [32m[32m✓ Scraped 1000 items | [34mQueue: 14999 | [33mCategory: research[0m
+2025-06-08 17:54:16,615 - [32mINFO[0m - [32m[34m💾 Saving progress: 1001 items...[0m
+2025-06-08 17:54:17,128 - [32mINFO[0m - [32m
+[32m✓ Saved 1001 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:54:17,130 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:54:17,130 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:54:17,130 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:54:18,977 - [32mINFO[0m - [32m[32m✓ Scraped 1010 items | [34mQueue: 14999 | [33mCategory: research[0m
+2025-06-08 17:54:20,440 - [32mINFO[0m - [32m[32m✓ Scraped 1020 items | [34mQueue: 14999 | [33mCategory: research[0m
+2025-06-08 17:54:22,177 - [32mINFO[0m - [32m[32m✓ Scraped 1030 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:54:23,745 - [32mINFO[0m - [32m[32m✓ Scraped 1040 items | [34mQueue: 14999 | [33mCategory: research[0m
+2025-06-08 17:54:25,483 - [32mINFO[0m - [32m[32m✓ Scraped 1050 items | [34mQueue: 14999 | [33mCategory: research[0m
+2025-06-08 17:54:25,483 - [32mINFO[0m - [32m[34m💾 Saving progress: 1051 items...[0m
+2025-06-08 17:54:25,805 - [32mINFO[0m - [32m
+[32m✓ Saved 1051 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:54:25,809 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:54:25,809 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:54:25,809 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:54:27,475 - [32mINFO[0m - [32m[32m✓ Scraped 1060 items | [34mQueue: 14999 | [33mCategory: research[0m
+2025-06-08 17:54:29,112 - [32mINFO[0m - [32m[32m✓ Scraped 1070 items | [34mQueue: 14999 | [33mCategory: research[0m
+2025-06-08 17:54:31,447 - [32mINFO[0m - [32m[32m✓ Scraped 1080 items | [34mQueue: 14999 | [33mCategory: research[0m
+2025-06-08 17:54:33,204 - [32mINFO[0m - [32m[32m✓ Scraped 1090 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:54:34,944 - [32mINFO[0m - [32m[32m✓ Scraped 1100 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:54:34,944 - [32mINFO[0m - [32m[34m💾 Saving progress: 1101 items...[0m
+2025-06-08 17:54:34,979 - [32mINFO[0m - [32m
+[32m✓ Saved 1101 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:54:34,982 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:54:34,982 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:54:34,982 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:54:36,741 - [32mINFO[0m - [32m[32m✓ Scraped 1110 items | [34mQueue: 14999 | [33mCategory: subject-information[0m
+2025-06-08 17:54:38,519 - [32mINFO[0m - [32m[32m✓ Scraped 1120 items | [34mQueue: 14999 | [33mCategory: research[0m
+2025-06-08 17:54:40,434 - [32mINFO[0m - [32m[32m✓ Scraped 1130 items | [34mQueue: 14999 | [33mCategory: research[0m
+2025-06-08 17:54:42,208 - [32mINFO[0m - [32m[32m✓ Scraped 1140 items | [34mQueue: 14999 | [33mCategory: research[0m
+2025-06-08 17:54:43,965 - [32mINFO[0m - [32m[32m✓ Scraped 1150 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:54:43,965 - [32mINFO[0m - [32m[34m💾 Saving progress: 1151 items...[0m
+2025-06-08 17:54:44,328 - [32mINFO[0m - [32m
+[32m✓ Saved 1151 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:54:44,330 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:54:44,330 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:54:44,330 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:54:46,057 - [32mINFO[0m - [32m[32m✓ Scraped 1160 items | [34mQueue: 14999 | [33mCategory: research[0m
+2025-06-08 17:54:47,829 - [32mINFO[0m - [32m[32m✓ Scraped 1170 items | [34mQueue: 14999 | [33mCategory: fees-scholarships[0m
+2025-06-08 17:54:49,273 - [32mINFO[0m - [32m[32m✓ Scraped 1180 items | [34mQueue: 14999 | [33mCategory: careers[0m
+2025-06-08 17:54:50,478 - [32mINFO[0m - [32m[32m✓ Scraped 1190 items | [34mQueue: 14999 | [33mCategory: international[0m
+2025-06-08 17:54:51,723 - [32mINFO[0m - [32m[32m✓ Scraped 1200 items | [34mQueue: 14999 | [33mCategory: subject-information[0m
+2025-06-08 17:54:51,723 - [32mINFO[0m - [32m[34m💾 Saving progress: 1201 items...[0m
+2025-06-08 17:54:51,824 - [32mINFO[0m - [32m
+[32m✓ Saved 1201 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:54:51,826 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:54:51,827 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:54:51,827 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:54:53,143 - [32mINFO[0m - [32m[32m✓ Scraped 1210 items | [34mQueue: 14999 | [33mCategory: student-support[0m
+2025-06-08 17:54:54,766 - [32mINFO[0m - [32m[32m✓ Scraped 1220 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 17:54:56,039 - [32mINFO[0m - [32m[32m✓ Scraped 1230 items | [34mQueue: 14999 | [33mCategory: student-support[0m
+2025-06-08 17:54:57,586 - [32mINFO[0m - [32m[32m✓ Scraped 1240 items | [34mQueue: 14999 | [33mCategory: student-support[0m
+2025-06-08 17:54:59,541 - [32mINFO[0m - [32m[32m✓ Scraped 1250 items | [34mQueue: 14999 | [33mCategory: forms[0m
+2025-06-08 17:54:59,541 - [32mINFO[0m - [32m[34m💾 Saving progress: 1251 items...[0m
+2025-06-08 17:54:59,579 - [32mINFO[0m - [32m
+[32m✓ Saved 1251 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:54:59,581 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:54:59,581 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:54:59,581 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:55:00,598 - [32mINFO[0m - [32m[32m✓ Scraped 1260 items | [34mQueue: 14999 | [33mCategory: careers[0m
+2025-06-08 17:55:01,399 - [32mINFO[0m - [32m[32m✓ Scraped 1270 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 17:55:02,412 - [32mINFO[0m - [32m[32m✓ Scraped 1280 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 17:55:03,444 - [32mINFO[0m - [32m[32m✓ Scraped 1290 items | [34mQueue: 14999 | [33mCategory: subject-information[0m
+2025-06-08 17:55:04,309 - [32mINFO[0m - [32m[32m✓ Scraped 1300 items | [34mQueue: 14999 | [33mCategory: student-support[0m
+2025-06-08 17:55:04,309 - [32mINFO[0m - [32m[34m💾 Saving progress: 1301 items...[0m
+2025-06-08 17:55:04,348 - [32mINFO[0m - [32m
+[32m✓ Saved 1301 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:55:04,350 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:55:04,351 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:55:04,351 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:55:05,309 - [32mINFO[0m - [32m[32m✓ Scraped 1310 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:55:06,274 - [32mINFO[0m - [32m[32m✓ Scraped 1320 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 17:55:07,127 - [32mINFO[0m - [32m[32m✓ Scraped 1330 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 17:55:08,096 - [32mINFO[0m - [32m[32m✓ Scraped 1340 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:55:09,188 - [32mINFO[0m - [32m[32m✓ Scraped 1350 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 17:55:09,188 - [32mINFO[0m - [32m[34m💾 Saving progress: 1351 items...[0m
+2025-06-08 17:55:09,300 - [32mINFO[0m - [32m
+[32m✓ Saved 1351 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:55:09,303 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:55:09,303 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:55:09,303 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:55:10,243 - [32mINFO[0m - [32m[32m✓ Scraped 1360 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:55:11,111 - [32mINFO[0m - [32m[32m✓ Scraped 1370 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:55:12,123 - [32mINFO[0m - [32m[32m✓ Scraped 1380 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:55:12,960 - [32mINFO[0m - [32m[32m✓ Scraped 1390 items | [34mQueue: 14999 | [33mCategory: online-learning[0m
+2025-06-08 17:55:13,968 - [32mINFO[0m - [32m[32m✓ Scraped 1400 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:55:13,968 - [32mINFO[0m - [32m[34m💾 Saving progress: 1401 items...[0m
+2025-06-08 17:55:14,026 - [32mINFO[0m - [32m
+[32m✓ Saved 1401 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:55:14,029 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:55:14,029 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:55:14,029 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:55:14,832 - [32mINFO[0m - [32m[32m✓ Scraped 1410 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:55:15,940 - [32mINFO[0m - [32m[32m✓ Scraped 1420 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 17:55:16,777 - [32mINFO[0m - [32m[32m✓ Scraped 1430 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 17:55:18,247 - [32mINFO[0m - [32m[32m✓ Scraped 1440 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:55:19,379 - [32mINFO[0m - [32m[32m✓ Scraped 1450 items | [34mQueue: 14999 | [33mCategory: careers[0m
+2025-06-08 17:55:19,379 - [32mINFO[0m - [32m[34m💾 Saving progress: 1451 items...[0m
+2025-06-08 17:55:19,436 - [32mINFO[0m - [32m
+[32m✓ Saved 1451 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:55:19,438 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:55:19,438 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:55:19,438 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:55:20,879 - [32mINFO[0m - [32m[32m✓ Scraped 1460 items | [34mQueue: 14999 | [33mCategory: subject-information[0m
+2025-06-08 17:55:22,306 - [32mINFO[0m - [32m[32m✓ Scraped 1470 items | [34mQueue: 14999 | [33mCategory: online-learning[0m
+2025-06-08 17:55:23,760 - [32mINFO[0m - [32m[32m✓ Scraped 1480 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 17:55:24,937 - [32mINFO[0m - [32m[32m✓ Scraped 1490 items | [34mQueue: 14999 | [33mCategory: student-support[0m
+2025-06-08 17:55:26,366 - [32mINFO[0m - [32m[32m✓ Scraped 1500 items | [34mQueue: 14999 | [33mCategory: faq[0m
+2025-06-08 17:55:26,366 - [32mINFO[0m - [32m[34m💾 Saving progress: 1502 items...[0m
+2025-06-08 17:55:26,428 - [32mINFO[0m - [32m
+[32m✓ Saved 1502 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:55:26,446 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:55:26,446 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:55:26,446 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:55:27,918 - [32mINFO[0m - [32m[32m✓ Scraped 1510 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 17:55:29,434 - [32mINFO[0m - [32m[32m✓ Scraped 1520 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:55:30,579 - [32mINFO[0m - [32m[32m✓ Scraped 1530 items | [34mQueue: 14999 | [33mCategory: forms[0m
+2025-06-08 17:55:31,957 - [32mINFO[0m - [32m[32m✓ Scraped 1540 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:55:33,107 - [32mINFO[0m - [32m[32m✓ Scraped 1550 items | [34mQueue: 14998 | [33mCategory: enrollment[0m
+2025-06-08 17:55:33,107 - [32mINFO[0m - [32m[34m💾 Saving progress: 1552 items...[0m
+2025-06-08 17:55:33,190 - [32mINFO[0m - [32m
+[32m✓ Saved 1552 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:55:33,193 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:55:33,193 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:55:33,193 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:55:35,069 - [32mINFO[0m - [32m[32m✓ Scraped 1560 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:55:36,993 - [32mINFO[0m - [32m[32m✓ Scraped 1570 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:55:39,442 - [32mINFO[0m - [32m[32m✓ Scraped 1580 items | [34mQueue: 14998 | [33mCategory: forms[0m
+2025-06-08 17:55:41,695 - [32mINFO[0m - [32m[32m✓ Scraped 1590 items | [34mQueue: 14999 | [33mCategory: academic-info[0m
+2025-06-08 17:55:44,241 - [32mINFO[0m - [32m[32m✓ Scraped 1600 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:55:44,242 - [32mINFO[0m - [32m[34m💾 Saving progress: 1602 items...[0m
+2025-06-08 17:55:44,290 - [32mINFO[0m - [32m
+[32m✓ Saved 1602 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:55:44,292 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:55:44,292 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:55:44,292 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:55:46,843 - [32mINFO[0m - [32m[32m✓ Scraped 1610 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:55:49,751 - [32mINFO[0m - [32m[32m✓ Scraped 1620 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:55:52,100 - [32mINFO[0m - [32m[32m✓ Scraped 1630 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:55:54,552 - [32mINFO[0m - [32m[32m✓ Scraped 1640 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:55:57,108 - [32mINFO[0m - [32m[32m✓ Scraped 1650 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:55:57,108 - [32mINFO[0m - [32m[34m💾 Saving progress: 1652 items...[0m
+2025-06-08 17:55:57,160 - [32mINFO[0m - [32m
+[32m✓ Saved 1652 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:55:57,163 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:55:57,163 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:55:57,163 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:56:00,037 - [32mINFO[0m - [32m[32m✓ Scraped 1660 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:56:02,356 - [32mINFO[0m - [32m[32m✓ Scraped 1670 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:56:04,829 - [32mINFO[0m - [32m[32m✓ Scraped 1680 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:56:07,614 - [32mINFO[0m - [32m[32m✓ Scraped 1690 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:56:10,324 - [32mINFO[0m - [32m[32m✓ Scraped 1700 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:56:10,324 - [32mINFO[0m - [32m[34m💾 Saving progress: 1702 items...[0m
+2025-06-08 17:56:10,456 - [32mINFO[0m - [32m
+[32m✓ Saved 1702 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:56:10,496 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:56:10,503 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:56:10,508 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:56:12,711 - [32mINFO[0m - [32m[32m✓ Scraped 1710 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:56:14,956 - [32mINFO[0m - [32m[32m✓ Scraped 1720 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:56:17,310 - [32mINFO[0m - [32m[32m✓ Scraped 1730 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:56:20,474 - [32mINFO[0m - [32m[32m✓ Scraped 1740 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:56:23,011 - [32mINFO[0m - [32m[32m✓ Scraped 1750 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:56:23,012 - [32mINFO[0m - [32m[34m💾 Saving progress: 1752 items...[0m
+2025-06-08 17:56:23,064 - [32mINFO[0m - [32m
+[32m✓ Saved 1752 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:56:23,066 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:56:23,066 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:56:23,066 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:56:25,724 - [32mINFO[0m - [32m[32m✓ Scraped 1760 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:56:28,613 - [32mINFO[0m - [32m[32m✓ Scraped 1770 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:56:31,271 - [32mINFO[0m - [32m[32m✓ Scraped 1780 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:56:33,728 - [32mINFO[0m - [32m[32m✓ Scraped 1790 items | [34mQueue: 14999 | [33mCategory: forms[0m
+2025-06-08 17:56:37,109 - [32mINFO[0m - [32m[32m✓ Scraped 1800 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:56:37,110 - [32mINFO[0m - [32m[34m💾 Saving progress: 1803 items...[0m
+2025-06-08 17:56:37,164 - [32mINFO[0m - [32m
+[32m✓ Saved 1803 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:56:37,167 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:56:37,167 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:56:37,168 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:56:40,452 - [32mINFO[0m - [32m[32m✓ Scraped 1810 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:56:44,781 - [32mINFO[0m - [32m[32m✓ Scraped 1820 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:56:47,880 - [32mINFO[0m - [32m[32m✓ Scraped 1830 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:56:50,952 - [32mINFO[0m - [32m[32m✓ Scraped 1840 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 17:56:54,158 - [32mINFO[0m - [32m[32m✓ Scraped 1850 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 17:56:54,158 - [32mINFO[0m - [32m[34m💾 Saving progress: 1853 items...[0m
+2025-06-08 17:56:54,215 - [32mINFO[0m - [32m
+[32m✓ Saved 1853 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:56:54,218 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:56:54,218 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:56:54,218 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:56:58,706 - [32mINFO[0m - [32m[32m✓ Scraped 1860 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:57:02,399 - [32mINFO[0m - [32m[32m✓ Scraped 1870 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:57:04,934 - [32mINFO[0m - [32m[32m✓ Scraped 1880 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:57:07,698 - [32mINFO[0m - [32m[32m✓ Scraped 1890 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:57:10,755 - [32mINFO[0m - [32m[32m✓ Scraped 1900 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:57:10,755 - [32mINFO[0m - [32m[34m💾 Saving progress: 1903 items...[0m
+2025-06-08 17:57:10,973 - [32mINFO[0m - [32m
+[32m✓ Saved 1903 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:57:10,976 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:57:10,976 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:57:10,976 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:57:14,665 - [32mINFO[0m - [32m[32m✓ Scraped 1910 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:57:18,430 - [32mINFO[0m - [32m[32m✓ Scraped 1920 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:57:21,819 - [32mINFO[0m - [32m[32m✓ Scraped 1930 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:57:25,366 - [32mINFO[0m - [32m[32m✓ Scraped 1940 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:57:29,061 - [32mINFO[0m - [32m[32m✓ Scraped 1950 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:57:29,061 - [32mINFO[0m - [32m[34m💾 Saving progress: 1953 items...[0m
+2025-06-08 17:57:29,138 - [32mINFO[0m - [32m
+[32m✓ Saved 1953 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:57:29,179 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:57:29,191 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:57:29,197 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:57:33,125 - [32mINFO[0m - [32m[32m✓ Scraped 1960 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:57:36,209 - [32mINFO[0m - [32m[32m✓ Scraped 1970 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:57:39,700 - [32mINFO[0m - [32m[32m✓ Scraped 1980 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:57:42,855 - [32mINFO[0m - [32m[32m✓ Scraped 1990 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:57:46,278 - [32mINFO[0m - [32m[32m✓ Scraped 2000 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:57:46,278 - [32mINFO[0m - [32m[34m💾 Saving progress: 2003 items...[0m
+2025-06-08 17:57:46,610 - [32mINFO[0m - [32m
+[32m✓ Saved 2003 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:57:46,614 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:57:46,614 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:57:46,614 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:57:50,185 - [32mINFO[0m - [32m[32m✓ Scraped 2010 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:57:53,122 - [32mINFO[0m - [32m[32m✓ Scraped 2020 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:57:56,348 - [32mINFO[0m - [32m[32m✓ Scraped 2030 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:58:00,001 - [32mINFO[0m - [32m[32m✓ Scraped 2040 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:58:03,479 - [32mINFO[0m - [32m[32m✓ Scraped 2050 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:58:03,479 - [32mINFO[0m - [32m[34m💾 Saving progress: 2053 items...[0m
+2025-06-08 17:58:03,602 - [32mINFO[0m - [32m
+[32m✓ Saved 2053 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:58:03,606 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:58:03,606 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:58:03,606 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:58:07,030 - [32mINFO[0m - [32m[32m✓ Scraped 2060 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:58:10,061 - [32mINFO[0m - [32m[32m✓ Scraped 2070 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:58:13,928 - [32mINFO[0m - [32m[32m✓ Scraped 2080 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:58:19,467 - [32mINFO[0m - [32m[32m✓ Scraped 2090 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:58:22,830 - [32mINFO[0m - [32m[32m✓ Scraped 2100 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:58:22,830 - [32mINFO[0m - [32m[34m💾 Saving progress: 2103 items...[0m
+2025-06-08 17:58:22,896 - [32mINFO[0m - [32m
+[32m✓ Saved 2103 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:58:22,900 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:58:22,901 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:58:22,901 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:58:26,238 - [32mINFO[0m - [32m[32m✓ Scraped 2110 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:58:29,783 - [32mINFO[0m - [32m[32m✓ Scraped 2120 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:58:34,712 - [32mINFO[0m - [32m[32m✓ Scraped 2130 items | [34mQueue: 14997 | [33mCategory: course-information[0m
+2025-06-08 17:58:39,146 - [32mINFO[0m - [32m[32m✓ Scraped 2140 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:58:42,372 - [32mINFO[0m - [32m[32m✓ Scraped 2150 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:58:42,372 - [32mINFO[0m - [32m[34m💾 Saving progress: 2153 items...[0m
+2025-06-08 17:58:42,446 - [32mINFO[0m - [32m
+[32m✓ Saved 2153 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:58:42,450 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:58:42,450 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:58:42,450 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:58:45,523 - [32mINFO[0m - [32m[32m✓ Scraped 2160 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:58:48,707 - [32mINFO[0m - [32m[32m✓ Scraped 2170 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:58:52,241 - [32mINFO[0m - [32m[32m✓ Scraped 2180 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:58:55,503 - [32mINFO[0m - [32m[32m✓ Scraped 2190 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:58:58,480 - [32mINFO[0m - [32m[32m✓ Scraped 2200 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:58:58,480 - [32mINFO[0m - [32m[34m💾 Saving progress: 2203 items...[0m
+2025-06-08 17:58:58,551 - [32mINFO[0m - [32m
+[32m✓ Saved 2203 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:58:58,554 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:58:58,554 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:58:58,554 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:59:01,590 - [32mINFO[0m - [32m[32m✓ Scraped 2210 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:59:04,925 - [32mINFO[0m - [32m[32m✓ Scraped 2220 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:59:08,510 - [32mINFO[0m - [32m[32m✓ Scraped 2230 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:59:12,419 - [32mINFO[0m - [32m[32m✓ Scraped 2240 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:59:15,840 - [32mINFO[0m - [32m[32m✓ Scraped 2250 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:59:15,840 - [32mINFO[0m - [32m[34m💾 Saving progress: 2253 items...[0m
+2025-06-08 17:59:15,913 - [32mINFO[0m - [32m
+[32m✓ Saved 2253 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:59:15,917 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:59:15,917 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:59:15,917 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:59:19,631 - [32mINFO[0m - [32m[32m✓ Scraped 2260 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:59:23,282 - [32mINFO[0m - [32m[32m✓ Scraped 2270 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:59:27,056 - [32mINFO[0m - [32m[32m✓ Scraped 2280 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:59:30,715 - [32mINFO[0m - [32m[32m✓ Scraped 2290 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:59:34,513 - [32mINFO[0m - [32m[32m✓ Scraped 2300 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:59:34,513 - [32mINFO[0m - [32m[34m💾 Saving progress: 2303 items...[0m
+2025-06-08 17:59:34,587 - [32mINFO[0m - [32m
+[32m✓ Saved 2303 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:59:34,591 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:59:34,591 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:59:34,591 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:59:37,721 - [32mINFO[0m - [32m[32m✓ Scraped 2310 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:59:41,408 - [32mINFO[0m - [32m[32m✓ Scraped 2320 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:59:44,898 - [32mINFO[0m - [32m[32m✓ Scraped 2330 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:59:49,213 - [32mINFO[0m - [32m[32m✓ Scraped 2340 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 17:59:52,627 - [32mINFO[0m - [32m[32m✓ Scraped 2350 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 17:59:52,627 - [32mINFO[0m - [32m[34m💾 Saving progress: 2353 items...[0m
+2025-06-08 17:59:52,708 - [32mINFO[0m - [32m
+[32m✓ Saved 2353 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 17:59:52,712 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 17:59:52,712 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 17:59:52,712 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 17:59:56,614 - [32mINFO[0m - [32m[32m✓ Scraped 2360 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 18:00:00,238 - [32mINFO[0m - [32m[32m✓ Scraped 2370 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 18:00:03,626 - [32mINFO[0m - [32m[32m✓ Scraped 2380 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 18:00:07,424 - [32mINFO[0m - [32m[32m✓ Scraped 2390 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 18:00:11,434 - [32mINFO[0m - [32m[32m✓ Scraped 2400 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 18:00:11,434 - [32mINFO[0m - [32m[34m💾 Saving progress: 2403 items...[0m
+2025-06-08 18:00:11,510 - [32mINFO[0m - [32m
+[32m✓ Saved 2403 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 18:00:11,513 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 18:00:11,513 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 18:00:11,514 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 18:00:15,172 - [32mINFO[0m - [32m[32m✓ Scraped 2410 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 18:00:18,821 - [32mINFO[0m - [32m[32m✓ Scraped 2420 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 18:00:22,436 - [32mINFO[0m - [32m[32m✓ Scraped 2430 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 18:00:25,744 - [32mINFO[0m - [32m[32m✓ Scraped 2440 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 18:00:29,378 - [32mINFO[0m - [32m[32m✓ Scraped 2450 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 18:00:29,378 - [32mINFO[0m - [32m[34m💾 Saving progress: 2453 items...[0m
+2025-06-08 18:00:29,640 - [32mINFO[0m - [32m
+[32m✓ Saved 2453 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 18:00:29,644 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 18:00:29,644 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 18:00:29,644 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 18:00:33,717 - [32mINFO[0m - [32m[32m✓ Scraped 2460 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 18:00:37,550 - [32mINFO[0m - [32m[32m✓ Scraped 2470 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 18:00:41,377 - [32mINFO[0m - [32m[32m✓ Scraped 2480 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 18:00:45,292 - [32mINFO[0m - [32m[32m✓ Scraped 2490 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 18:00:48,781 - [32mINFO[0m - [32m[32m✓ Scraped 2500 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 18:00:48,781 - [32mINFO[0m - [32m[34m💾 Saving progress: 2503 items...[0m
+2025-06-08 18:00:49,042 - [32mINFO[0m - [32m
+[32m✓ Saved 2503 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 18:00:49,045 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 18:00:49,045 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 18:00:49,045 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 18:00:53,137 - [32mINFO[0m - [32m[32m✓ Scraped 2510 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 18:00:56,784 - [32mINFO[0m - [32m[32m✓ Scraped 2520 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 18:01:00,667 - [32mINFO[0m - [32m[32m✓ Scraped 2530 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 18:01:04,191 - [32mINFO[0m - [32m[32m✓ Scraped 2540 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 18:01:08,470 - [32mINFO[0m - [32m[32m✓ Scraped 2550 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 18:01:08,470 - [32mINFO[0m - [32m[34m💾 Saving progress: 2553 items...[0m
+2025-06-08 18:01:08,741 - [32mINFO[0m - [32m
+[32m✓ Saved 2553 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 18:01:08,745 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 18:01:08,745 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 18:01:08,745 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 18:01:12,522 - [32mINFO[0m - [32m[32m✓ Scraped 2560 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 18:01:16,747 - [32mINFO[0m - [32m[32m✓ Scraped 2570 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 18:01:20,562 - [32mINFO[0m - [32m[32m✓ Scraped 2580 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 18:01:24,179 - [32mINFO[0m - [32m[32m✓ Scraped 2590 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 18:01:27,986 - [32mINFO[0m - [32m[32m✓ Scraped 2600 items | [34mQueue: 14999 | [33mCategory: student-life[0m
+2025-06-08 18:01:27,987 - [32mINFO[0m - [32m[34m💾 Saving progress: 2603 items...[0m
+2025-06-08 18:01:28,075 - [32mINFO[0m - [32m
+[32m✓ Saved 2603 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 18:01:28,079 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 18:01:28,079 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 18:01:28,079 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 18:01:30,792 - [32mINFO[0m - [32m[32m✓ Scraped 2610 items | [34mQueue: 14999 | [33mCategory: forms[0m
+2025-06-08 18:01:35,408 - [32mINFO[0m - [32m[32m✓ Scraped 2620 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 18:01:40,029 - [32mINFO[0m - [32m[32m✓ Scraped 2630 items | [34mQueue: 14999 | [33mCategory: forms[0m
+2025-06-08 18:01:51,039 - [32mINFO[0m - [32m[32m✓ Scraped 2640 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 18:02:03,782 - [32mINFO[0m - [32m[32m✓ Scraped 2650 items | [34mQueue: 14997 | [33mCategory: course-information[0m
+2025-06-08 18:02:03,783 - [32mINFO[0m - [32m[34m💾 Saving progress: 2654 items...[0m
+2025-06-08 18:02:03,870 - [32mINFO[0m - [32m
+[32m✓ Saved 2654 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 18:02:03,874 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 18:02:03,874 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 18:02:03,874 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 18:02:14,242 - [32mINFO[0m - [32m[32m✓ Scraped 2660 items | [34mQueue: 14998 | [33mCategory: course-information[0m
+2025-06-08 18:02:27,474 - [32mINFO[0m - [32m[32m✓ Scraped 2670 items | [34mQueue: 14997 | [33mCategory: course-information[0m
+2025-06-08 18:02:41,826 - [32mINFO[0m - [32m[32m✓ Scraped 2680 items | [34mQueue: 14997 | [33mCategory: research[0m
+2025-06-08 18:02:56,133 - [32mINFO[0m - [32m[32m✓ Scraped 2690 items | [34mQueue: 14997 | [33mCategory: research[0m
+2025-06-08 18:03:10,411 - [32mINFO[0m - [32m[32m✓ Scraped 2700 items | [34mQueue: 14997 | [33mCategory: research[0m
+2025-06-08 18:03:10,412 - [32mINFO[0m - [32m[34m💾 Saving progress: 2704 items...[0m
+2025-06-08 18:03:10,503 - [32mINFO[0m - [32m
+[32m✓ Saved 2704 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 18:03:10,508 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 18:03:10,508 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 18:03:10,508 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 18:03:23,926 - [32mINFO[0m - [32m[32m✓ Scraped 2710 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 18:03:36,081 - [32mINFO[0m - [32m[32m✓ Scraped 2720 items | [34mQueue: 14997 | [33mCategory: course-information[0m
+2025-06-08 18:03:50,927 - [32mINFO[0m - [32m[32m✓ Scraped 2730 items | [34mQueue: 14997 | [33mCategory: course-information[0m
+2025-06-08 18:04:02,275 - [32mINFO[0m - [32m[32m✓ Scraped 2740 items | [34mQueue: 14997 | [33mCategory: course-information[0m
+2025-06-08 18:04:48,420 - [32mINFO[0m - [32m[32m✓ Scraped 2750 items | [34mQueue: 14999 | [33mCategory: online-learning[0m
+2025-06-08 18:04:48,421 - [32mINFO[0m - [32m[34m💾 Saving progress: 2754 items...[0m
+2025-06-08 18:04:48,508 - [32mINFO[0m - [32m
+[32m✓ Saved 2754 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 18:04:48,511 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 18:04:48,511 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 18:04:48,511 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 18:04:59,656 - [32mINFO[0m - [32m[32m✓ Scraped 2760 items | [34mQueue: 14999 | [33mCategory: online-learning[0m
+2025-06-08 18:05:05,970 - [32mINFO[0m - [32m[32m✓ Scraped 2770 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 18:05:10,938 - [32mINFO[0m - [32m[32m✓ Scraped 2780 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 18:05:16,261 - [32mINFO[0m - [32m[32m✓ Scraped 2790 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 18:05:21,460 - [32mINFO[0m - [32m[32m✓ Scraped 2800 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 18:05:21,460 - [32mINFO[0m - [32m[34m💾 Saving progress: 2804 items...[0m
+2025-06-08 18:05:21,551 - [32mINFO[0m - [32m
+[32m✓ Saved 2804 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 18:05:21,556 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 18:05:21,556 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 18:05:21,556 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 18:05:26,854 - [32mINFO[0m - [32m[32m✓ Scraped 2810 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 18:05:31,872 - [32mINFO[0m - [32m[32m✓ Scraped 2820 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 18:05:36,926 - [32mINFO[0m - [32m[32m✓ Scraped 2830 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 18:05:42,088 - [32mINFO[0m - [32m[32m✓ Scraped 2840 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 18:05:47,306 - [32mINFO[0m - [32m[32m✓ Scraped 2850 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 18:05:47,306 - [32mINFO[0m - [32m[34m💾 Saving progress: 2854 items...[0m
+2025-06-08 18:05:47,397 - [32mINFO[0m - [32m
+[32m✓ Saved 2854 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 18:05:47,403 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 18:05:47,403 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 18:05:47,404 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 18:05:53,609 - [32mINFO[0m - [32m[32m✓ Scraped 2860 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 18:05:58,720 - [32mINFO[0m - [32m[32m✓ Scraped 2870 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 18:06:03,849 - [32mINFO[0m - [32m[32m✓ Scraped 2880 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 18:06:09,004 - [32mINFO[0m - [32m[32m✓ Scraped 2890 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 18:06:15,012 - [32mINFO[0m - [32m[32m✓ Scraped 2900 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 18:06:15,012 - [32mINFO[0m - [32m[34m💾 Saving progress: 2904 items...[0m
+2025-06-08 18:06:15,107 - [32mINFO[0m - [32m
+[32m✓ Saved 2904 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 18:06:15,111 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 18:06:15,111 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 18:06:15,111 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 18:06:19,887 - [32mINFO[0m - [32m[32m✓ Scraped 2910 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 18:06:24,433 - [32mINFO[0m - [32m[32m✓ Scraped 2920 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 18:06:29,819 - [32mINFO[0m - [32m[32m✓ Scraped 2930 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 18:06:34,590 - [32mINFO[0m - [32m[32m✓ Scraped 2940 items | [34mQueue: 14999 | [33mCategory: enrollment[0m
+2025-06-08 18:06:39,768 - [32mINFO[0m - [32m[32m✓ Scraped 2950 items | [34mQueue: 14999 | [33mCategory: faq[0m
+2025-06-08 18:06:39,768 - [32mINFO[0m - [32m[34m💾 Saving progress: 2954 items...[0m
+2025-06-08 18:06:39,866 - [32mINFO[0m - [32m
+[32m✓ Saved 2954 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 18:06:39,870 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 18:06:39,870 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 18:06:39,870 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 18:06:44,368 - [32mINFO[0m - [32m[32m✓ Scraped 2960 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 18:06:48,818 - [32mINFO[0m - [32m[32m✓ Scraped 2970 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 18:06:53,696 - [32mINFO[0m - [32m[32m✓ Scraped 2980 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 18:06:58,383 - [32mINFO[0m - [32m[32m✓ Scraped 2990 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 18:07:02,996 - [32mINFO[0m - [32m[32m✓ Scraped 3000 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 18:07:02,996 - [32mINFO[0m - [32m[34m💾 Saving progress: 3004 items...[0m
+2025-06-08 18:07:03,095 - [32mINFO[0m - [32m
+[32m✓ Saved 3004 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 18:07:03,100 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 18:07:03,101 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 18:07:03,101 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m
+2025-06-08 18:07:08,128 - [32mINFO[0m - [32m[32m✓ Scraped 3010 items | [34mQueue: 14999 | [33mCategory: course-information[0m
+2025-06-08 18:07:13,999 - [32mINFO[0m - [32m[32m✓ Scraped 3020 items | [34mQueue: 14999 | [33mCategory: forms[0m
+2025-06-08 18:08:33,436 - [33mWARNING[0m - [33m[33m⚠ No progress for 60 seconds, stopping...[0m
+2025-06-08 18:08:33,437 - [32mINFO[0m - [32m[33m🛑 Stopping crawler threads...[0m
+2025-06-08 18:08:33,549 - [32mINFO[0m - [32m
+[32m✓ Saved 3026 records to: rmit_knowledge_base/rmit_knowledge_base.json[0m
+2025-06-08 18:08:33,555 - [32mINFO[0m - [32m[32m✓ Saved summary to: rmit_knowledge_base/scraping_summary.json[0m
+2025-06-08 18:08:33,555 - [32mINFO[0m - [32m
+[33m📁 Output files ready in: rmit_knowledge_base/[0m
+2025-06-08 18:08:33,555 - [32mINFO[0m - [32m[36mUse rmit_knowledge_base.json for your database seeding script[0m[0m

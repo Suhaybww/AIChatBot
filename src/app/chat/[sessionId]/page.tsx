@@ -2,7 +2,7 @@ import { requireAuth } from "@/lib/auth";
 import { ChatInterface } from "@/components/chat/ChatInterface";
 import { ErrorBoundary } from "@/components/error/ErrorBoundary";
 import { redirect } from "next/navigation";
-import { db } from "@/server/db";
+import { db } from "@/server/db/db";
 
 // Force dynamic rendering for this page
 export const dynamic = 'force-dynamic';

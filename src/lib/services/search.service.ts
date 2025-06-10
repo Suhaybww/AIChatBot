@@ -245,7 +245,6 @@ export class SearchService {
 
   private async performRMITWebSearch(
     query: string, 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _enhancedTerms: string[],
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _searchIntent: ReturnType<typeof this.analyzeSearchIntent>

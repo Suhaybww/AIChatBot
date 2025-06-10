@@ -26,14 +26,9 @@ export function MemoryManagement({}: MemoryManagementProps) {
   const [daysToClean, setDaysToClean] = useState(30);
   const [isCleaningUp, setIsCleaningUp] = useState(false);
 
-  // Get user insights
-  const { data: insights, isLoading: insightsLoading, refetch: refetchInsights } = 
-    api.chat.getUserInsights.useQuery();
-
   // Cleanup mutation
-  const cleanupMutation = api.chat.cleanupOldContext.useMutation({
+  const cleanupMutation = api.chat.clearAllSessions.useMutation({
     onSuccess: () => {
-      refetchInsights();
       setIsCleaningUp(false);
     },
     onError: (error) => {
@@ -45,13 +40,13 @@ export function MemoryManagement({}: MemoryManagementProps) {
   const handleCleanup = async () => {
     setIsCleaningUp(true);
     try {
-      await cleanupMutation.mutateAsync({ daysOld: daysToClean });
+      await cleanupMutation.mutateAsync();
     } catch (error) {
       console.error("Error during cleanup:", error);
     }
   };
 
-  if (insightsLoading) {
+  if (false) {
     return (
       <Card className="bg-gray-800 border-gray-700">
         <CardHeader>
@@ -83,36 +78,34 @@ export function MemoryManagement({}: MemoryManagementProps) {
           </p>
         </CardHeader>
         <CardContent>
-          {insights && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-gray-700/30 rounded-lg p-4">
-                <div className="flex items-center space-x-2 mb-2">
-                  <MessageSquare className="w-4 h-4 text-green-400" />
-                  <span className="text-sm font-medium text-gray-300">Total Sessions</span>
-                </div>
-                <div className="text-2xl font-bold text-white">{insights.totalSessions}</div>
-                <div className="text-xs text-gray-400">Conversation threads</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-700/30 rounded-lg p-4">
+              <div className="flex items-center space-x-2 mb-2">
+                <MessageSquare className="w-4 h-4 text-green-400" />
+                <span className="text-sm font-medium text-gray-300">Total Sessions</span>
               </div>
-
-              <div className="bg-gray-700/30 rounded-lg p-4">
-                <div className="flex items-center space-x-2 mb-2">
-                  <TrendingUp className="w-4 h-4 text-blue-400" />
-                  <span className="text-sm font-medium text-gray-300">Total Messages</span>
-                </div>
-                <div className="text-2xl font-bold text-white">{insights.totalMessages}</div>
-                <div className="text-xs text-gray-400">Messages exchanged</div>
-              </div>
-
-              <div className="bg-gray-700/30 rounded-lg p-4">
-                <div className="flex items-center space-x-2 mb-2">
-                  <Sparkles className="w-4 h-4 text-purple-400" />
-                  <span className="text-sm font-medium text-gray-300">Context Mode</span>
-                </div>
-                <div className="text-xl font-bold text-white">Session Only</div>
-                <div className="text-xs text-gray-400">Per-conversation context</div>
-              </div>
+              <div className="text-2xl font-bold text-white">-</div>
+              <div className="text-xs text-gray-400">Conversation threads</div>
             </div>
-          )}
+
+            <div className="bg-gray-700/30 rounded-lg p-4">
+              <div className="flex items-center space-x-2 mb-2">
+                <TrendingUp className="w-4 h-4 text-blue-400" />
+                <span className="text-sm font-medium text-gray-300">Total Messages</span>
+              </div>
+              <div className="text-2xl font-bold text-white">-</div>
+              <div className="text-xs text-gray-400">Messages exchanged</div>
+            </div>
+
+            <div className="bg-gray-700/30 rounded-lg p-4">
+              <div className="flex items-center space-x-2 mb-2">
+                <Sparkles className="w-4 h-4 text-purple-400" />
+                <span className="text-sm font-medium text-gray-300">Context Mode</span>
+              </div>
+              <div className="text-xl font-bold text-white">Session Only</div>
+              <div className="text-xs text-gray-400">Per-conversation context</div>
+            </div>
+          </div>
         </CardContent>
       </Card>
 

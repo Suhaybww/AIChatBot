@@ -3,7 +3,7 @@ import type { BedrockService } from "./bedrock.service";
 
 export interface ClaudeMessage {
   role: "user" | "assistant";
-  content: string | any[];
+  content: string | unknown[];
 }
 
 export interface ClaudeOptions {

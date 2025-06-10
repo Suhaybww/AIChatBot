@@ -1,4 +1,4 @@
-import { db } from "@/server/db";
+import { db } from '@/server/db/db';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 

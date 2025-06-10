@@ -8,7 +8,24 @@
       "Bash(npx tsc:*)",
       "Bash(curl:*)",
       "Bash(rm:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(mkdir:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(npm install:*)",
+      "Bash(npm --version)",
+      "Bash(npm config get:*)",
+      "WebFetch(domain:www.rmit.edu.au)",
+      "WebFetch(domain:my.rmit.edu.au)",
+      "WebFetch(domain:www.rmit.edu.au)",
+      "WebFetch(domain:www.rmit.edu.au)",
+      "WebFetch(domain:www.rmit.edu.au)",
+      "WebFetch(domain:www.rmit.edu.au)",
+      "WebFetch(domain:www.rmit.edu.au)",
+      "WebFetch(domain:www.rmit.edu.au)",
+      "WebFetch(domain:google.serper.dev)",
+      "Bash(mv:*)",
+      "Bash(chmod:*)",
+      "Bash(./test-search-integration.sh:*)"
     ],
     "deny": []
   }

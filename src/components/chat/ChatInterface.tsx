@@ -17,6 +17,7 @@ import {
   Check,
   Loader2,
   Globe,
+  Square,
 } from "lucide-react";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { api } from "@/lib/trpc";
@@ -83,6 +84,8 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
   const [currentSessionId, setCurrentSessionId] = useState<string | null>(sessionId || null);
   const [hasRedirected, setHasRedirected] = useState(false);
   const [searchMode, setSearchMode] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [abortController, setAbortController] = useState<AbortController | null>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -238,7 +241,12 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsLoading(true);
+    setIsGenerating(true);
     setAutoScroll(true);
+    
+    // Create abort controller for this request
+    const controller = new AbortController();
+    setAbortController(controller);
     
     // Keep search mode on - user controls when to turn it off
 
@@ -261,6 +269,12 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
           content: textToSend, 
           sessionId: currentSessionId || undefined 
         });
+      }
+
+      // Check if request was aborted
+      if (controller.signal.aborted) {
+        console.log('Request was aborted');
+        return;
       }
 
       console.log('Received response:', response);
@@ -300,6 +314,8 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
+      setIsGenerating(false);
+      setAbortController(null);
     }
   };
 
@@ -307,6 +323,25 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSendMessage();
+    }
+  };
+
+  const handleStopGeneration = () => {
+    if (abortController) {
+      console.log('Stopping AI generation...');
+      abortController.abort();
+      setIsGenerating(false);
+      setIsLoading(false);
+      setAbortController(null);
+      
+      // Add a message indicating the generation was stopped
+      const stopMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: "Generation stopped by user.",
+        role: "ASSISTANT",
+        createdAt: new Date(),
+      };
+      setMessages((prev) => [...prev, stopMessage]);
     }
   };
 
@@ -616,7 +651,7 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
                           </div>
 
                           <div
-                            className="prose prose-sm max-w-none text-gray-400 prose-strong:text-gray-300 text-sm sm:text-base leading-relaxed"
+                            className="prose prose-sm max-w-none text-gray-400 prose-strong:text-gray-300 text-sm sm:text-base leading-relaxed selection:bg-blue-500 selection:text-white"
                             dangerouslySetInnerHTML={{
                               __html: formatMessage(message.content),
                             }}
@@ -633,8 +668,8 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
                                 </svg>
                               </summary>
                               
-                              <div className="mt-2 space-y-1">
-                                {message.searchResults.results.slice(0, 3).map((result) => (
+                              <div className="mt-2 space-y-1 max-h-96 overflow-y-auto">
+                                {message.searchResults.results.map((result) => (
                                   <div key={result.id} className="text-xs border border-gray-700/20 rounded p-2 bg-gray-800/20">
                                     <div className="flex items-start justify-between">
                                       <div className="flex-1 min-w-0">
@@ -780,16 +815,27 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
                   <Globe className={`w-3 h-3 sm:w-4 sm:h-4 ${searchMode ? 'text-white' : ''}`} />
                 </Button>
                 
-                {/* Send Button */}
-                <Button
-                  onClick={() => handleSendMessage()}
-                  disabled={!input.trim() || isLoading}
-                  size="sm"
-                  className="bg-red-600 hover:bg-red-700 disabled:bg-gray-700 disabled:text-gray-500 text-white w-8 h-8 sm:w-9 sm:h-9 p-0 transition-all duration-200 hover:scale-105 disabled:hover:scale-100 rounded-lg shadow-lg"
-                  title="Send message"
-                >
-                  <Send className="w-3 h-3 sm:w-4 sm:h-4" />
-                </Button>
+                {/* Send/Stop Button */}
+                {isGenerating ? (
+                  <Button
+                    onClick={handleStopGeneration}
+                    size="sm"
+                    className="bg-orange-600 hover:bg-orange-700 text-white w-8 h-8 sm:w-9 sm:h-9 p-0 transition-all duration-200 hover:scale-105 rounded-lg shadow-lg"
+                    title="Stop generation"
+                  >
+                    <Square className="w-3 h-3 sm:w-4 sm:h-4" />
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={() => handleSendMessage()}
+                    disabled={!input.trim() || isLoading}
+                    size="sm"
+                    className="bg-red-600 hover:bg-red-700 disabled:bg-gray-700 disabled:text-gray-500 text-white w-8 h-8 sm:w-9 sm:h-9 p-0 transition-all duration-200 hover:scale-105 disabled:hover:scale-100 rounded-lg shadow-lg"
+                    title="Send message"
+                  >
+                    <Send className="w-3 h-3 sm:w-4 sm:h-4" />
+                  </Button>
+                )}
               </div>
             </div>
 

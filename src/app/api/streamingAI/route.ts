@@ -1,5 +1,4 @@
 import { NextRequest } from "next/server";
-import { streamingClaude } from "@/lib/stream";
 
 export const runtime = "edge"
 
@@ -8,11 +7,21 @@ export async function POST(req: NextRequest) {
 
     if (!message || typeof message !== "string")
     {
-        return new Response("Message Missing or Invalide", { status: 400 });
+        return new Response("Message Missing or Invalid", { status: 400 });
     }
 
     try {
-        const stream = await streamingClaude(message)
+        // Simple edge-compatible response
+        // For full AI functionality, use the main tRPC endpoints instead
+        const response = `Received: "${message}". For full AI responses with search and context, please use the main chat interface.`;
+
+        // Return as a simple stream
+        const stream = new ReadableStream({
+            start(controller) {
+                controller.enqueue(new TextEncoder().encode(response));
+                controller.close();
+            }
+        });
 
         return new Response(stream, {
             headers: {

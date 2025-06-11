@@ -64,6 +64,7 @@ export class AIOrchestrator {
       userId,
       maxTokens,
       temperature,
+      imageUrl,
       searchOptions = {}
     } = options;
 
@@ -84,7 +85,8 @@ export class AIOrchestrator {
       userMessage, 
       forceSearch, 
       allowAutoSearch, 
-      conversationHistory
+      conversationHistory,
+      !!imageUrl
     );
 
     let searchResults: SearchResponse | null = null;
@@ -114,9 +116,12 @@ export class AIOrchestrator {
         console.error('❌ Search failed:', error);
         // Continue without search results rather than failing entirely
       }
+    } else {
+      console.log(`🚫 Skipping search (reason: ${searchDecision.reason})`);
     }
 
     // Create enhanced prompt
+    console.log(`📝 Creating prompt. hasContext: ${!!context}, hasSearchResults: ${!!searchResults}, hasImage: ${!!imageUrl}`);
     let enhancedPrompt: string;
     if (context) {
       enhancedPrompt = this.contextService.createContextualPrompt(
@@ -130,10 +135,25 @@ export class AIOrchestrator {
 
     // Generate AI response
     console.log('🤖 Generating AI response...');
-    const response = await this.aiService.sendMessage(enhancedPrompt, {
-      maxTokens: maxTokens || 1000,
-      temperature: temperature || 0.7
-    });
+    let response: string;
+    
+    if (imageUrl) {
+      // Use image analysis capability with enhanced prompt
+      response = await this.aiService.sendMessageWithImage(
+        enhancedPrompt,
+        imageUrl,
+        {
+          maxTokens: maxTokens || 1000,
+          temperature: temperature || 0.7
+        }
+      );
+    } else {
+      // Standard text response
+      response = await this.aiService.sendMessage(enhancedPrompt, {
+        maxTokens: maxTokens || 1000,
+        temperature: temperature || 0.7
+      });
+    }
 
     // Determine response confidence
     const confidence = this.assessResponseConfidence(
@@ -165,9 +185,16 @@ export class AIOrchestrator {
     userMessage: string,
     forceSearch: boolean,
     allowAutoSearch: boolean,
-    conversationHistory: string[]
+    conversationHistory: string[],
+    hasImage?: boolean
   ): Promise<{ shouldSearch: boolean; reason: string }> {
-    // Always search if forced
+    // CRITICAL: Images always take priority - never search when images are present
+    if (hasImage) {
+      console.log(`🖼️ Image detected - NEVER searching. forceSearch: ${forceSearch}, userMessage: "${userMessage}"`);
+      return { shouldSearch: false, reason: 'Image detected - pure image analysis takes absolute priority' };
+    }
+
+    // Always search if forced (text only)
     if (forceSearch) {
       return { shouldSearch: true, reason: 'Forced search requested' };
     }

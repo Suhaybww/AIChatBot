@@ -150,7 +150,7 @@ export class SearchService {
       return {
         results: topResults,
         query,
-        totalResults: rankedResults.length,
+        totalResults: topResults.length,  // Use actual returned results count, not total found
         searchTime,
         sources
       };
@@ -177,10 +177,11 @@ export class SearchService {
           rmit_official: basicWebResults.length
         };
         
+        const limitedResults = allResults.slice(0, this.MAX_RESULTS);
         return {
-          results: allResults.slice(0, this.MAX_RESULTS),
+          results: limitedResults,
           query,
-          totalResults: allResults.length,
+          totalResults: limitedResults.length,  // Use actual returned results count
           searchTime: Date.now() - startTime,
           sources
         };

@@ -124,33 +124,25 @@ export const chatRouter = createTRPCRouter({
         // PHASE 2: Generate AI response
         console.log(`🤖 Processing message for session ${sessionInfo.sessionId}`);
         
-        let aiResponse;
-        if (input.imageUrl) {
-          // Handle image analysis using modular orchestrator
-          aiResponse = await aiOrchestrator.processImageWithAI(
-            input.content,
-            input.imageUrl,
-            {
-              maxTokens: 1000,
-              temperature: 0.7
-            }
-          );
-        } else {
-          // Use orchestrator for text-only messages with search capabilities
-          aiResponse = await aiOrchestrator.generateResponse(input.content, {
-            allowAutoSearch: input.enableSearch,
-            includeContext: true,
-            sessionId: sessionInfo.sessionId,
-            userId,
-            maxTokens: 1000,
-            temperature: 0.7
-          });
+        // Use orchestrator with intelligent search and image support
+        let aiResponse = await aiOrchestrator.generateResponse(input.content, {
+          forceSearch: input.enableSearch === true,  // Convert enableSearch to forceSearch when explicitly enabled
+          allowAutoSearch: input.enableSearch !== false,  // Allow auto-search unless explicitly disabled
+          includeContext: true,
+          sessionId: sessionInfo.sessionId,
+          userId,
+          imageUrl: input.imageUrl,
+          maxTokens: 1000,
+          temperature: 0.7
+        });
 
-          if (!aiResponse.response) {
-            // Try fallback response
-            const fallbackResponse = await aiOrchestrator.generateFallbackResponse(input.content);
-            aiResponse.response = fallbackResponse.response;
-          }
+        if (!aiResponse.response) {
+          // Try fallback response
+          const fallbackResponse = await aiOrchestrator.generateFallbackResponse(input.content);
+          aiResponse = {
+            ...aiResponse,
+            response: fallbackResponse.response
+          };
         }
 
         // PHASE 3: Save AI response and prepare result

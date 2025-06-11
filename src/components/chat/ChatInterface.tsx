@@ -18,12 +18,12 @@ import {
   Loader2,
   Globe,
   Square,
+  X,
+  Image as ImageIcon,
 } from "lucide-react";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { api } from "@/lib/trpc";
 import { useRouter } from "next/navigation";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileArrowUp } from '@fortawesome/free-solid-svg-icons';
 
 interface SerializedSearchResults {
   results: Array<{
@@ -55,6 +55,7 @@ interface Message {
   searchResults?: SerializedSearchResults | null;
   searchQuery?: string;
   imageUrl?: string | null;
+  imageUrls?: string[];
 }
 
 interface ChatInterfaceProps {
@@ -119,13 +120,14 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
   const [searchMode, setSearchMode] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [abortController, setAbortController] = useState<AbortController | null>(null);
+  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   const { mutateAsync: sendMessage } = api.chat.sendMessage.useMutation();
-  const { mutateAsync: sendMessageWithSearch } = api.chat.sendMessageWithSearch.useMutation();
   const { data: sessionData, isLoading: sessionLoading, error: sessionError } = api.chat.getSession.useQuery(
     { sessionId: sessionId! },
     { 
@@ -244,21 +246,25 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
 
   const handleSendMessage = async (messageText?: string, imageUrl?: string) => {
     const textToSend = messageText || input;
-    if ((!textToSend.trim() && !imageUrl) || isLoading) return;
+    const imagesToSend = imageUrl ? [imageUrl] : uploadedImages;
+    if ((!textToSend.trim() && imagesToSend.length === 0) || isLoading) return;
 
     const willSearch = searchMode;
     console.log('Sending message:', textToSend, 'Current session ID:', currentSessionId, 'Search mode:', willSearch);
 
     const userMessage: Message = {
       id: Date.now().toString(),
-      content: textToSend || "Image uploaded",
+      content: textToSend || (imagesToSend.length > 1 ? `${imagesToSend.length} images uploaded` : "Image uploaded"),
       role: "USER",
       createdAt: new Date(),
-      imageUrl: imageUrl
+      imageUrl: imagesToSend[0] || null,
+      imageUrls: imagesToSend.length > 0 ? imagesToSend : undefined
     };
 
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
+    setUploadedImages([]);
+    setImagePreviews([]);
     setIsLoading(true);
     setIsGenerating(true);
     setAutoScroll(true);
@@ -272,23 +278,13 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
     setTimeout(() => scrollToBottom(true), 50);
 
     try {
-      let response: { message: string; sessionId: string; isNewSession: boolean; messageId: string; searchResults?: SerializedSearchResults | null };
-
-      if (willSearch) {
-        // Use search-enabled endpoint
-        response = await sendMessageWithSearch({ 
-          content: textToSend || "Please analyze this image", 
-          sessionId: currentSessionId || undefined,
-          forceSearch: true
-        });
-      } else {
-        // Use regular endpoint (may still trigger automatic search)
-        response = await sendMessage({ 
-          content: textToSend || "Please analyze this image", 
-          sessionId: currentSessionId || undefined,
-          imageUrl: imageUrl
-        });
-      }
+      // Always use the regular sendMessage endpoint - it supports both images and smart search decisions
+      const response = await sendMessage({ 
+        content: textToSend || "Please analyze this image", 
+        sessionId: currentSessionId || undefined,
+        imageUrl: imagesToSend[0] || undefined,
+        enableSearch: willSearch  // Let orchestrator make intelligent decisions
+      });
 
       // Check if request was aborted
       if (controller.signal.aborted) {
@@ -641,14 +637,22 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
                             </span>
                           </div>
 
-                          {message.imageUrl && (
+                          {(message.imageUrls || (message.imageUrl ? [message.imageUrl] : [])).length > 0 && (
                             <div className="mb-2">
-                              {/* eslint-disable-next-line @next/next/no-img-element */}
-                              <img 
-                                src={message.imageUrl} 
-                                alt="Uploaded content"
-                                className="max-w-sm rounded-lg shadow-lg border border-gray-700"
-                              />
+                              <div className="flex flex-wrap gap-2">
+                                {(message.imageUrls || [message.imageUrl!]).map((url, index) => (
+                                  url && (
+                                    <div key={index} className="relative">
+                                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                                      <img 
+                                        src={url} 
+                                        alt={`Uploaded content ${index + 1}`}
+                                        className="max-w-sm max-h-64 rounded-lg shadow-lg border border-gray-700 object-cover"
+                                      />
+                                    </div>
+                                  )
+                                ))}
+                              </div>
                             </div>
                           )}
 
@@ -784,6 +788,60 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
 
         <div className="flex-shrink-0 border-t border-gray-700 bg-gray-900 p-3 sm:p-4 relative z-20">
           <div className="max-w-4xl mx-auto">
+            {/* Image Previews */}
+            {imagePreviews.length > 0 && (
+              <div className="mb-3 p-3 bg-gray-800 rounded-lg border border-gray-700">
+                <div className="flex items-start space-x-3">
+                  <div className="flex space-x-2 flex-wrap">
+                    {imagePreviews.map((preview, index) => (
+                      <div key={index} className="relative">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img 
+                          src={preview} 
+                          alt={`Preview ${index + 1}`} 
+                          className="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-lg border border-gray-600"
+                        />
+                        <Button
+                          onClick={() => {
+                            setUploadedImages(prev => prev.filter((_, i) => i !== index));
+                            setImagePreviews(prev => prev.filter((_, i) => i !== index));
+                          }}
+                          variant="ghost"
+                          size="sm"
+                          className="absolute -top-2 -right-2 w-6 h-6 p-0 text-gray-400 hover:text-gray-200 bg-gray-900 hover:bg-gray-700 rounded-full border border-gray-600"
+                          title="Remove image"
+                        >
+                          <X className="w-3 h-3" />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-gray-300">
+                          {imagePreviews.length === 1 ? 'Image ready to send' : `${imagePreviews.length} images ready to send`}
+                        </p>
+                        <p className="text-xs text-gray-500">Add a message or send as-is</p>
+                      </div>
+                      <Button
+                        onClick={() => {
+                          setUploadedImages([]);
+                          setImagePreviews([]);
+                        }}
+                        variant="ghost"
+                        size="sm"
+                        className="w-8 h-8 p-0 text-gray-400 hover:text-gray-200 hover:bg-gray-700 rounded-full"
+                        title="Remove all images"
+                      >
+                        <X className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            
             <div className="relative flex">
               <Input
                 ref={inputRef}
@@ -814,14 +872,39 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
                 </Button>
                 
                 {/* Image Upload Button */}
-                <label className="cursor-pointer text-gray-400 hover:text-white transition-colors duration-200">
-                  <FontAwesomeIcon icon={faFileArrowUp} className="w-4 h-4" />
-                  <input type="file"
+                <div className="relative">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      const input = document.getElementById('image-upload-input') as HTMLInputElement;
+                      input?.click();
+                    }}
+                    className={`w-8 h-8 sm:w-9 sm:h-9 p-0 transition-all duration-200 hover:scale-105 rounded-lg ${
+                      uploadedImages.length > 0 
+                        ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+                        : 'bg-gray-700 hover:bg-gray-600 text-gray-400 hover:text-white'
+                    }`}
+                    title={uploadedImages.length > 0 ? `${uploadedImages.length} image${uploadedImages.length > 1 ? 's' : ''} ready` : "Upload image"}
+                    disabled={uploadedImages.length >= 3}
+                  >
+                    <ImageIcon className="w-3 h-3 sm:w-4 sm:h-4" />
+                  </Button>
+                  <input 
+                    id="image-upload-input"
+                    type="file"
                     accept="image/*"
-                    hidden
+                    className="hidden"
                     onChange={async (e) => {
                       const file = e.target.files?.[0];
                       if (!file) return;
+                      
+                      // Check if we already have 3 images
+                      if (uploadedImages.length >= 3) {
+                        console.warn('Maximum 3 images allowed');
+                        return;
+                      }
 
                       try {
                         const reader = new FileReader();
@@ -829,7 +912,8 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
                           const base64 = reader.result as string;
                           try {
                             const compressedImage = await compressImage(base64);
-                            handleSendMessage(undefined, compressedImage);
+                            setUploadedImages(prev => [...prev, compressedImage]);
+                            setImagePreviews(prev => [...prev, compressedImage]);
                           } catch (error) {
                             console.error('Failed to compress image:', error);
                           }
@@ -841,7 +925,7 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
                       }
                     }}
                   />
-                </label>
+                </div>
                 
                 {/* Send/Stop Button */}
                 {isGenerating ? (
@@ -856,7 +940,7 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
                 ) : (
                   <Button
                     onClick={() => handleSendMessage()}
-                    disabled={(!input.trim() && !isLoading) || isLoading}
+                    disabled={(!input.trim() && uploadedImages.length === 0) || isLoading}
                     size="sm"
                     className="bg-red-600 hover:bg-red-700 disabled:bg-gray-700 disabled:text-gray-500 text-white w-8 h-8 sm:w-9 sm:h-9 p-0 transition-all duration-200 hover:scale-105 disabled:hover:scale-100 rounded-lg shadow-lg"
                     title="Send message"
@@ -873,6 +957,9 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
               <span> for current information</span>
               {searchMode && (
                 <span className="text-blue-400 ml-2">• Search mode active</span>
+              )}
+              {uploadedImages.length > 0 && (
+                <span className="text-green-400 ml-2">• {uploadedImages.length} image{uploadedImages.length > 1 ? 's' : ''} ready to send</span>
               )}
             </div>
           </div>

@@ -49,27 +49,182 @@ model Message {
   @@map("messages")
 }
 
-model KnowledgeBase {
-  id            String   @id @default(cuid())
-  title         String
-  content       String
-  category      String
-  sourceUrl     String   @map("source_url")
-  tags          String[]
-  priority      Int      @default(0)
-  isActive      Boolean  @default(true) @map("is_active")
-  createdAt     DateTime @default(now()) @map("created_at")
-  updatedAt     DateTime @updatedAt @map("updated_at")
-  structuredData Json?   @map("structured_data")
+// ==============================================================================
+// ACADEMIC KNOWLEDGE BASE - Optimized for RAG
+// ==============================================================================
 
-  @@map("knowledge_base")
-  @@index([category])
+// Schools/Faculties for hierarchical organization (FINISHED)
+model AcademicSchool {
+  id          String    @id @default(cuid())
+  name        String    @unique // "School of Computing Technologies"
+  shortName   String?   // "Computing"
+  faculty     String?   // "Science, Engineering and Technology"
+  description String?
+  website     String?
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  programs    Program[]
+  courses     Course[]
+
+  @@map("academic_schools")
+  @@index([name])
+  @@index([faculty])
+}
+
+// Academic Programs (Degrees) - Specific table for programs only
+model Program {
+  id             String         @id @default(cuid())
+  code           String         @unique // "BP162", "MC001", etc.
+  title          String         // "Bachelor of Information Technology"
+  level          ProgramLevel   // BACHELOR, MASTER, DOCTORATE, etc.
+  duration       String?        // "3 years full-time"
+  deliveryMode   DeliveryMode[] // [ON_CAMPUS, ONLINE, BLENDED]
+  campus         String[]       // ["Melbourne City", "Online"]
+  
+  // Content for RAG
+  description    String?        // Full program description
+  careerOutcomes String?        // What jobs you can get
+  entryRequirements String?     // Admission requirements
+  fees           String?        // Fee information
+  
+  // Coordinator info
+  coordinatorName  String? @map("coordinator_name")
+  coordinatorEmail String? @map("coordinator_email")
+  coordinatorPhone String? @map("coordinator_phone")
+  
+  // Additional structured data (flexible)
+  structuredData Json?    @map("structured_data")
+  tags           String[] // ["IT", "technology", "bachelor", etc.]
+  
+  // Metadata
+  schoolId   String?         @map("school_id")
+  school     AcademicSchool? @relation(fields: [schoolId], references: [id])
+  sourceUrl  String?         @map("source_url")
+  embedding  Json?           // Vector embedding for RAG
+  isActive   Boolean         @default(true) @map("is_active")
+  createdAt  DateTime        @default(now()) @map("created_at")
+  updatedAt  DateTime        @updatedAt @map("updated_at")
+  
+  @@map("programs")
+  @@index([code])
+  @@index([level])
+  @@index([title])
+  @@index([schoolId])
   @@index([isActive])
+  @@index([deliveryMode])
+  @@index([tags])
+}
+
+// Academic Information - FAQs, policies, support services, general info
+model AcademicInformation {
+  id          String   @id @default(cuid())
+  title       String   // "How to Enroll", "Academic Integrity Policy", "Student Support Services"
+  content     String   // Full content
+  category    String   // "faq", "policies", "student-support", "enrollment", "fees-scholarships", etc.
+  subcategory String?  // "Academic Policy", "Career Services", "FAQ", etc.
+  tags        String[] // ["policy", "student", "support", "enrollment", etc.]
+  priority    Int      @default(5) // Higher = more important (1-10)
+  
+  // Structured data (flexible JSON for different content types)
+  structuredData Json? @map("structured_data") // Policy numbers, contact info, etc.
+  
+  // Metadata
+  sourceUrl String?  @map("source_url")
+  embedding Json?    // Vector embedding for RAG
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  
+  @@map("academic_information")
+  @@index([category])
+  @@index([subcategory])
   @@index([priority])
+  @@index([isActive])
+  @@index([tags])
+}
+
+// Individual Courses/Subjects (FINISHED)
+model Course {
+  id              String              @id @default(cuid())
+  code            String              @unique // "COSC1111"
+  title           String              // "Programming Fundamentals"
+  creditPoints    Int?                // 12
+  level           CourseLevel         // UNDERGRADUATE, POSTGRADUATE
+  deliveryMode    DeliveryMode[]      // [ON_CAMPUS, ONLINE]
+  campus          String[]            // ["Melbourne City"]
+  
+  // Academic Content for RAG
+  description     String?             // Course overview
+  learningOutcomes String?            // What students will learn
+  assessmentTasks String?             // How students are assessed
+  hurdleRequirement String?           // Must-pass requirements
+  
+  // Prerequisites & Corequisites
+  prerequisites   String?             // "COSC1076 OR COSC1078"
+  corequisites    String?             // "MATH1234"
+  
+  // Coordinator info
+  coordinatorName  String?  @map("coordinator_name")
+  coordinatorEmail String?  @map("coordinator_email")
+  coordinatorPhone String?  @map("coordinator_phone")
+  
+  // Metadata
+  schoolId        String?             @map("school_id")
+  school          AcademicSchool?     @relation(fields: [schoolId], references: [id])
+  sourceUrl       String?             @map("source_url")
+  isActive        Boolean             @default(true) @map("is_active")
+  
+  // Vector embedding for semantic search (stored as JSON for flexibility)
+  embedding       Json?            // Vector embedding for RAG
+  
+  // Timestamps
+  createdAt       DateTime            @default(now()) @map("created_at")
+  updatedAt       DateTime            @updatedAt @map("updated_at")
+  
+  
+  @@map("courses")
+  @@index([code])
+  @@index([title])
+  @@index([level])
+  @@index([schoolId])
+  @@index([isActive])
+  @@index([deliveryMode])
+  @@index([creditPoints])
 }
 
 
+// Enums
 enum Role {
   USER
   ASSISTANT
+}
+
+enum ProgramLevel {
+  DIPLOMA
+  BACHELOR
+  BACHELOR_HONOURS
+  MASTER
+  DOCTORATE
+  CERTIFICATE
+  
+  @@map("program_level")
+}
+
+
+enum CourseLevel {
+  UNDERGRADUATE
+  POSTGRADUATE
+  
+  @@map("course_level")
+}
+
+enum DeliveryMode {
+  ON_CAMPUS
+  ONLINE
+  BLENDED
+  DISTANCE
+  
+  @@map("delivery_mode")
 }

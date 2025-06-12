@@ -25,7 +25,18 @@
       "WebFetch(domain:google.serper.dev)",
       "Bash(mv:*)",
       "Bash(chmod:*)",
-      "Bash(./test-search-integration.sh:*)"
+      "Bash(./test-search-integration.sh:*)",
+      "Bash(/Users/suhayb/.nvm/versions/node/v18.20.3/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/arm64-darwin/rg -A 20 -B 5 \"course_code.*COSC1111\" rmit_course_details.json)",
+      "Bash(/Users/suhayb/.nvm/versions/node/v18.20.3/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/arm64-darwin/rg -c \"COSC1111\" rmit_course_details.json)",
+      "Bash(/Users/suhayb/.nvm/versions/node/v18.20.3/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/arm64-darwin/rg -c \"COSC1111\" rmit_knowledge_base.json)",
+      "Bash(/Users/suhayb/.nvm/versions/node/v18.20.3/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/arm64-darwin/rg -B 2 -A 2 \"COSC1111\" rmit_course_details.json)",
+      "Bash(/Users/suhayb/.nvm/versions/node/v18.20.3/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/arm64-darwin/rg -B 10 -A 10 \"Data Communication and Net-Centric Computing.*COSC1111\" rmit_knowledge_base.json)",
+      "Bash(/Users/suhayb/.nvm/versions/node/v18.20.3/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/arm64-darwin/rg -B 2 -A 2 \"https://www1.rmit.edu.au/courses/004110\" rmit_course_details.json)",
+      "Bash(/Users/suhayb/.nvm/versions/node/v18.20.3/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/arm64-darwin/rg -c \"https://www1.rmit.edu.au/courses/004110\" rmit_course_details.json)",
+      "Bash(/Users/suhayb/.nvm/versions/node/v18.20.3/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/arm64-darwin/rg -A 50 \"https://www1.rmit.edu.au/courses/004110\" rmit_knowledge_base.json)",
+      "Bash(/Users/suhayb/.nvm/versions/node/v18.20.3/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/arm64-darwin/rg -B 5 -A 10 \"004110\" rmit_knowledge_base.json)",
+      "Bash(ls:*)",
+      "Bash(python:*)"
     ],
     "deny": []
   }

@@ -1,0 +1,62 @@
+{
+  "scrape_date": "2025-06-12T20:24:15.101216",
+  "total_courses": 5680,
+  "total_schools": 14,
+  "statistics": {
+    "total_urls": 8541,
+    "successful": 5680,
+    "failed": 2861,
+    "skipped": 0
+  },
+  "configuration": {
+    "max_workers": 5,
+    "rate_limit": 0.2,
+    "timeout": 30
+  },
+  "database_schema_version": "1.0",
+  "files_generated": {
+    "courses": "rmit_knowledge_base/courses_data.json",
+    "schools": "rmit_knowledge_base/schools_data.json"
+  },
+  "sample_course": {
+    "id": "course_acct1018",
+    "code": "ACCT1018",
+    "title": "Financial Planning",
+    "level": "UNDERGRADUATE",
+    "creditPoints": 12,
+    "deliveryMode": [
+      "ON_CAMPUS",
+      "ONLINE"
+    ],
+    "campus": [
+      "Online",
+      "Melbourne City",
+      "Vietnam"
+    ],
+    "description": "The course is designed for students wishing to gain an introductory understanding to financial planning and wealth creation You will gain an understanding of major areas that need to be considered when developing a financial plan. Such important considerations include: superannuation, share investment, insurance and tax considerations impacting on an individuals ability to create wealth. It also considers broader subjective issues such as attitudes to risk and the timing and relevance of investment divestment decisions throughout the life of an individual. Financial Planning is an elective unit in the Bachelor of Business (Accountancy) degree and is open to all students. If you are undertaking this course in Melbourne from semester 2, 2012 onwards your teacher will advise you if you require access to a computer for the course. It is recommended that you have access to a mobile computing device to allow greater flexibility in terms of where you can work on campus outside class times.",
+    "learningOutcomes": "Upon successful completion of this course you will have a greater awareness of key success factors that impact financial planning and wealth creation. The course will provide you with a basic understanding of the many issues that impact designing a financial plan. This course offers a firm foundation of which to build a financial planning career or alternatively as a source of information to assist in promoting personal wealth creation. In addition, the course provides an opportunity for you to develop generic capabilities. These include the ability to: Identify, understand an apply financial planning concepts Make judgments and decide on appropriate treatments Clearly communicate analysis and reasoning individually and as team member Gather (research) to obtain appropriate information for decision-making. Each of these capabilities will be tested via a multitude of assessment tasks as detailed under overview of assessment At completion of this course you will be able to Identify, understand an apply financial planning concepts as they impact individual client circumstances Make judgments and decide on appropriate treatment of financial issues after considering a multitude of factors such as specific individual circumstances , tax considerations and risk preferences and life style aspirations Clearly communicate analysis and reasoning individually and as team member various issues impacting a financial plan Gather (research) to obta",
+    "assessmentTasks": "In Financial Planning the assessment you face may be a combination of the following, depending on location: an in-semester test media watch report project group work plus, all locations have a two hour end of semester exam. Each of the above forms of assessment is designed to test the capabilities as detailed previously and replicated below. Financial Planning will provide you with a basic understanding of issues that impact wealth creation that can be used personally to improve your own financial position or as a grounding to becoming a practicing financial planner. In addition the course provides an opportunity for you to develop generic capabilities. These include the ability to: Identify, understand an apply financial planning concepts as they impact individual client circumstances Make judgments and decide on appropriate treatment of financial issues after considering a multitude of factors such as specific individual circumstances , tax considerations and risk preferences and life style aspirations Clearly communicate analysis and reasoning individually and as team member various issues impacting a financial plan Gather (research) to obtain appropriate information for decision-making as regard various aspects in formulating financial planning advice. To pass this course you must obtain an overall mark of at least 50% for whole semester. If you have a long term medical condition andor disability it may be possible to negotiate to vary aspects of the learning or assessment methods. You can contact the program coordinator or the Disability Liaison Unit if you would like to find out more. An assessment charter (available at http:www1.rmit.edu.auaboutstudentcharter ) summarizes your responsibilities as an RMIT student, as well as those of your teachers. The assessment in this course conforms to RMIT assessment principles, regulations, policies and procedures which are described and referenced in a single document: available at http:www1.rmit.edu.aubrowse;IDqwxbqbg739rl1",
+    "hurdleRequirement": "",
+    "prerequisites": "There are no prerequisites Assumed Knowledge It is assumed you have an appreciation of fundamental accounting concepts and practices",
+    "corequisites": "",
+    "coordinatorName": "Mr Cameron Nichol",
+    "coordinatorEmail": "cameron.nichol@rmit.edu.au",
+    "coordinatorPhone": "61 3 99255712",
+    "schoolId": null,
+    "sourceUrl": "https://www1.rmit.edu.au/browse/;CURPOS=1?STYPE=ENTIRE&CLOCATION=Study+at+RMIT/&QRY=+type%3Dflexible++subtype%3Dheparta++keywords%3D(ACCT1018)&course=ACCT1018&title=&Search=Search",
+    "isActive": true,
+    "embedding": null,
+    "createdAt": "2025-06-12T20:11:48.983254",
+    "updatedAt": "2025-06-12T20:11:48.983262"
+  },
+  "sample_school": {
+    "id": "school_1",
+    "name": "School of Engineering",
+    "shortName": "Engineering",
+    "faculty": "Science, Engineering and Technology",
+    "description": "",
+    "website": "",
+    "createdAt": "2025-06-12T20:12:02.158306",
+    "updatedAt": "2025-06-12T20:12:02.158309"
+  }
+}

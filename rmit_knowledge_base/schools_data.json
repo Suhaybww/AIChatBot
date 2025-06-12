@@ -1,0 +1,142 @@
+[
+  {
+    "id": "school_1",
+    "name": "School of Engineering",
+    "shortName": "Engineering",
+    "faculty": "Science, Engineering and Technology",
+    "description": "",
+    "website": "",
+    "createdAt": "2025-06-12T20:12:02.158306",
+    "updatedAt": "2025-06-12T20:12:02.158309"
+  },
+  {
+    "id": "school_2",
+    "name": "School of Design",
+    "shortName": "Design",
+    "faculty": "Design and Social Context",
+    "description": "",
+    "website": "",
+    "createdAt": "2025-06-12T20:12:26.601139",
+    "updatedAt": "2025-06-12T20:12:26.601144"
+  },
+  {
+    "id": "school_3",
+    "name": "School of Science",
+    "shortName": "Science",
+    "faculty": "Science, Engineering and Technology",
+    "description": "",
+    "website": "",
+    "createdAt": "2025-06-12T20:13:09.565525",
+    "updatedAt": "2025-06-12T20:13:09.565532"
+  },
+  {
+    "id": "school_4",
+    "name": "School of Property, Construction and Project Management",
+    "shortName": "Property, Management",
+    "faculty": "Business and Law",
+    "description": "",
+    "website": "",
+    "createdAt": "2025-06-12T20:13:28.107355",
+    "updatedAt": "2025-06-12T20:13:28.107364"
+  },
+  {
+    "id": "school_5",
+    "name": "School of Management",
+    "shortName": "Management",
+    "faculty": "Business and Law",
+    "description": "",
+    "website": "",
+    "createdAt": "2025-06-12T20:13:31.902322",
+    "updatedAt": "2025-06-12T20:13:31.902334"
+  },
+  {
+    "id": "school_6",
+    "name": "School of Art",
+    "shortName": "Art",
+    "faculty": "Design and Social Context",
+    "description": "",
+    "website": "",
+    "createdAt": "2025-06-12T20:14:57.650694",
+    "updatedAt": "2025-06-12T20:14:57.650702"
+  },
+  {
+    "id": "school_7",
+    "name": "School of Media and Communication",
+    "shortName": "Media Communication",
+    "faculty": "Design and Social Context",
+    "description": "",
+    "website": "",
+    "createdAt": "2025-06-12T20:15:00.782476",
+    "updatedAt": "2025-06-12T20:15:00.782486"
+  },
+  {
+    "id": "school_8",
+    "name": "School of Computing Technologies",
+    "shortName": "Computing Technologies",
+    "faculty": "Science, Engineering and Technology",
+    "description": "",
+    "website": "",
+    "createdAt": "2025-06-12T20:16:05.403794",
+    "updatedAt": "2025-06-12T20:16:05.403804"
+  },
+  {
+    "id": "school_9",
+    "name": "School of Education",
+    "shortName": "Education",
+    "faculty": "Education",
+    "description": "",
+    "website": "",
+    "createdAt": "2025-06-12T20:16:21.733117",
+    "updatedAt": "2025-06-12T20:16:21.733121"
+  },
+  {
+    "id": "school_10",
+    "name": "School of Business IT and Logistics",
+    "shortName": "Business IT Logistics",
+    "faculty": "Business and Law",
+    "description": "",
+    "website": "",
+    "createdAt": "2025-06-12T20:19:38.151150",
+    "updatedAt": "2025-06-12T20:19:38.151156"
+  },
+  {
+    "id": "school_11",
+    "name": "School of Fashion and Textiles",
+    "shortName": "Fashion Textiles",
+    "faculty": "Design and Social Context",
+    "description": "",
+    "website": "",
+    "createdAt": "2025-06-12T20:20:19.306517",
+    "updatedAt": "2025-06-12T20:20:19.306523"
+  },
+  {
+    "id": "school_12",
+    "name": "School of Aerospace, Mechanical and Manufacturing Engineering",
+    "shortName": "Aerospace, Engineering",
+    "faculty": "Science, Engineering and Technology",
+    "description": "",
+    "website": "",
+    "createdAt": "2025-06-12T20:20:21.130685",
+    "updatedAt": "2025-06-12T20:20:21.130693"
+  },
+  {
+    "id": "school_13",
+    "name": "School of Health and Biomedical Sciences",
+    "shortName": "Health Biomedical Sciences",
+    "faculty": "Science, Engineering and Technology",
+    "description": "",
+    "website": "",
+    "createdAt": "2025-06-12T20:21:53.598182",
+    "updatedAt": "2025-06-12T20:21:53.598190"
+  },
+  {
+    "id": "school_14",
+    "name": "School of Applied Sciences",
+    "shortName": "Applied Sciences",
+    "faculty": "Science, Engineering and Technology",
+    "description": "",
+    "website": "",
+    "createdAt": "2025-06-12T20:22:42.005084",
+    "updatedAt": "2025-06-12T20:22:42.005089"
+  }
+]

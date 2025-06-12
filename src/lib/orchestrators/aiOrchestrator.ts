@@ -64,8 +64,7 @@ export class AIOrchestrator {
       userId,
       maxTokens,
       temperature,
-      imageUrl,
-      searchOptions = {}
+      imageUrl
     } = options;
 
     const startTime = Date.now();
@@ -92,32 +91,33 @@ export class AIOrchestrator {
     let searchResults: SearchResponse | null = null;
     let searchTime = 0;
 
-    // Perform search if needed
-    if (searchDecision.shouldSearch) {
-      console.log(`🔍 Performing search (reason: ${searchDecision.reason})...`);
-      const searchStartTime = Date.now();
+    // ALWAYS search knowledge base for RMIT content, but control web search separately
+    console.log(`🔍 Performing knowledge base search...`);
+    const searchStartTime = Date.now();
+    
+    try {
+      // Always include knowledge base, but control web search based on search decision
+      const shouldDoWebSearch = searchDecision.shouldSearch || forceSearch;
       
-      try {
-        searchResults = await this.searchService.performSearch(
-          userMessage,
-          searchOptions.includeWeb !== false,
-          searchOptions.includeKnowledgeBase !== false
-        );
-        
-        searchTime = Date.now() - searchStartTime;
-        console.log(`✅ Search completed in ${searchTime}ms with ${searchResults.results.length} results`);
-        
-        // Evaluate search quality
-        const searchQuality = await this.evaluateSearchQuality(userMessage, searchResults);
-        if (searchQuality === 'poor' && !forceSearch) {
-          console.log('⚠️ Search quality is poor, might supplement with knowledge base');
-        }
-      } catch (error) {
-        console.error('❌ Search failed:', error);
-        // Continue without search results rather than failing entirely
+      searchResults = await this.searchService.performSearch(
+        userMessage,
+        shouldDoWebSearch, // Web search controlled by search decision
+        true, // Knowledge base always enabled
+        context || undefined // Pass conversation context for better search
+      );
+      
+      searchTime = Date.now() - searchStartTime;
+      console.log(`✅ Search completed in ${searchTime}ms with ${searchResults.results.length} results`);
+      console.log(`📊 Search breakdown: KB=${searchResults.sources.knowledge_base}, Web=${searchResults.sources.web}`);
+      
+      // Evaluate search quality
+      const searchQuality = await this.evaluateSearchQuality(userMessage, searchResults);
+      if (searchQuality === 'poor' && !forceSearch) {
+        console.log('⚠️ Search quality is poor, supplementing with knowledge base');
       }
-    } else {
-      console.log(`🚫 Skipping search (reason: ${searchDecision.reason})`);
+    } catch (error) {
+      console.error('❌ Search failed:', error);
+      // Continue without search results rather than failing entirely
     }
 
     // Create enhanced prompt
@@ -364,7 +364,7 @@ export class AIOrchestrator {
     if (shouldSearch) {
       try {
         console.log('🔍 Performing quick search for simple response...');
-        searchResults = await this.searchService.performSearch(userMessage, true, true);
+        searchResults = await this.searchService.performSearch(userMessage, true, true, undefined);
       } catch (error) {
         console.error('Search failed for simple response:', error);
       }

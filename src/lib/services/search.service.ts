@@ -83,7 +83,8 @@ export class SearchService {
   async performSearch(
     query: string,
     includeWeb: boolean = true,
-    includeKnowledgeBase: boolean = true
+    includeKnowledgeBase: boolean = true,
+    conversationContext?: import('./context.service').ConversationContext
   ): Promise<SearchResponse> {
     const startTime = Date.now();
     
@@ -99,7 +100,7 @@ export class SearchService {
 
     if (includeKnowledgeBase) {
       console.log('📚 Searching RMIT knowledge base...');
-      searchPromises.push(this.searchKnowledgeBase(query, enhancedTerms));
+      searchPromises.push(this.searchKnowledgeBase(query, enhancedTerms, conversationContext));
     }
 
     if (includeWeb) {
@@ -164,7 +165,7 @@ export class SearchService {
       
       try {
         // Get knowledge base results
-        const kbResults = await this.searchKnowledgeBase(query, enhancedTerms);
+        const kbResults = await this.searchKnowledgeBase(query, enhancedTerms, conversationContext);
         allResults.push(...kbResults.slice(0, 3));
         
         // Add basic web results
@@ -834,11 +835,24 @@ export class SearchService {
     return Object.keys(metadata).length > 0 ? metadata : undefined;
   }
 
-  private async searchKnowledgeBase(query: string, enhancedTerms: string[]): Promise<SearchResult[]> {
+  private async searchKnowledgeBase(
+    query: string, 
+    enhancedTerms: string[], 
+    conversationContext?: import('./context.service').ConversationContext
+  ): Promise<SearchResult[]> {
     const { KnowledgeBaseService } = await import('./knowledgeBase.service');
+    const { ContextService } = await import('./context.service');
+    
     const knowledgeBaseService = new KnowledgeBaseService();
     
-    return await knowledgeBaseService.searchForResults(query, enhancedTerms);
+    // Convert conversation context to query context if available
+    let queryContext = undefined;
+    if (conversationContext) {
+      const contextService = new ContextService();
+      queryContext = contextService.createQueryContext(conversationContext);
+    }
+    
+    return await knowledgeBaseService.searchForResults(query, enhancedTerms, queryContext);
   }
 
   private extractEnhancedSearchTerms(

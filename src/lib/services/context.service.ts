@@ -2,6 +2,8 @@ import { db } from "@/server/db/db";
 import { Role } from "@prisma/client";
 import type { SearchResponse } from "./search.service";
 import { promptService } from "./prompt.service";
+import { KnowledgeBaseService } from "./knowledgeBase.service";
+import type { ConversationContext as QueryContext } from "./queryClassifier";
 
 export interface ConversationContext {
   recentMessages: Array<{
@@ -109,6 +111,27 @@ export class ContextService {
       includeContext: true,
       includeSearchResults: true
     }, context, searchResults);
+  }
+
+  /**
+   * Convert conversation context to query context for knowledge base search
+   */
+  createQueryContext(context: ConversationContext): QueryContext {
+    const queryContext = {
+      lastCourseCode: context.sessionEntities.courses[0],
+      lastProgramCode: context.sessionEntities.programs
+        .find(p => /^(BP|MC|BH)\d{3,4}$/.test(p)), // Find program codes
+      recentEntities: {
+        courses: context.sessionEntities.courses.slice(0, 3),
+        programs: context.sessionEntities.programs
+          .filter(p => /^(BP|MC|BH)\d{3,4}$/.test(p))
+          .slice(0, 3),
+        schools: [] // Extract from locations if needed
+      }
+    };
+    
+    console.log(`🧠 Created query context:`, queryContext);
+    return queryContext;
   }
 
   private async getRecentMessages(sessionId: string) {
@@ -286,41 +309,26 @@ export class ContextService {
       ...entityWords
     ])).filter(term => term.length > 2);
 
-    // Search knowledge base with enhanced terms
-    const knowledgeItems = await db.knowledgeBase.findMany({
-      where: {
-        isActive: true,
-        OR: [
-          // Direct query match
-          { content: { contains: query, mode: 'insensitive' as const } },
-          { title: { contains: query, mode: 'insensitive' as const } },
-          // Search terms match
-          ...searchTerms.slice(0, 10).map(term => ({
-            OR: [
-              { content: { contains: term, mode: 'insensitive' as const } },
-              { title: { contains: term, mode: 'insensitive' as const } },
-              { tags: { has: term } }
-            ]
-          })),
-          // Entity matches
-          ...sessionEntities.courses.map(course => ({
-            OR: [
-              { title: { contains: course, mode: 'insensitive' as const } },
-              { content: { contains: course, mode: 'insensitive' as const } }
-            ]
-          }))
-        ]
-      },
-      orderBy: { priority: 'desc' },
-      take: 20,
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        category: true,
-        tags: true
+    // Create query context for contextual search
+    const queryContext: QueryContext = {
+      lastCourseCode: sessionEntities.courses[0],
+      lastProgramCode: sessionEntities.programs
+        .find(p => /^(BP|MC|BH)\d{3,4}$/.test(p)),
+      recentEntities: {
+        courses: sessionEntities.courses.slice(0, 3),
+        programs: sessionEntities.programs
+          .filter(p => /^(BP|MC|BH)\d{3,4}$/.test(p))
+          .slice(0, 3),
+        schools: []
       }
-    });
+    };
+
+    // Search knowledge base with enhanced terms using new multi-table approach
+    const knowledgeService = new KnowledgeBaseService();
+    const knowledgeItems = await knowledgeService.searchKnowledge(query, {
+      searchMode: 'semantic',
+      limit: 20
+    }, queryContext);
 
     // Score and rank knowledge items
     return knowledgeItems

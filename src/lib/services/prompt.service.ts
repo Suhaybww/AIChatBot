@@ -51,9 +51,12 @@ When search results are provided, use them to give accurate, current information
    - Suggest visiting rmit.edu.au or contacting RMIT directly
    - Provide general RMIT contact information if appropriate
 
-4. **Always Cite Sources**: When using information from search results:
-   - Reference which result you're drawing from
-   - Include the URL for users to learn more`;
+4. **URL Formatting Rules**:
+   - When providing URLs, format them as proper clickable links
+   - Use the format: [Course/Program Name](URL)
+   - Example: [COSC1111 - Data Communication](https://www1.rmit.edu.au/browse/...)
+   - NEVER reference "Result 1", "Result 2" etc. Just use the content directly
+   - When mentioning information from search results, integrate it naturally without result numbers`;
 
   private readonly KNOWLEDGE_RESPONSE_GUIDELINES = `RESPONSE FORMAT FOR KNOWLEDGE BASE QUERIES:
 - Start directly with the answer - no introductions
@@ -175,8 +178,8 @@ When search results are provided, use them to give accurate, current information
     let section = `\n\n--- SEARCH RESULTS ---`;
     section += `\nFound ${searchResults.totalResults} results (showing top ${searchResults.results.length}):`;
     
-    searchResults.results.forEach((result, index) => {
-      section += `\n\n[Result ${index + 1}] ${result.title}`;
+    searchResults.results.forEach((result) => {
+      section += `\n\n${result.title}`;
       section += `\nURL: ${result.url}`;
       section += `\nSource: ${this.getSourceLabel(result.source)}`;
       

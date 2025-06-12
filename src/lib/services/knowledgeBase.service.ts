@@ -1,6 +1,11 @@
 import { db } from "@/server/db/db";
 import type { SearchResult } from "./search.service";
 import type { JsonValue } from "@prisma/client/runtime/library";
+import type { Course, Program, AcademicInformation, AcademicSchool, Prisma } from "@prisma/client";
+import { QueryClassifier, type ConversationContext as QueryContext, type QueryClassification } from "./queryClassifier";
+
+type CourseWithSchool = Course & { school: AcademicSchool | null };
+type ProgramWithSchool = Program & { school: AcademicSchool | null };
 
 export interface KnowledgeBaseItem {
   id: string;
@@ -14,6 +19,7 @@ export interface KnowledgeBaseItem {
   structuredData?: JsonValue;
   createdAt: Date;
   updatedAt: Date;
+  type: 'academic_information' | 'program' | 'course' | 'school';
 }
 
 export interface KnowledgeSearchOptions {
@@ -22,83 +28,104 @@ export interface KnowledgeSearchOptions {
   limit?: number;
   includeInactive?: boolean;
   searchMode?: 'exact' | 'fuzzy' | 'semantic';
+  tables?: ('academic_information' | 'program' | 'course' | 'school')[];
 }
+
 
 export class KnowledgeBaseService {
   
   /**
-   * Search knowledge base with enhanced options
+   * Main search method - routes to appropriate table(s) based on query classification
    */
   async searchKnowledge(
     query: string, 
-    options: KnowledgeSearchOptions = {}
+    options: KnowledgeSearchOptions = {},
+    context?: QueryContext
   ): Promise<KnowledgeBaseItem[]> {
     const {
       category,
       tags,
       limit = 10,
-      includeInactive = false,
-      searchMode = 'fuzzy'
+      includeInactive = false
     } = options;
 
-    // Build search conditions based on mode
-    const searchConditions = this.buildSearchConditions(query, searchMode, tags);
-
-    const results = await db.knowledgeBase.findMany({
-      where: {
-        AND: [
-          searchConditions,
-          category ? { category } : {},
-          includeInactive ? {} : { isActive: true }
-        ]
-      },
-      orderBy: [
-        { priority: "desc" },
-        { updatedAt: "desc" }
-      ],
-      take: limit * 2, // Get more for post-filtering
-    });
-
-    // Post-process and rank results
-    const rankedResults = this.rankKnowledgeResults(results, query);
-    return rankedResults.slice(0, limit);
+    // Classify the query to determine which table(s) to search
+    const classification = QueryClassifier.classify(query, context);
+    console.log(`🎯 Query classification:`, classification);
+    
+    // Route to specific table based on classification
+    switch (classification.primaryTable) {
+      case 'course':
+        return this.searchCourseDirect(
+          query, 
+          classification.extractedEntities, 
+          { limit, includeInactive }
+        );
+        
+      case 'program':
+        return this.searchProgramDirect(
+          query, 
+          classification.extractedEntities, 
+          { limit, includeInactive }
+        );
+        
+      case 'academic_information':
+        return this.searchAcademicInfoDirect(
+          query, 
+          classification.extractedEntities.keywords, 
+          { category, tags, limit, includeInactive }
+        );
+        
+      case 'school':
+        return this.searchSchoolDirect(
+          query, 
+          classification.extractedEntities.keywords, 
+          { limit, includeInactive }
+        );
+        
+      default:
+        // Mixed query - search multiple tables
+        return this.searchMultipleTables(
+          query, 
+          classification.secondaryTables as ('course' | 'program' | 'academic_information' | 'school')[], 
+          { category, tags, limit, includeInactive }
+        );
+    }
   }
 
   /**
-   * Search for results in knowledge base format
+   * Search for results in knowledge base format - MAIN SEARCH ENTRY POINT
    */
-  async searchForResults(query: string, enhancedTerms: string[]): Promise<SearchResult[]> {
+  async searchForResults(
+    query: string, 
+    enhancedTerms: string[], 
+    context?: QueryContext
+  ): Promise<SearchResult[]> {
     try {
-      // Build comprehensive search query
-      const searchConditions = this.buildEnhancedSearchConditions(query, enhancedTerms);
+      console.log(`🔍 KnowledgeBase search for: "${query}" with terms:`, enhancedTerms);
       
-      const kbResults = await db.knowledgeBase.findMany({
-        where: {
-          isActive: true,
-          AND: [searchConditions]
-        },
-        orderBy: [
-          { priority: 'desc' },
-          { createdAt: 'desc' }
-        ],
-        take: 30 // Get more for better ranking
-      });
-
-      // Convert to SearchResult format with enhanced relevance scoring
-      const searchResults = kbResults.map((item) => {
-        const relevanceScore = this.calculateEnhancedRelevance(
-          query, 
-          enhancedTerms, 
-          item
-        );
+      // Classify the query
+      const classification = QueryClassifier.classify(query, context);
+      
+      // Get results based on classification
+      const results = await this.searchKnowledge(query, { limit: 15 }, context);
+      
+      console.log(`📚 Found ${results.length} results from ${classification.primaryTable || 'multiple tables'}`);
+      
+      // Convert to SearchResult format
+      const searchResults = results.map((item, index) => {
+        // For specific queries (course/program), return FULL content
+        const shouldReturnFullContent = 
+          classification.queryType === 'specific_course' || 
+          classification.queryType === 'specific_program';
         
         return {
-          id: `kb_${item.id}`,
+          id: `${item.type}_${item.id}`,
           title: item.title,
-          content: this.prepareContentSnippet(item.content, query, enhancedTerms),
-          url: item.sourceUrl || `#knowledge-base-${item.id}`,
+          content: shouldReturnFullContent ? item.content : this.prepareContentSnippet(item.content, query, enhancedTerms),
+          url: item.sourceUrl || `#${item.type}-${item.id}`,
           source: 'knowledge_base' as const,
-          relevanceScore,
+          relevanceScore: this.calculateRelevanceScore(item, classification, index),
           searchQuery: query,
           timestamp: new Date(),
           metadata: this.extractKnowledgeMetadata(item)
@@ -106,10 +133,13 @@ export class KnowledgeBaseService {
       });
 
       // Sort by relevance and return top results
-      return searchResults
+      const finalResults = searchResults
         .filter(r => r.relevanceScore > 0.1)
         .sort((a, b) => b.relevanceScore - a.relevanceScore)
         .slice(0, 15);
+
+      console.log(`✅ Returning ${finalResults.length} filtered and ranked results`);
+      return finalResults;
 
     } catch (error) {
       console.error('❌ Knowledge base search error:', error);
@@ -118,181 +148,544 @@ export class KnowledgeBaseService {
   }
 
   /**
-   * Build search conditions based on search mode
+   * Direct course search - ONLY searches course table
    */
-  private buildSearchConditions(
+  private async searchCourseDirect(
     query: string,
-    searchMode: 'exact' | 'fuzzy' | 'semantic',
-    tags?: string[]
-  ) {
-    const queryLower = query.toLowerCase();
-    const queryWords = queryLower.split(/\s+/).filter(w => w.length > 2);
-
-    switch (searchMode) {
-      case 'exact':
-        return {
-          OR: [
-            { title: { equals: query, mode: 'insensitive' as const } },
-            { content: { contains: query, mode: 'insensitive' as const } }
-          ],
-          ...(tags?.length ? { tags: { hasSome: tags } } : {})
-        };
+    entities: QueryClassification['extractedEntities'],
+    options: { limit: number; includeInactive: boolean }
+  ): Promise<KnowledgeBaseItem[]> {
+    console.log(`📚 Direct course search`);
+    
+    // If we have a specific course code, try exact match first
+    if (entities.courseCode) {
+      const exactMatch = await db.course.findUnique({
+        where: { code: entities.courseCode },
+        include: { school: true }
+      });
       
-      case 'fuzzy':
-      default:
-        return {
+      if (exactMatch && (options.includeInactive || exactMatch.isActive)) {
+        console.log(`✅ Found exact course match: ${exactMatch.code}`);
+        return [this.courseToKnowledgeItem(exactMatch)];
+      }
+    }
+    
+    // Otherwise, do a fuzzy search
+    const andConditions: Prisma.CourseWhereInput[] = [
+      options.includeInactive ? {} : { isActive: true }
+    ];
+    
+    if (entities.courseCode) {
+      // Search for partial matches of the course code
+      andConditions.push({
+        OR: [
+          { code: { contains: entities.courseCode, mode: 'insensitive' } },
+          { title: { contains: entities.courseCode, mode: 'insensitive' } }
+        ]
+      });
+    } else {
+      // General course search
+      const searchConditions = entities.keywords.map(keyword => ({
+        OR: [
+          { title: { contains: keyword, mode: 'insensitive' as const } },
+          { code: { contains: keyword, mode: 'insensitive' as const } },
+          { description: { contains: keyword, mode: 'insensitive' as const } },
+          { learningOutcomes: { contains: keyword, mode: 'insensitive' as const } }
+        ]
+      }));
+      
+      if (searchConditions.length > 0) {
+        andConditions.push({ OR: searchConditions });
+      } else {
+        andConditions.push({
           OR: [
             { title: { contains: query, mode: 'insensitive' as const } },
-            { content: { contains: query, mode: 'insensitive' as const } },
-            ...queryWords.map(word => ({
-              OR: [
-                { title: { contains: word, mode: 'insensitive' as const } },
-                { content: { contains: word, mode: 'insensitive' as const } },
-                { tags: { has: word } }
-              ]
-            })),
-            ...(tags?.length ? [{ tags: { hasSome: tags } }] : [])
+            { description: { contains: query, mode: 'insensitive' as const } }
           ]
-        };
-      
-      case 'semantic':
-        // For semantic search, we'd ideally use vector embeddings
-        // For now, use enhanced fuzzy search
-        return {
-          OR: [
-            ...this.generateSemanticVariations(query).map(variation => ({
-              OR: [
-                { title: { contains: variation, mode: 'insensitive' as const } },
-                { content: { contains: variation, mode: 'insensitive' as const } }
-              ]
-            })),
-            ...queryWords.map(word => ({
-              OR: [
-                { title: { contains: word, mode: 'insensitive' as const } },
-                { content: { contains: word, mode: 'insensitive' as const } },
-                { category: { contains: word, mode: 'insensitive' as const } }
-              ]
-            }))
-          ]
-        };
+        });
+      }
     }
-  }
-
-  /**
-   * Build enhanced search conditions for comprehensive searching
-   */
-  private buildEnhancedSearchConditions(query: string, enhancedTerms: string[]) {
-    const conditions = [];
     
-    // Direct query match
-    conditions.push(
-      { title: { contains: query, mode: 'insensitive' as const } },
-      { content: { contains: query, mode: 'insensitive' as const } }
-    );
+    const whereClause: Prisma.CourseWhereInput = {
+      AND: andConditions
+    };
     
-    // Enhanced terms matching
-    enhancedTerms.forEach(term => {
-      conditions.push(
-        { title: { contains: term, mode: 'insensitive' as const } },
-        { content: { contains: term, mode: 'insensitive' as const } },
-        { tags: { has: term } },
-        { category: { contains: term, mode: 'insensitive' as const } }
-      );
+    const courses = await db.course.findMany({
+      where: whereClause,
+      include: { school: true },
+      orderBy: entities.courseCode ? { code: 'asc' } : { createdAt: 'desc' },
+      take: options.limit
     });
     
-    // Course code pattern matching
-    const courseCodeMatch = query.match(/\b([A-Z]{2,4}\d{3,5})\b/i);
-    if (courseCodeMatch) {
-      conditions.push(
-        { title: { contains: courseCodeMatch[1], mode: 'insensitive' as const } },
-        { content: { contains: courseCodeMatch[1], mode: 'insensitive' as const } },
-        { structuredData: { path: ['course_code'], string_contains: courseCodeMatch[1] } }
-      );
-    }
-    
-    return { OR: conditions };
+    return courses.map(course => this.courseToKnowledgeItem(course));
   }
 
   /**
-   * Calculate enhanced relevance score
+   * Direct program search - ONLY searches program table
    */
-  private calculateEnhancedRelevance(
+  private async searchProgramDirect(
     query: string,
-    searchTerms: string[],
-    item: KnowledgeBaseItem
-  ): number {
-    let score = 0;
-    const titleLower = item.title.toLowerCase();
-    const contentLower = item.content.toLowerCase();
-    const queryLower = query.toLowerCase();
-
-    // Title matching (highest weight)
-    if (titleLower === queryLower) {
-      score += 1.0;
-    } else if (titleLower.includes(queryLower)) {
-      score += 0.7;
+    entities: QueryClassification['extractedEntities'],
+    options: { limit: number; includeInactive: boolean }
+  ): Promise<KnowledgeBaseItem[]> {
+    console.log(`🎓 Direct program search`);
+    
+    const andConditions: Prisma.ProgramWhereInput[] = [
+      options.includeInactive ? {} : { isActive: true }
+    ];
+    
+    // If we have a program code
+    if (entities.programCode) {
+      andConditions.push({
+        OR: [
+          { code: { equals: entities.programCode, mode: 'insensitive' as const } },
+          { code: { contains: entities.programCode, mode: 'insensitive' as const } }
+        ]
+      });
     } else {
-      // Partial title matching
-      const queryWords = queryLower.split(/\s+/);
-      const titleWords = titleLower.split(/\s+/);
-      const matchingWords = queryWords.filter(qw => titleWords.some(tw => tw.includes(qw)));
-      score += (matchingWords.length / queryWords.length) * 0.5;
+      // Search by keywords
+      const searchConditions = entities.keywords.map(keyword => ({
+        OR: [
+          { title: { contains: keyword, mode: 'insensitive' as const } },
+          { description: { contains: keyword, mode: 'insensitive' as const } },
+          { careerOutcomes: { contains: keyword, mode: 'insensitive' as const } },
+          { tags: { has: keyword } }
+        ]
+      }));
+      
+      if (searchConditions.length > 0) {
+        andConditions.push({ OR: searchConditions });
+      } else {
+        andConditions.push({
+          OR: [
+            { title: { contains: query, mode: 'insensitive' as const } },
+            { description: { contains: query, mode: 'insensitive' as const } }
+          ]
+        });
+      }
     }
-
-    // Search terms matching
-    const uniqueTerms = Array.from(new Set(searchTerms.map(t => t.toLowerCase())));
-    uniqueTerms.forEach(term => {
-      if (titleLower.includes(term)) {
-        score += 0.3 / uniqueTerms.length;
-      }
-      if (contentLower.includes(term)) {
-        score += 0.2 / uniqueTerms.length;
-      }
-      if (item.tags.some(tag => tag.toLowerCase().includes(term))) {
-        score += 0.25 / uniqueTerms.length;
-      }
-      if (item.category.toLowerCase().includes(term)) {
-        score += 0.15 / uniqueTerms.length;
-      }
+    
+    const whereClause: Prisma.ProgramWhereInput = {
+      AND: andConditions
+    };
+    
+    const programs = await db.program.findMany({
+      where: whereClause,
+      include: { school: true },
+      orderBy: [{ createdAt: 'desc' }],
+      take: options.limit
     });
-
-    // Structured data matching
-    if (item.structuredData) {
-      const structuredStr = JSON.stringify(item.structuredData).toLowerCase();
-      if (structuredStr.includes(queryLower)) {
-        score += 0.3;
-      }
-    }
-
-    // Priority boost
-    score += (item.priority / 100) * 0.2;
-
-    // Recency boost (items updated recently)
-    const daysSinceUpdate = (Date.now() - item.updatedAt.getTime()) / (1000 * 60 * 60 * 24);
-    if (daysSinceUpdate < 30) {
-      score += 0.1;
-    } else if (daysSinceUpdate < 90) {
-      score += 0.05;
-    }
-
-    // Category-specific boosts
-    const importantCategories = ['programs', 'courses', 'admissions', 'fees'];
-    if (importantCategories.includes(item.category.toLowerCase())) {
-      score += 0.1;
-    }
-
-    return Math.min(score, 1.0);
+    
+    return programs.map(program => this.programToKnowledgeItem(program));
   }
 
   /**
-   * Prepare content snippet with keyword highlighting context
+   * Direct academic information search
+   */
+  private async searchAcademicInfoDirect(
+    query: string,
+    keywords: string[],
+    options: { category?: string; tags?: string[]; limit: number; includeInactive: boolean }
+  ): Promise<KnowledgeBaseItem[]> {
+    console.log(`📋 Direct academic info search`);
+    
+    const andConditions: Prisma.AcademicInformationWhereInput[] = [
+      options.includeInactive ? {} : { isActive: true },
+      options.category ? { category: options.category } : {},
+      options.tags?.length ? { tags: { hasSome: options.tags } } : {}
+    ].filter(condition => Object.keys(condition).length > 0);
+    
+    // Add search conditions
+    const searchConditions = [
+      { title: { contains: query, mode: 'insensitive' as const } },
+      { content: { contains: query, mode: 'insensitive' as const } },
+      ...keywords.map(keyword => ({
+        OR: [
+          { title: { contains: keyword, mode: 'insensitive' as const } },
+          { content: { contains: keyword, mode: 'insensitive' as const } },
+          { tags: { has: keyword } }
+        ]
+      }))
+    ];
+    
+    andConditions.push({ OR: searchConditions });
+    
+    const whereClause: Prisma.AcademicInformationWhereInput = {
+      AND: andConditions
+    };
+    
+    const results = await db.academicInformation.findMany({
+      where: whereClause,
+      orderBy: [
+        { priority: 'desc' },
+        { updatedAt: 'desc' }
+      ],
+      take: options.limit
+    });
+    
+    return results.map(item => this.academicInfoToKnowledgeItem(item));
+  }
+
+  /**
+   * Direct school search
+   */
+  private async searchSchoolDirect(
+    query: string,
+    keywords: string[],
+    options: { limit: number; includeInactive: boolean }
+  ): Promise<KnowledgeBaseItem[]> {
+    console.log(`🏫 Direct school search`);
+    
+    const searchConditions = [
+      { name: { contains: query, mode: 'insensitive' as const } },
+      { faculty: { contains: query, mode: 'insensitive' as const } },
+      { description: { contains: query, mode: 'insensitive' as const } },
+      ...keywords.map(keyword => ({
+        OR: [
+          { name: { contains: keyword, mode: 'insensitive' as const } },
+          { shortName: { contains: keyword, mode: 'insensitive' as const } },
+          { faculty: { contains: keyword, mode: 'insensitive' as const } }
+        ]
+      }))
+    ];
+    
+    const schools = await db.academicSchool.findMany({
+      where: { OR: searchConditions },
+      orderBy: [{ createdAt: 'desc' }],
+      take: options.limit
+    });
+    
+    return schools.map(school => this.schoolToKnowledgeItem(school));
+  }
+
+  /**
+   * Search multiple tables for mixed queries
+   */
+  private async searchMultipleTables(
+    query: string,
+    tables: ('course' | 'program' | 'academic_information' | 'school')[],
+    options: KnowledgeSearchOptions & { limit: number; includeInactive: boolean }
+  ): Promise<KnowledgeBaseItem[]> {
+    console.log(`🔍 Multi-table search across:`, tables);
+    
+    const results: KnowledgeBaseItem[] = [];
+    const keywords = this.extractKeywords(query);
+    const limitPerTable = Math.ceil(options.limit / tables.length) + 2;
+    
+    for (const table of tables) {
+      switch (table) {
+        case 'course':
+          const courses = await this.searchCourseDirect(
+            query, 
+            { keywords }, 
+            { limit: limitPerTable, includeInactive: options.includeInactive }
+          );
+          results.push(...courses);
+          break;
+          
+        case 'program':
+          const programs = await this.searchProgramDirect(
+            query, 
+            { keywords }, 
+            { limit: limitPerTable, includeInactive: options.includeInactive }
+          );
+          results.push(...programs);
+          break;
+          
+        case 'academic_information':
+          const academicInfo = await this.searchAcademicInfoDirect(
+            query, 
+            keywords, 
+            { ...options, limit: limitPerTable }
+          );
+          results.push(...academicInfo);
+          break;
+          
+        case 'school':
+          const schools = await this.searchSchoolDirect(
+            query, 
+            keywords, 
+            { limit: limitPerTable, includeInactive: options.includeInactive }
+          );
+          results.push(...schools);
+          break;
+      }
+    }
+    
+    // Sort by relevance and return top results
+    return results
+      .sort((a, b) => b.priority - a.priority)
+      .slice(0, options.limit);
+  }
+
+  /**
+   * Calculate relevance score based on query classification
+   */
+  private calculateRelevanceScore(
+    item: KnowledgeBaseItem,
+    classification: QueryClassification,
+    index: number
+  ): number {
+    let baseScore = 0.5;
+    
+    // Exact matches get highest scores
+    if (classification.extractedEntities.courseCode && 
+        item.type === 'course' && 
+        item.structuredData && 
+        (item.structuredData as Record<string, unknown>).code === classification.extractedEntities.courseCode) {
+      return 1.0; // Perfect match
+    }
+    
+    if (classification.extractedEntities.programCode && 
+        item.type === 'program' && 
+        item.structuredData && 
+        (item.structuredData as Record<string, unknown>).code === classification.extractedEntities.programCode) {
+      return 1.0; // Perfect match
+    }
+    
+    // Primary table matches get higher scores
+    if (item.type === classification.primaryTable) {
+      baseScore += 0.3;
+    }
+    
+    // Priority boost
+    baseScore += (item.priority / 100) * 0.2;
+    
+    // Position penalty (earlier results are better)
+    baseScore -= index * 0.02;
+    
+    return Math.max(0.1, Math.min(1.0, baseScore));
+  }
+
+  /**
+   * Conversion methods - Transform database models to KnowledgeBaseItem
+   */
+  private courseToKnowledgeItem(course: CourseWithSchool): KnowledgeBaseItem {
+    return {
+      id: course.id,
+      title: `${course.code} - ${course.title}`,
+      content: this.buildCourseContent(course),
+      category: course.level.toLowerCase(),
+      tags: [course.code, course.level.toLowerCase()],
+      sourceUrl: course.sourceUrl || '',
+      priority: 10, // Courses get high priority
+      isActive: course.isActive,
+      structuredData: {
+        code: course.code,
+        level: course.level,
+        creditPoints: course.creditPoints,
+        deliveryMode: course.deliveryMode,
+        campus: course.campus,
+        prerequisites: course.prerequisites,
+        corequisites: course.corequisites,
+        school: course.school?.name,
+        faculty: course.school?.faculty,
+        coordinator: course.coordinatorName,
+        coordinatorEmail: course.coordinatorEmail,
+        coordinatorPhone: course.coordinatorPhone,
+        learningOutcomes: course.learningOutcomes,
+        assessmentTasks: course.assessmentTasks,
+        hurdleRequirement: course.hurdleRequirement
+      },
+      createdAt: course.createdAt,
+      updatedAt: course.updatedAt,
+      type: 'course'
+    };
+  }
+
+  private programToKnowledgeItem(program: ProgramWithSchool): KnowledgeBaseItem {
+    return {
+      id: program.id,
+      title: `${program.code} - ${program.title}`,
+      content: this.buildProgramContent(program),
+      category: program.level.toLowerCase(),
+      tags: [...program.tags, program.level.toLowerCase()],
+      sourceUrl: program.sourceUrl || '',
+      priority: 8, // Programs get high priority
+      isActive: program.isActive,
+      structuredData: {
+        code: program.code,
+        level: program.level,
+        duration: program.duration,
+        deliveryMode: program.deliveryMode,
+        campus: program.campus,
+        school: program.school?.name,
+        faculty: program.school?.faculty,
+        coordinator: program.coordinatorName,
+        coordinatorEmail: program.coordinatorEmail,
+        coordinatorPhone: program.coordinatorPhone,
+        entryRequirements: program.entryRequirements,
+        fees: program.fees,
+        ...program.structuredData as object
+      },
+      createdAt: program.createdAt,
+      updatedAt: program.updatedAt,
+      type: 'program'
+    };
+  }
+
+  private academicInfoToKnowledgeItem(item: AcademicInformation): KnowledgeBaseItem {
+    return {
+      id: item.id,
+      title: item.title,
+      content: item.content,
+      category: item.category,
+      tags: item.tags,
+      sourceUrl: item.sourceUrl || '',
+      priority: item.priority,
+      isActive: item.isActive,
+      structuredData: item.structuredData,
+      createdAt: item.createdAt,
+      updatedAt: item.updatedAt,
+      type: 'academic_information'
+    };
+  }
+
+  private schoolToKnowledgeItem(school: AcademicSchool): KnowledgeBaseItem {
+    return {
+      id: school.id,
+      title: school.name,
+      content: school.description || `${school.name} is part of the ${school.faculty} faculty at RMIT University.`,
+      category: 'school',
+      tags: ['school', 'faculty', school.shortName || '', school.faculty || ''].filter(Boolean),
+      sourceUrl: school.website || '',
+      priority: 5,
+      isActive: true,
+      structuredData: {
+        shortName: school.shortName,
+        faculty: school.faculty,
+        website: school.website
+      },
+      createdAt: school.createdAt,
+      updatedAt: school.updatedAt,
+      type: 'school'
+    };
+  }
+
+  /**
+   * Build comprehensive course content
+   */
+  private buildCourseContent(course: CourseWithSchool): string {
+    const parts = [];
+    
+    if (course.description) {
+      parts.push(course.description);
+    }
+    
+    if (course.creditPoints) {
+      parts.push(`Credit Points: ${course.creditPoints}`);
+    }
+    
+    if (course.deliveryMode && course.deliveryMode.length > 0) {
+      parts.push(`Delivery Mode: ${course.deliveryMode.join(', ')}`);
+    }
+    
+    if (course.campus && course.campus.length > 0) {
+      parts.push(`Campus: ${course.campus.join(', ')}`);
+    }
+    
+    if (course.prerequisites) {
+      parts.push(`Prerequisites: ${course.prerequisites}`);
+    }
+    
+    if (course.corequisites) {
+      parts.push(`Corequisites: ${course.corequisites}`);
+    }
+    
+    if (course.learningOutcomes) {
+      parts.push(`Learning Outcomes: ${course.learningOutcomes}`);
+    }
+    
+    if (course.assessmentTasks) {
+      parts.push(`Assessment: ${course.assessmentTasks}`);
+    }
+    
+    if (course.hurdleRequirement) {
+      parts.push(`Hurdle Requirements: ${course.hurdleRequirement}`);
+    }
+    
+    if (course.coordinatorName) {
+      let coordinatorInfo = `Course Coordinator: ${course.coordinatorName}`;
+      if (course.coordinatorEmail) {
+        coordinatorInfo += ` (Email: ${course.coordinatorEmail})`;
+      }
+      if (course.coordinatorPhone) {
+        coordinatorInfo += ` (Phone: ${course.coordinatorPhone})`;
+      }
+      parts.push(coordinatorInfo);
+    }
+    
+    if (course.school) {
+      parts.push(`School: ${course.school.name}`);
+      if (course.school.faculty) {
+        parts.push(`Faculty: ${course.school.faculty}`);
+      }
+    }
+    
+    return parts.join('\n\n');
+  }
+
+  /**
+   * Build comprehensive program content
+   */
+  private buildProgramContent(program: ProgramWithSchool): string {
+    const parts = [];
+    
+    if (program.description) {
+      parts.push(program.description);
+    }
+    
+    if (program.duration) {
+      parts.push(`Duration: ${program.duration}`);
+    }
+    
+    if (program.deliveryMode && program.deliveryMode.length > 0) {
+      parts.push(`Delivery Mode: ${program.deliveryMode.join(', ')}`);
+    }
+    
+    if (program.campus && program.campus.length > 0) {
+      parts.push(`Campus: ${program.campus.join(', ')}`);
+    }
+    
+    if (program.entryRequirements) {
+      parts.push(`Entry Requirements: ${program.entryRequirements}`);
+    }
+    
+    if (program.careerOutcomes) {
+      parts.push(`Career Outcomes: ${program.careerOutcomes}`);
+    }
+    
+    if (program.fees) {
+      parts.push(`Fees: ${program.fees}`);
+    }
+    
+    if (program.coordinatorName) {
+      let coordinatorInfo = `Program Coordinator: ${program.coordinatorName}`;
+      if (program.coordinatorEmail) {
+        coordinatorInfo += ` (Email: ${program.coordinatorEmail})`;
+      }
+      parts.push(coordinatorInfo);
+    }
+    
+    if (program.school) {
+      parts.push(`School: ${program.school.name}`);
+      if (program.school.faculty) {
+        parts.push(`Faculty: ${program.school.faculty}`);
+      }
+    }
+    
+    return parts.join('\n\n');
+  }
+
+  /**
+   * Prepare content snippet for general queries
    */
   private prepareContentSnippet(
     content: string,
     query: string,
     searchTerms: string[]
   ): string {
-    const maxLength = 500;
+    const maxLength = 400;
     const contentLower = content.toLowerCase();
     const queryLower = query.toLowerCase();
     
@@ -310,7 +703,7 @@ export class KnowledgeBaseService {
       searchTerms.forEach(term => {
         const termIndex = contentLower.indexOf(term.toLowerCase());
         if (termIndex !== -1) {
-          const score = 0.5 + (term.length / 20); // Longer terms get higher score
+          const score = 0.5 + (term.length / 20);
           if (score > bestScore) {
             bestScore = score;
             bestStart = Math.max(0, termIndex - 100);
@@ -324,7 +717,6 @@ export class KnowledgeBaseService {
     
     // Clean up snippet
     if (bestStart > 0) {
-      // Start at word boundary
       const firstSpace = snippet.indexOf(' ');
       if (firstSpace > 0 && firstSpace < 50) {
         snippet = '...' + snippet.slice(firstSpace);
@@ -334,7 +726,6 @@ export class KnowledgeBaseService {
     }
     
     if (bestStart + maxLength < content.length) {
-      // End at word boundary
       const lastSpace = snippet.lastIndexOf(' ');
       if (lastSpace > snippet.length - 50) {
         snippet = snippet.slice(0, lastSpace) + '...';
@@ -350,189 +741,44 @@ export class KnowledgeBaseService {
    * Extract metadata from knowledge base item
    */
   private extractKnowledgeMetadata(item: KnowledgeBaseItem): Record<string, unknown> | undefined {
-    const metadata: Record<string, unknown> = {};
+    const metadata: Record<string, unknown> = {
+      type: item.type,
+      category: item.category
+    };
     
     if (item.structuredData) {
       const structured = item.structuredData as Record<string, unknown>;
-      
-      // Extract common fields
-      if (structured.course_code) metadata.courseCode = structured.course_code;
-      if (structured.program_type) metadata.programType = structured.program_type;
-      if (structured.faculty) metadata.faculty = structured.faculty;
-      if (structured.duration) metadata.duration = structured.duration;
-      if (structured.campus) metadata.campus = structured.campus;
+      Object.assign(metadata, structured);
     }
     
-    // Extract from content patterns
-    const courseCodeMatch = item.content.match(/\b([A-Z]{2,4}\d{3,5})\b/);
-    if (courseCodeMatch && !metadata.courseCode) {
-      metadata.courseCode = courseCodeMatch[1];
-    }
-    
-    return Object.keys(metadata).length > 0 ? metadata : undefined;
+    return metadata;
   }
 
   /**
-   * Generate semantic variations of a query
-   */
-  private generateSemanticVariations(query: string): string[] {
-    const variations = [query];
-    const queryLower = query.toLowerCase();
-    
-    // Common RMIT variations
-    const replacements = {
-      'bachelor': ['undergraduate', 'bachelors', 'bsc', 'ba'],
-      'master': ['postgraduate', 'masters', 'msc', 'ma'],
-      'course': ['program', 'degree', 'subject'],
-      'fee': ['cost', 'price', 'tuition'],
-      'requirement': ['prerequisite', 'entry requirement', 'criteria'],
-      'apply': ['application', 'enrol', 'enroll', 'admission']
-    };
-    
-    for (const [original, alternatives] of Object.entries(replacements)) {
-      if (queryLower.includes(original)) {
-        alternatives.forEach(alt => {
-          variations.push(query.replace(new RegExp(original, 'gi'), alt));
-        });
-      }
-    }
-    
-    return Array.from(new Set(variations)).slice(0, 5);
-  }
-
-  /**
-   * Rank knowledge results by relevance
-   */
-  private rankKnowledgeResults(
-    results: KnowledgeBaseItem[],
-    query: string
-  ): KnowledgeBaseItem[] {
-    const scored = results.map(item => ({
-      item,
-      score: this.calculateSimpleRelevance(query, item)
-    }));
-    
-    return scored
-      .sort((a, b) => b.score - a.score)
-      .map(s => s.item);
-  }
-
-  /**
-   * Simple relevance calculation for basic searches
-   */
-  private calculateSimpleRelevance(query: string, item: KnowledgeBaseItem): number {
-    const queryLower = query.toLowerCase();
-    const titleLower = item.title.toLowerCase();
-    const contentLower = item.content.toLowerCase();
-    
-    let score = 0;
-    
-    // Exact matches
-    if (titleLower === queryLower) score += 2.0;
-    else if (titleLower.includes(queryLower)) score += 1.0;
-    
-    if (contentLower.includes(queryLower)) score += 0.5;
-    
-    // Word matching
-    const queryWords = queryLower.split(/\s+/).filter(w => w.length > 2);
-    queryWords.forEach(word => {
-      if (titleLower.includes(word)) score += 0.3;
-      if (contentLower.includes(word)) score += 0.1;
-      if (item.tags.some(tag => tag.toLowerCase().includes(word))) score += 0.2;
-    });
-    
-    // Priority boost
-    score += item.priority * 0.01;
-    
-    return score;
-  }
-
-  /**
-   * Get categories from knowledge base
+   * Get categories from all tables
    */
   async getCategories(): Promise<string[]> {
-    const categories = await db.knowledgeBase.findMany({
-      distinct: ["category"],
-      where: { isActive: true },
-      select: { category: true },
-      orderBy: { category: 'asc' }
-    });
+    const [academicCategories] = await Promise.all([
+      db.academicInformation.findMany({
+        distinct: ["category"],
+        where: { isActive: true },
+        select: { category: true },
+        orderBy: { category: 'asc' }
+      })
+    ]);
 
-    return categories
-      .map(x => x.category)
+    const categories = [
+      ...academicCategories.map(x => x.category),
+      'undergraduate',
+      'postgraduate',
+      'programs',
+      'courses', 
+      'schools'
+    ];
+
+    return Array.from(new Set(categories))
       .filter(Boolean)
       .filter(cat => cat.length > 0);
-  }
-
-  /**
-   * Get knowledge item by ID
-   */
-  async getKnowledgeById(id: string): Promise<KnowledgeBaseItem | null> {
-    return await db.knowledgeBase.findUnique({
-      where: { id }
-    });
-  }
-
-  /**
-   * Create new knowledge item
-   */
-  async createKnowledgeItem(
-    data: Omit<KnowledgeBaseItem, 'id' | 'createdAt' | 'updatedAt'>
-  ): Promise<KnowledgeBaseItem> {
-    const { structuredData, ...rest } = data;
-    
-    // Validate and clean tags
-    const cleanedTags = rest.tags
-      .map(tag => tag.trim().toLowerCase())
-      .filter(tag => tag.length > 0);
-    
-    return await db.knowledgeBase.create({
-      data: {
-        ...rest,
-        tags: cleanedTags,
-        ...(structuredData && { structuredData })
-      }
-    });
-  }
-
-  /**
-   * Update knowledge item
-   */
-  async updateKnowledgeItem(
-    id: string, 
-    data: Partial<Omit<KnowledgeBaseItem, 'id' | 'createdAt' | 'updatedAt'>>
-  ): Promise<KnowledgeBaseItem> {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const updateData: any = {};
-    
-    Object.keys(data).forEach(key => {
-      if (key === 'tags' && data.tags) {
-        // Clean tags
-        updateData.tags = data.tags
-          .map(tag => tag.trim().toLowerCase())
-          .filter(tag => tag.length > 0);
-      } else if (key !== 'structuredData' && data[key as keyof typeof data] !== undefined) {
-        updateData[key] = data[key as keyof typeof data];
-      }
-    });
-    
-    if (data.structuredData !== undefined) {
-      updateData.structuredData = data.structuredData;
-    }
-    
-    return await db.knowledgeBase.update({
-      where: { id },
-      data: updateData
-    });
-  }
-
-  /**
-   * Delete knowledge item
-   */
-  async deleteKnowledgeItem(id: string): Promise<void> {
-    await db.knowledgeBase.delete({
-      where: { id }
-    });
   }
 
   /**
@@ -540,141 +786,177 @@ export class KnowledgeBaseService {
    */
   async getStructuredKnowledgeForAI(
     query: string, 
-    category?: string
+    category?: string,
+    context?: QueryContext
   ): Promise<string> {
-    // Enhanced search with better filtering
-    const searchTerms = query.toLowerCase().split(/\s+/).filter(w => w.length > 2);
+    console.log(`🤖 Getting structured knowledge for AI: "${query}"`);
     
-    const results = await db.knowledgeBase.findMany({
-      where: {
-        AND: [
-          {
-            OR: [
-              { title: { contains: query, mode: "insensitive" as const } },
-              { content: { contains: query, mode: "insensitive" as const } },
-              ...searchTerms.map(term => ({
-                OR: [
-                  { title: { contains: term, mode: "insensitive" as const } },
-                  { content: { contains: term, mode: "insensitive" as const } },
-                  { tags: { has: term } }
-                ]
-              }))
-            ]
-          },
-          category ? { category } : {},
-          { isActive: true }
-        ]
-      },
-      orderBy: [
-        { priority: "desc" },
-        { updatedAt: "desc" }
-      ],
-      take: 10
-    });
+    // Get results using the main search method
+    const results = await this.searchKnowledge(query, {
+      category,
+      limit: 5
+    }, context);
 
-    // Format results for AI consumption
     if (results.length === 0) {
       return "No specific RMIT knowledge found for this query.";
     }
 
-    return results.map(r => {
-      let formattedEntry = `## ${r.title}\n`;
-      formattedEntry += `Category: ${r.category}\n`;
-      
-      // Add structured data if available
-      if (r.structuredData) {
-        const structured = r.structuredData as Record<string, unknown>;
-        const structuredInfo = Object.entries(structured)
-          .filter(([, value]) => value !== null && value !== undefined)
-          .map(([key, value]) => {
-            const formattedKey = key
-              .replace(/_/g, ' ')
-              .replace(/\b\w/g, l => l.toUpperCase());
-            return `${formattedKey}: ${value}`;
-          })
-          .join('\n');
-        
-        if (structuredInfo) {
-          formattedEntry += `\n${structuredInfo}\n`;
-        }
-      }
-      
-      // Add content
-      formattedEntry += `\nDetails:\n${r.content}`;
-      
-      // Add source URL if available
-      if (r.sourceUrl && r.sourceUrl !== '#') {
-        formattedEntry += `\n\nSource: ${r.sourceUrl}`;
-      }
-      
-      // Add tags for context
-      if (r.tags.length > 0) {
-        formattedEntry += `\nRelated Topics: ${r.tags.join(', ')}`;
-      }
-      
-      return formattedEntry;
-    }).join('\n\n---\n\n');
+    console.log(`📚 Found ${results.length} knowledge items for AI`);
+    
+    // Classify the query to determine formatting
+    const classification = QueryClassifier.classify(query, context);
+    
+    // For specific course/program queries, provide detailed single result
+    if ((classification.queryType === 'specific_course' || classification.queryType === 'specific_program') 
+        && results.length > 0) {
+      return this.formatSingleItemForAI(results[0]);
+    }
+    
+    // For general queries, provide multiple results
+    return results.map(item => this.formatItemForAI(item)).join('\n\n---\n\n');
   }
 
   /**
-   * Get related knowledge items
+   * Format single item with full details for AI
    */
-  async getRelatedKnowledge(
-    itemId: string, 
-    limit: number = 5
-  ): Promise<KnowledgeBaseItem[]> {
-    const item = await this.getKnowledgeById(itemId);
-    if (!item) return [];
+  private formatSingleItemForAI(item: KnowledgeBaseItem): string {
+    const data = item.structuredData as Record<string, unknown>;
     
-    // Find items with similar tags or in the same category
-    const related = await db.knowledgeBase.findMany({
-      where: {
-        AND: [
-          { id: { not: itemId } },
-          { isActive: true },
-          {
-            OR: [
-              { category: item.category },
-              { tags: { hasSome: item.tags } }
-            ]
-          }
-        ]
-      },
-      orderBy: { priority: 'desc' },
-      take: limit * 2
-    });
+    if (item.type === 'course') {
+      return `# ${item.title}
+
+**Course Code:** ${data.code}
+**Type:** Course
+**Level:** ${data.level}
+**Credit Points:** ${data.creditPoints || 'Not specified'}
+**School:** ${data.school || 'Not specified'}
+**Faculty:** ${data.faculty || 'Not specified'}
+
+## Course Coordinator
+${data.coordinator ? `- Name: ${data.coordinator}
+- Email: ${data.coordinatorEmail || 'Not provided'}
+- Phone: ${data.coordinatorPhone || 'Not provided'}` : 'Coordinator information not available'}
+
+## Prerequisites
+${data.prerequisites || 'No prerequisites'}
+
+## Corequisites
+${data.corequisites || 'No corequisites'}
+
+## Course Description
+${item.content}
+
+## Delivery Information
+- **Delivery Mode:** ${Array.isArray(data.deliveryMode) ? data.deliveryMode.join(', ') : 'Not specified'}
+- **Campus:** ${Array.isArray(data.campus) ? data.campus.join(', ') : 'Not specified'}
+
+## Assessment
+${data.assessmentTasks || 'Assessment information not available'}
+
+## Learning Outcomes
+${data.learningOutcomes || 'Learning outcomes not available'}
+
+## Hurdle Requirements
+${data.hurdleRequirement || 'No hurdle requirements'}
+
+Source: ${item.sourceUrl || 'RMIT Course Database'}`;
+    }
     
-    // Score by similarity
-    const scored = related.map(r => ({
-      item: r,
-      score: this.calculateSimilarity(item, r)
-    }));
+    if (item.type === 'program') {
+      return `# ${item.title}
+
+**Program Code:** ${data.code}
+**Type:** ${data.level} Program
+**Duration:** ${data.duration || 'Not specified'}
+**School:** ${data.school || 'Not specified'}
+**Faculty:** ${data.faculty || 'Not specified'}
+
+## Program Coordinator
+${data.coordinator ? `- Name: ${data.coordinator}
+- Email: ${data.coordinatorEmail || 'Not provided'}
+- Phone: ${data.coordinatorPhone || 'Not provided'}` : 'Coordinator information not available'}
+
+## Program Description
+${item.content}
+
+## Entry Requirements
+${data.entryRequirements || 'Entry requirements not specified'}
+
+## Career Outcomes
+${data.careerOutcomes || 'Career outcomes not specified'}
+
+## Fees
+${data.fees || 'Fee information not available'}
+
+## Delivery Information
+- **Delivery Mode:** ${Array.isArray(data.deliveryMode) ? data.deliveryMode.join(', ') : 'Not specified'}
+- **Campus:** ${Array.isArray(data.campus) ? data.campus.join(', ') : 'Not specified'}
+
+Source: ${item.sourceUrl || 'RMIT Program Database'}`;
+    }
     
-    return scored
-      .sort((a, b) => b.score - a.score)
-      .slice(0, limit)
-      .map(s => s.item);
+    // Default formatting for other types
+    return this.formatItemForAI(item);
   }
 
   /**
-   * Calculate similarity between two knowledge items
+   * Format item for AI response
    */
-  private calculateSimilarity(item1: KnowledgeBaseItem, item2: KnowledgeBaseItem): number {
-    let score = 0;
+  private formatItemForAI(item: KnowledgeBaseItem): string {
+    let formattedEntry = `## ${item.title}\n`;
+    formattedEntry += `Type: ${item.type}\n`;
+    formattedEntry += `Category: ${item.category}\n`;
     
-    // Same category
-    if (item1.category === item2.category) score += 0.3;
+    // Add structured data if available
+    if (item.structuredData) {
+      const structured = item.structuredData as Record<string, unknown>;
+      const importantFields = ['code', 'level', 'coordinator', 'coordinatorEmail', 
+                              'prerequisites', 'creditPoints', 'school', 'faculty'];
+      
+      const structuredInfo = Object.entries(structured)
+        .filter(([key]) => importantFields.includes(key))
+        .filter(([, value]) => value !== null && value !== undefined)
+        .map(([key, value]) => {
+          const formattedKey = key
+            .replace(/_/g, ' ')
+            .replace(/\b\w/g, l => l.toUpperCase());
+          return `${formattedKey}: ${value}`;
+        })
+        .join('\n');
+      
+      if (structuredInfo) {
+        formattedEntry += `\n${structuredInfo}\n`;
+      }
+    }
     
-    // Overlapping tags
-    const commonTags = item1.tags.filter(t => item2.tags.includes(t));
-    score += (commonTags.length / Math.max(item1.tags.length, item2.tags.length)) * 0.5;
+    // Add content
+    formattedEntry += `\nDetails:\n${item.content}`;
     
-    // Title similarity
-    const title1Words = new Set(item1.title.toLowerCase().split(/\s+/));
-    const title2Words = new Set(item2.title.toLowerCase().split(/\s+/));
-    const commonWords = Array.from(title1Words).filter(w => title2Words.has(w));
-    score += (commonWords.length / Math.max(title1Words.size, title2Words.size)) * 0.2;
+    // Add source URL if available
+    if (item.sourceUrl && item.sourceUrl !== '#' && !item.sourceUrl.startsWith('#')) {
+      formattedEntry += `\n\nSource: ${item.sourceUrl}`;
+    }
     
-    return score;
+    // Add tags for context
+    if (item.tags.length > 0) {
+      formattedEntry += `\nRelated Topics: ${item.tags.join(', ')}`;
+    }
+    
+    return formattedEntry;
+  }
+
+  /**
+   * Extract keywords from query
+   */
+  private extractKeywords(query: string): string[] {
+    const stopWords = new Set([
+      'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for',
+      'of', 'with', 'by', 'is', 'are', 'was', 'were', 'what', 'how', 'when',
+      'where', 'why', 'can', 'you', 'i', 'me', 'tell', 'about', 'find', 'show'
+    ]);
+    
+    return query.toLowerCase()
+      .split(/\s+/)
+      .filter(word => word.length > 2 && !stopWords.has(word));
   }
 }

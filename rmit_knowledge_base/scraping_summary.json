@@ -1,0 +1,443 @@
+{
+  "scrape_date": "2025-06-12T16:51:13.091970",
+  "total_items": 3436,
+  "total_urls_visited": 4701,
+  "duplicates_avoided": 1095,
+  "content_breakdown": {
+    "course-information": 1459,
+    "subject-information": 33,
+    "policies": 18,
+    "student-support": 196,
+    "enrollment": 290,
+    "fees-scholarships": 208,
+    "academic-info": 113,
+    "student-life": 240,
+    "research": 501,
+    "careers": 57,
+    "international": 44,
+    "online-learning": 43,
+    "faq": 31,
+    "forms": 92,
+    "contact": 111
+  },
+  "output_file": "rmit_knowledge_base/rmit_knowledge_base.json",
+  "sample_items": {
+    "course-information": [
+      {
+        "title": "Before semester starts - RMIT University",
+        "url": "https://www.rmit.edu.au/students/new-students/before-semester",
+        "tags": [
+          "student",
+          "course-information",
+          "course"
+        ]
+      },
+      {
+        "title": "First weeks - RMIT University",
+        "url": "https://www.rmit.edu.au/students/new-students/first-weeks",
+        "tags": [
+          "support",
+          "student",
+          "course-information",
+          "course"
+        ]
+      },
+      {
+        "title": "Starting your Higher Degree by Research (HDR)  - RMIT University",
+        "url": "https://www.rmit.edu.au/students/my-course/research-students/getting-started",
+        "tags": [
+          "support",
+          "course-information",
+          "student"
+        ]
+      }
+    ],
+    "subject-information": [
+      {
+        "title": "Creative communities - RMIT University",
+        "url": "https://www.rmit.edu.au/students/student-life/creative",
+        "tags": [
+          "subject-information",
+          "student"
+        ]
+      },
+      {
+        "title": "Volunteering - RMIT University",
+        "url": "https://www.rmit.edu.au/students/careers-opportunities/volunteering",
+        "tags": [
+          "support",
+          "student",
+          "subject-information",
+          "course"
+        ]
+      },
+      {
+        "title": "Student representatives - RMIT University",
+        "url": "https://www.rmit.edu.au/students/careers-opportunities/student-representatives",
+        "tags": [
+          "support",
+          "student",
+          "subject-information",
+          "course"
+        ]
+      }
+    ],
+    "policies": [
+      {
+        "title": "Browse A-Z / Policy Register",
+        "url": "https://policies.rmit.edu.au/browse",
+        "tags": [
+          "course",
+          "policies",
+          "support",
+          "policy",
+          "student"
+        ]
+      },
+      {
+        "title": "Student rights and responsibilities - RMIT University",
+        "url": "https://www.rmit.edu.au/students/student-life/rights-responsibilities",
+        "tags": [
+          "support",
+          "policy",
+          "policies",
+          "student"
+        ]
+      },
+      {
+        "title": "Statute and Regulations / Policy Register",
+        "url": "https://www.rmit.edu.au/about/governance-management/statutes-regulations/student-conduct",
+        "tags": [
+          "policies",
+          "student"
+        ]
+      }
+    ],
+    "student-support": [
+      {
+        "title": "Support & services - RMIT University",
+        "url": "https://www.rmit.edu.au/students/contact-and-help",
+        "tags": [
+          "support",
+          "student-support",
+          "student"
+        ]
+      },
+      {
+        "title": "Current students - RMIT University",
+        "url": "https://www.rmit.edu.au/students",
+        "tags": [
+          "support",
+          "student",
+          "student-support",
+          "course"
+        ]
+      },
+      {
+        "title": "Library - RMIT University",
+        "url": "https://www.rmit.edu.au/library",
+        "tags": [
+          "support",
+          "student",
+          "student-support",
+          "course"
+        ]
+      }
+    ],
+    "enrollment": [
+      {
+        "title": "Enrol as a new student - RMIT University",
+        "url": "https://www.rmit.edu.au/students/my-course/enrolment/enrol-new-student",
+        "tags": [
+          "support",
+          "student",
+          "enrollment",
+          "course"
+        ]
+      },
+      {
+        "title": "Enrolment - RMIT University",
+        "url": "https://www.rmit.edu.au/students/my-course/enrolment",
+        "tags": [
+          "enrollment",
+          "student"
+        ]
+      },
+      {
+        "title": "Vocational education enrolment guide – Government subsidised place students - RMIT University",
+        "url": "https://www.rmit.edu.au/students/my-course/enrolment/enrol-new-student/ve-domestic-gsp",
+        "tags": [
+          "support",
+          "student",
+          "enrollment",
+          "course"
+        ]
+      }
+    ],
+    "fees-scholarships": [
+      {
+        "title": "Fees, loans and payments - RMIT University",
+        "url": "https://www.rmit.edu.au/students/my-course/fees-loans-payments",
+        "tags": [
+          "support",
+          "fees-scholarships",
+          "student"
+        ]
+      },
+      {
+        "title": "Scholarships - RMIT University",
+        "url": "https://www.rmit.edu.au/students/careers-opportunities/scholarships",
+        "tags": [
+          "student",
+          "fees-scholarships",
+          "course"
+        ]
+      },
+      {
+        "title": "How to pay your fees - RMIT University",
+        "url": "https://www.rmit.edu.au/students/my-course/fees-loans-payments/pay-fees",
+        "tags": [
+          "fees-scholarships"
+        ]
+      }
+    ],
+    "academic-info": [
+      {
+        "title": "Assessments and results - RMIT University",
+        "url": "https://www.rmit.edu.au/students/my-course/assessment-results",
+        "tags": [
+          "student",
+          "support",
+          "academic-info",
+          "course"
+        ]
+      },
+      {
+        "title": "Results – how and when - RMIT University",
+        "url": "https://www.rmit.edu.au/students/my-course/assessment-results/results-grades/results",
+        "tags": [
+          "student",
+          "support",
+          "academic-info",
+          "course"
+        ]
+      },
+      {
+        "title": "Sign in to Plus Suite Authentication",
+        "url": "https://mytimetable.rmit.edu.au/odd/student",
+        "tags": [
+          "academic-info"
+        ]
+      }
+    ],
+    "student-life": [
+      {
+        "title": "Orientation - RMIT University",
+        "url": "https://www.rmit.edu.au/students/new-students/orientation",
+        "tags": [
+          "student-life"
+        ]
+      },
+      {
+        "title": "Student life - RMIT University",
+        "url": "https://www.rmit.edu.au/students/student-life",
+        "tags": [
+          "support",
+          "student-life",
+          "student"
+        ]
+      },
+      {
+        "title": "Clubs and societies - RMIT University",
+        "url": "https://www.rmit.edu.au/students/student-life/clubs-societies",
+        "tags": [
+          "student-life",
+          "student"
+        ]
+      }
+    ],
+    "research": [
+      {
+        "title": "Library support for researchers - RMIT University",
+        "url": "https://www.rmit.edu.au/library/research",
+        "tags": [
+          "research"
+        ]
+      },
+      {
+        "title": "Research writing - RMIT University",
+        "url": "https://www.rmit.edu.au/library/research/research-writing",
+        "tags": [
+          "research"
+        ]
+      },
+      {
+        "title": "Open research - RMIT University",
+        "url": "https://www.rmit.edu.au/library/research/open-research",
+        "tags": [
+          "research",
+          "support"
+        ]
+      }
+    ],
+    "careers": [
+      {
+        "title": "Jobs, careers and employability - RMIT University",
+        "url": "https://www.rmit.edu.au/students/careers-opportunities/jobs-careers-employability",
+        "tags": [
+          "careers"
+        ]
+      },
+      {
+        "title": "Careers & opportunities - RMIT University",
+        "url": "https://www.rmit.edu.au/students/careers-opportunities",
+        "tags": [
+          "support",
+          "careers"
+        ]
+      },
+      {
+        "title": "Internships, work experience and WIL - RMIT University",
+        "url": "https://www.rmit.edu.au/students/careers-opportunities/internships-work-experience-wil",
+        "tags": [
+          "support",
+          "careers"
+        ]
+      }
+    ],
+    "international": [
+      {
+        "title": "Study overseas - RMIT University",
+        "url": "https://www.rmit.edu.au/students/careers-opportunities/study-overseas",
+        "tags": [
+          "international"
+        ]
+      },
+      {
+        "title": "Enrol as an exchange or study abroad student - RMIT University",
+        "url": "https://www.rmit.edu.au/students/my-course/enrolment/enrol-exchange-student",
+        "tags": [
+          "international",
+          "student"
+        ]
+      },
+      {
+        "title": "Enrolment information for international student visa holders - RMIT University",
+        "url": "https://www.rmit.edu.au/students/my-course/enrolment/international-student-visa-holders",
+        "tags": [
+          "international",
+          "student"
+        ]
+      }
+    ],
+    "online-learning": [
+      {
+        "title": "Online access troubleshooting - RMIT University",
+        "url": "https://www.rmit.edu.au/library/borrowing-and-collections/collections/online-access-troubleshooting",
+        "tags": [
+          "online-learning",
+          "support",
+          "student",
+          "course"
+        ]
+      },
+      {
+        "title": "Online modules - RMIT University",
+        "url": "https://www.rmit.edu.au/students/my-course/research-students/research-plus/moderated-online-modules",
+        "tags": [
+          "online-learning"
+        ]
+      },
+      {
+        "title": "2025 RMIT Online important dates - RMIT University",
+        "url": "https://www.rmit.edu.au/students/my-course/important-dates/2025/rmit-online",
+        "tags": [
+          "online-learning",
+          "support",
+          "student",
+          "course"
+        ]
+      }
+    ],
+    "faq": [
+      {
+        "title": "FAQs / Policy Register",
+        "url": "https://policies.rmit.edu.au/faq.php",
+        "tags": [
+          "faq",
+          "policy"
+        ]
+      },
+      {
+        "title": "Guides and training - RMIT University",
+        "url": "https://www.rmit.edu.au/library/teach/guides-and-training",
+        "tags": [
+          "faq"
+        ]
+      },
+      {
+        "title": "Open education - RMIT University",
+        "url": "https://www.rmit.edu.au/library/teach/open-education",
+        "tags": [
+          "faq",
+          "student"
+        ]
+      }
+    ],
+    "forms": [
+      {
+        "title": "Fee information - RMIT University",
+        "url": "https://www.rmit.edu.au/students/my-course/research-students/getting-started/fee-information",
+        "tags": [
+          "forms"
+        ]
+      },
+      {
+        "title": "Information for Parents and Guardians",
+        "url": "https://www.rmit.edu.au/study-with-us/parents",
+        "tags": [
+          "forms"
+        ]
+      },
+      {
+        "title": "Information sessions - RMIT University",
+        "url": "https://www.rmit.edu.au/students/careers-opportunities/study-overseas/information-sessions",
+        "tags": [
+          "forms",
+          "student",
+          "support",
+          "course"
+        ]
+      }
+    ],
+    "contact": [
+      {
+        "title": "Contact - RMIT University",
+        "url": "https://www.rmit.edu.au/contact",
+        "tags": [
+          "contact"
+        ]
+      },
+      {
+        "title": "Hours and locations - RMIT University",
+        "url": "https://www.rmit.edu.au/library/about-and-contacts/hours-and-locations",
+        "tags": [
+          "support",
+          "student",
+          "contact",
+          "course"
+        ]
+      },
+      {
+        "title": "About and contacts - RMIT University",
+        "url": "https://www.rmit.edu.au/library/about-and-contacts",
+        "tags": [
+          "support",
+          "student",
+          "contact",
+          "course"
+        ]
+      }
+    ]
+  }
+}

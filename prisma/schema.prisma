@@ -61,8 +61,6 @@ model KnowledgeBase {
   createdAt     DateTime @default(now()) @map("created_at")
   updatedAt     DateTime @updatedAt @map("updated_at")
   structuredData Json?   @map("structured_data")
-  chunkIndex    Int?     @map("chunk_index")
-  totalChunks   Int?     @map("total_chunks")
 
   @@map("knowledge_base")
   @@index([category])

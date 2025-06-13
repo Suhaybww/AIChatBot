@@ -16,6 +16,8 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from queue import Queue
 import hashlib
 import xml.etree.ElementTree as ET
+import re  
+
 
 # Initialize colorama for colored terminal output
 colorama.init()

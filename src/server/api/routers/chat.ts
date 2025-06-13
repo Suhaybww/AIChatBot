@@ -126,8 +126,8 @@ export const chatRouter = createTRPCRouter({
         
         // Use orchestrator with intelligent search and image support
         let aiResponse = await aiOrchestrator.generateResponse(input.content, {
-          forceSearch: input.enableSearch === true,  // Convert enableSearch to forceSearch when explicitly enabled
-          allowAutoSearch: input.enableSearch !== false,  // Allow auto-search unless explicitly disabled
+          forceSearch: input.enableSearch === true,  // Force web search when explicitly enabled
+          allowAutoSearch: true,  // Always allow knowledge base search
           includeContext: true,
           sessionId: sessionInfo.sessionId,
           userId,

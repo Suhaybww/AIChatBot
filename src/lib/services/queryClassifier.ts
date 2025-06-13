@@ -13,7 +13,7 @@ export interface ConversationContext {
 export interface QueryClassification {
   primaryTable: 'course' | 'program' | 'academic_information' | 'school' | null;
   secondaryTables: string[];
-  queryType: 'specific_course' | 'specific_program' | 'general_info' | 'school_info' | 'mixed';
+  queryType: 'specific_course' | 'specific_program' | 'general_course_search' | 'general_info' | 'school_info' | 'mixed';
   extractedEntities: {
     courseCode?: string;
     programCode?: string;
@@ -58,7 +58,40 @@ export class QueryClassifier {
       };
     }
     
-    // 2. Check for program patterns
+    // 2. Check for course name patterns (before program patterns)
+    const courseNamePatterns = [
+      // Academic subjects with descriptors
+      /\b(introduction|intro|fundamentals?|principles?|advanced|basic|elementary|intermediate)\s+(to|of|in)\s+[\w\s]+/i,
+      
+      // Subject areas (computing, theory, etc.)
+      /\b[\w\s]*(computing|programming|software|theory|theoretical|practical|applied|data|information|cyber|digital|web|mobile|network|system|database|algorithm|artificial|intelligence|machine|learning)\b[\w\s]*/i,
+      
+      // Academic disciplines
+      /\b[\w\s]*(planning|management|analysis|design|development|engineering|business|science|mathematics|accounting|finance|economics|statistics|physics|chemistry|biology|psychology|sociology|history|literature|philosophy|art|music)\b[\w\s]*/i,
+      
+      // Course/subject indicators
+      /\b(course|subject|unit|class|module)\s+[\w\s]+/i,
+      /\b[\w\s]+(course|subject|unit|class|module)\b/i,
+      
+      // General academic terms that suggest course content
+      /\b[\w\s]*(theory|practice|application|study|studies|research|methodology|methods|techniques|skills|concepts|principles)\b[\w\s]*/i
+    ];
+
+    for (const pattern of courseNamePatterns) {
+      if (pattern.test(query)) {
+        console.log(`🎯 Course name pattern detected:`, pattern);
+        return {
+          primaryTable: 'course',
+          secondaryTables: [],
+          queryType: 'general_course_search',
+          extractedEntities: {
+            keywords: this.extractKeywords(query)
+          }
+        };
+      }
+    }
+
+    // 3. Check for program patterns
     const programPatterns = {
       bachelor: /bachelor\s+(of\s+)?[\w\s]+/i,
       master: /master\s+(of\s+)?[\w\s]+/i,
@@ -168,10 +201,10 @@ export class QueryClassifier {
     
     // Check if this is a course-related question with context
     const courseQuestionWords = [
-      'coordinator', 'credit points', 'prerequisites', 'corequisites',
+      'coordinator', 'coordinater', 'credit points', 'prerequisites', 'prereq',
       'assessment', 'learning outcomes', 'description', 'campus',
       'delivery mode', 'school', 'faculty', 'link', 'url', 'website',
-      'page', 'information', 'details', 'more about'
+      'page', 'information', 'details', 'more about', 'subject', 'course'
     ];
     
     const programQuestionWords = [
@@ -303,9 +336,18 @@ export class QueryClassifier {
   }
 
   private static extractKeywords(query: string): string[] {
-    const stopWords = new Set(['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for']);
+    const stopWords = new Set([
+      'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for',
+      'of', 'with', 'by', 'is', 'are', 'was', 'were', 'what', 'how', 'when',
+      'where', 'why', 'can', 'you', 'i', 'me', 'tell', 'about', 'who', 'that',
+      'this', 'it', 'they', 'them', 'their', 'there', 'these', 'those',
+      'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might',
+      'have', 'has', 'had', 'get', 'got', 'give', 'want', 'need', 'like'
+    ]);
+    
     return query.toLowerCase()
       .split(/\s+/)
-      .filter(word => word.length > 2 && !stopWords.has(word));
+      .filter(word => word.length > 2 && !stopWords.has(word))
+      .filter(word => /^[a-zA-Z]+$/.test(word)); // Only alphabetic words
   }
 }

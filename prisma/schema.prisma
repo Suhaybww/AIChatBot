@@ -59,8 +59,6 @@ model AcademicSchool {
   name        String    @unique // "School of Computing Technologies"
   shortName   String?   // "Computing"
   faculty     String?   // "Science, Engineering and Technology"
-  description String?
-  website     String?
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @updatedAt @map("updated_at")
   
@@ -159,11 +157,9 @@ model Course {
   description     String?             // Course overview
   learningOutcomes String?            // What students will learn
   assessmentTasks String?             // How students are assessed
-  hurdleRequirement String?           // Must-pass requirements
   
-  // Prerequisites & Corequisites
+  // Prerequisites
   prerequisites   String?             // "COSC1076 OR COSC1078"
-  corequisites    String?             // "MATH1234"
   
   // Coordinator info
   coordinatorName  String?  @map("coordinator_name")

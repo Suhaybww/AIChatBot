@@ -1,7 +1,7 @@
 [
   {
     "code": "BP250",
-    "title": null,
+    "title": "Bachelor of Architectural Design",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -13,9 +13,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "Gain the skills you need to be a leading architect. Work on real-world briefs and study in a world-class studio environment to create something that lasts.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -26,104 +26,12 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-architectural-design-bp250",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:06.716936",
-    "updatedAt": "2025-06-12T14:48:06.716936"
-  },
-  {
-    "code": "BP256",
-    "title": null,
-    "level": "BACHELOR",
-    "duration": null,
-    "deliveryMode": [
-      "ONLINE",
-      "ON_CAMPUS",
-      "BLENDED"
-    ],
-    "campus": [
-      "Melbourne City",
-      "Online",
-      "Vietnam"
-    ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
-    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
-    "coordinatorName": null,
-    "coordinatorEmail": null,
-    "coordinatorPhone": null,
-    "structuredData": null,
-    "tags": [],
-    "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-landscape-architectural-design-bp256",
-    "embedding": null,
-    "isActive": true,
-    "createdAt": "2025-06-12T14:48:07.126551",
-    "updatedAt": "2025-06-12T14:48:07.126551"
-  },
-  {
-    "code": "BP201",
-    "title": null,
-    "level": "BACHELOR",
-    "duration": null,
-    "deliveryMode": [
-      "ONLINE",
-      "ON_CAMPUS",
-      "BLENDED"
-    ],
-    "campus": [
-      "Melbourne City",
-      "Online",
-      "Vietnam"
-    ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
-    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
-    "coordinatorName": null,
-    "coordinatorEmail": null,
-    "coordinatorPhone": null,
-    "structuredData": null,
-    "tags": [],
-    "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-arts-fine-art-bp201",
-    "embedding": null,
-    "isActive": true,
-    "createdAt": "2025-06-12T14:48:07.326877",
-    "updatedAt": "2025-06-12T14:48:07.326877"
-  },
-  {
-    "code": "BP117",
-    "title": null,
-    "level": "BACHELOR",
-    "duration": null,
-    "deliveryMode": [
-      "ONLINE",
-      "ON_CAMPUS"
-    ],
-    "campus": [
-      "Melbourne City",
-      "Online",
-      "Vietnam"
-    ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
-    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
-    "coordinatorName": null,
-    "coordinatorEmail": null,
-    "coordinatorPhone": null,
-    "structuredData": null,
-    "tags": [],
-    "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-arts-photography-bp117",
-    "embedding": null,
-    "isActive": true,
-    "createdAt": "2025-06-12T14:48:07.314951",
-    "updatedAt": "2025-06-12T14:48:07.314951"
+    "createdAt": "2025-06-12T23:35:21.291207",
+    "updatedAt": "2025-06-12T23:35:21.291207"
   },
   {
     "code": "BP070",
-    "title": null,
+    "title": "Bachelor of Applied Science (Aviation)",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -135,9 +43,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "The Bachelor of Applied Science (Aviation) is designed for aspiring aviation professionals who are interested in operational, managerial and planning roles. In this degree, you will develop a comprehensive understanding of the aviation industry, equipping you with leadership, analytical, business, and problem solving skills to ensure the smooth operation of airlines, airports and aviation businesses.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies .",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -148,27 +56,27 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-applied-science-aviation-bp070",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:07.505906",
-    "updatedAt": "2025-06-12T14:48:07.505906"
+    "createdAt": "2025-06-12T23:35:21.329915",
+    "updatedAt": "2025-06-12T23:35:21.329915"
   },
   {
-    "code": "BP293",
-    "title": null,
+    "code": "BP256",
+    "title": "Bachelor of Landscape Architectural Design",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
       "ONLINE",
-      "ON_CAMPUS"
+      "ON_CAMPUS",
+      "BLENDED"
     ],
     "campus": [
       "Melbourne City",
-      "Bundoora",
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "Through design, in this degree you will learn how the discipline of landscape architecture interacts with natural ecosystems and built environments as well as cultural and social frameworks. You will learn to think conceptually; developing ideas from what you observe and modeling your ideas to develop and test design proposals in response.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -176,59 +84,30 @@
     "structuredData": null,
     "tags": [],
     "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-science-biotechnologybachelor-of-biomedical-science-bp293",
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-landscape-architectural-design-bp256",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:08.262937",
-    "updatedAt": "2025-06-12T14:48:08.262937"
+    "createdAt": "2025-06-12T23:35:21.402507",
+    "updatedAt": "2025-06-12T23:35:21.402507"
   },
   {
-    "code": "BP345",
-    "title": null,
+    "code": "BP201",
+    "title": "Bachelor of Arts (Fine Art)",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
       "ONLINE",
-      "ON_CAMPUS"
+      "ON_CAMPUS",
+      "BLENDED"
     ],
     "campus": [
       "Melbourne City",
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "Find your creative specialisation and hone your artistic and professional skills, guided by high-profile artists.",
     "careerOutcomes": null,
-    "entryRequirements": null,
-    "fees": "2025 indicative fees Annual student contribution In 2025, the annual student contribution amount you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. See Commonwealth Supported Places below for more detail. Flight training tuition fees Students will complete their flight training under the Associate Degree in Aviation (Professional Pilots) , RMIT program code AD023. This program is full-fee paying only, however, eligible students can apply for a FEE-HELP loan to cover their tuition fees up to the HELP loan limit. Total flight training course fees for 2025 is $93,120. See below for a detailed breakdown of these fees. Material and other fees and expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025. The SSAF fees information for the 2025 intake has been delayed by the Australian government and will be updated when it is available. Other items related to your program, including field trips, textbooks and handbooks, uniforms, equipment, standard and additional flying hours and licences. See below for a detailed breakdown of these expenses. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees, or a FEE-HELP loan to defer payment of your tuition fees up to the HELP loan limit. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds . Learn more about fees for undergraduate study",
-    "coordinatorName": null,
-    "coordinatorEmail": "flight.training@rmit.edu.au",
-    "coordinatorPhone": null,
-    "structuredData": null,
-    "tags": [],
-    "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-aviation-pilot-training-bp345",
-    "embedding": null,
-    "isActive": true,
-    "createdAt": "2025-06-12T14:48:08.768920",
-    "updatedAt": "2025-06-12T14:48:08.768920"
-  },
-  {
-    "code": "BP231",
-    "title": null,
-    "level": "BACHELOR",
-    "duration": null,
-    "deliveryMode": [
-      "ONLINE",
-      "ON_CAMPUS"
-    ],
-    "campus": [
-      "Bundoora",
-      "Online",
-      "Vietnam"
-    ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -236,15 +115,15 @@
     "structuredData": null,
     "tags": [],
     "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-biomedical-science-bp231",
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-arts-fine-art-bp201",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:08.807965",
-    "updatedAt": "2025-06-12T14:48:08.807965"
+    "createdAt": "2025-06-12T23:35:21.586005",
+    "updatedAt": "2025-06-12T23:35:21.586005"
   },
   {
-    "code": "BP000",
-    "title": null,
+    "code": "BP117",
+    "title": "Bachelor of Arts (Photography)",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -256,9 +135,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
+    "description": "The Bachelor of Arts (Photography) is a scholarly program that synthesises technical expertise, critical engagement, professional practice and ethical judgement.",
+    "careerOutcomes": "Connect with industry through project-based learning, competitions and work placements.",
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -266,15 +145,15 @@
     "structuredData": null,
     "tags": [],
     "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-environment-and-society-bp000",
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-arts-photography-bp117",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:09.018596",
-    "updatedAt": "2025-06-12T14:48:09.018596"
+    "createdAt": "2025-06-12T23:35:22.070658",
+    "updatedAt": "2025-06-12T23:35:22.070658"
   },
   {
     "code": "BP284",
-    "title": null,
+    "title": "Bachelor of Applied Science (Aviation)/Bachelor of Business",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -286,9 +165,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
+    "description": "The aviation degree will prepare you for a career in a range of operational, management and planning roles in the aviation and associated industries. You'll develop breadth and depth of thinking, communication skills and the ability to solve problems in the aviation workplace.",
+    "careerOutcomes": "Project-based and work-integrated learning mean you graduate equipped for a wide range of roles and levels.",
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies .",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -299,27 +178,26 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-applied-science-aviationbachelor-of-business-bp284",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:09.280121",
-    "updatedAt": "2025-06-12T14:48:09.280121"
+    "createdAt": "2025-06-12T23:35:23.158388",
+    "updatedAt": "2025-06-12T23:35:23.158388"
   },
   {
-    "code": "BP351",
-    "title": null,
+    "code": "BP231",
+    "title": "Bachelor of Biomedical Science",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
       "ONLINE",
-      "ON_CAMPUS",
-      "BLENDED"
+      "ON_CAMPUS"
     ],
     "campus": [
-      "Melbourne City",
+      "Bundoora",
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "Read on to find out how the Biomedical Science option gives you the flexibility to study across the biomedical sciences, medical biotechnology and clinical health and disease.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in Biology or Chemistry or equivalent studies . AND Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or Physics or equivalent studies.",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -327,15 +205,106 @@
     "structuredData": null,
     "tags": [],
     "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-accounting-bp351",
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-biomedical-science-bp231",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:09.531892",
-    "updatedAt": "2025-06-12T14:48:09.531892"
+    "createdAt": "2025-06-12T23:35:23.359031",
+    "updatedAt": "2025-06-12T23:35:23.359031"
+  },
+  {
+    "code": "BP345",
+    "title": "Bachelor of Aviation (Pilot Training)",
+    "level": "BACHELOR",
+    "duration": null,
+    "deliveryMode": [
+      "ONLINE",
+      "ON_CAMPUS"
+    ],
+    "campus": [
+      "Melbourne City",
+      "Online",
+      "Vietnam"
+    ],
+    "description": "In this industry-led degree, you'll develop the critical skills needed to assess and manage all aspects of the aviation industry. You'll also learn how to work both independently and as part of a team to solve real industry issues in aviation operations. During your studies, you'll build on key problem-solving, communication and leadership skills to succeed in piloting and operational roles.",
+    "careerOutcomes": null,
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies .",
+    "fees": "2025 indicative fees Annual student contribution In 2025, the annual student contribution amount you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. See Commonwealth Supported Places below for more detail. Flight training tuition fees Students will complete their flight training under the Associate Degree in Aviation (Professional Pilots) , RMIT program code AD023. This program is full-fee paying only, however, eligible students can apply for a FEE-HELP loan to cover their tuition fees up to the HELP loan limit. Total flight training course fees for 2025 is $93,120. See below for a detailed breakdown of these fees. Material and other fees and expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025. The SSAF fees information for the 2025 intake has been delayed by the Australian government and will be updated when it is available. Other items related to your program, including field trips, textbooks and handbooks, uniforms, equipment, standard and additional flying hours and licences. See below for a detailed breakdown of these expenses. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees, or a FEE-HELP loan to defer payment of your tuition fees up to the HELP loan limit. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds . Learn more about fees for undergraduate study",
+    "coordinatorName": null,
+    "coordinatorEmail": "flight.training@rmit.edu.au",
+    "coordinatorPhone": null,
+    "structuredData": null,
+    "tags": [],
+    "schoolId": null,
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-aviation-pilot-training-bp345",
+    "embedding": null,
+    "isActive": true,
+    "createdAt": "2025-06-12T23:35:23.620417",
+    "updatedAt": "2025-06-12T23:35:23.620417"
+  },
+  {
+    "code": "BP000",
+    "title": "Bachelor of Environment and Society",
+    "level": "BACHELOR",
+    "duration": null,
+    "deliveryMode": [
+      "ONLINE",
+      "ON_CAMPUS"
+    ],
+    "campus": [
+      "Melbourne City",
+      "Online",
+      "Vietnam"
+    ],
+    "description": "Investigate biodiversity, climate change, and corporate responsibility, and learn how policy works to manage the most pressing issues of our time.",
+    "careerOutcomes": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
+    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
+    "coordinatorName": null,
+    "coordinatorEmail": null,
+    "coordinatorPhone": null,
+    "structuredData": null,
+    "tags": [],
+    "schoolId": null,
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-environment-and-society-bp000",
+    "embedding": null,
+    "isActive": true,
+    "createdAt": "2025-06-12T23:35:23.975273",
+    "updatedAt": "2025-06-12T23:35:23.975273"
+  },
+  {
+    "code": "BP293",
+    "title": "Bachelor of Science (Biotechnology)/Bachelor of Biomedical Science",
+    "level": "BACHELOR",
+    "duration": null,
+    "deliveryMode": [
+      "ONLINE",
+      "ON_CAMPUS"
+    ],
+    "campus": [
+      "Melbourne City",
+      "Bundoora",
+      "Online",
+      "Vietnam"
+    ],
+    "description": "Biotechnology allows you to learn how techniques in molecular biology and genetics are applied to diagnosing genes that cause cancer and disease, designing proteins that could, make crops and livestock less vulnerable to disease, and making food safer.",
+    "careerOutcomes": null,
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in Biology or Chemistry or equivalent studies . AND Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies.",
+    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
+    "coordinatorName": null,
+    "coordinatorEmail": null,
+    "coordinatorPhone": null,
+    "structuredData": null,
+    "tags": [],
+    "schoolId": null,
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-science-biotechnologybachelor-of-biomedical-science-bp293",
+    "embedding": null,
+    "isActive": true,
+    "createdAt": "2025-06-12T23:35:24.283466",
+    "updatedAt": "2025-06-12T23:35:24.283466"
   },
   {
     "code": "BP353",
-    "title": null,
+    "title": "Bachelor of Accounting/Bachelor of Business",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -348,9 +317,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "Throughout your study, you will develop a broad and coherent theoretical and technical knowledge of both business and accounting, as well as core law subjects that will help you meet accreditation standards. You will also undertake a range of business foundation subjects and build an expansive e-portfolio to help showcase your talents to industry.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -361,133 +330,12 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-accountingbachelor-of-business-bp353",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:09.958015",
-    "updatedAt": "2025-06-12T14:48:09.958015"
-  },
-  {
-    "code": "BP352",
-    "title": null,
-    "level": "BACHELOR",
-    "duration": null,
-    "deliveryMode": [
-      "ONLINE",
-      "ON_CAMPUS"
-    ],
-    "campus": [
-      "Melbourne City",
-      "Online",
-      "Vietnam"
-    ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
-    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
-    "coordinatorName": null,
-    "coordinatorEmail": null,
-    "coordinatorPhone": null,
-    "structuredData": null,
-    "tags": [],
-    "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-accountingbachelor-of-laws-bp352",
-    "embedding": null,
-    "isActive": true,
-    "createdAt": "2025-06-12T14:48:10.297503",
-    "updatedAt": "2025-06-12T14:48:10.297503"
-  },
-  {
-    "code": "BP343",
-    "title": null,
-    "level": "BACHELOR",
-    "duration": null,
-    "deliveryMode": [
-      "ONLINE",
-      "ON_CAMPUS"
-    ],
-    "campus": [
-      "Melbourne City",
-      "Online",
-      "Vietnam"
-    ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
-    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
-    "coordinatorName": null,
-    "coordinatorEmail": null,
-    "coordinatorPhone": null,
-    "structuredData": null,
-    "tags": [],
-    "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-business-bp343",
-    "embedding": null,
-    "isActive": true,
-    "createdAt": "2025-06-12T14:48:10.448707",
-    "updatedAt": "2025-06-12T14:48:10.448707"
-  },
-  {
-    "code": "BP344",
-    "title": null,
-    "level": "BACHELOR",
-    "duration": null,
-    "deliveryMode": [
-      "ONLINE",
-      "ON_CAMPUS"
-    ],
-    "campus": [
-      "Melbourne City",
-      "Online",
-      "Vietnam"
-    ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
-    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
-    "coordinatorName": null,
-    "coordinatorEmail": null,
-    "coordinatorPhone": null,
-    "structuredData": null,
-    "tags": [],
-    "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-business-professional-practice-bp344",
-    "embedding": null,
-    "isActive": true,
-    "createdAt": "2025-06-12T14:48:10.700895",
-    "updatedAt": "2025-06-12T14:48:10.700895"
-  },
-  {
-    "code": "BP357",
-    "title": null,
-    "level": "BACHELOR",
-    "duration": null,
-    "deliveryMode": [
-      "ONLINE",
-      "ON_CAMPUS",
-      "BLENDED"
-    ],
-    "campus": [
-      "Melbourne City",
-      "Online",
-      "Vietnam"
-    ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
-    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
-    "coordinatorName": null,
-    "coordinatorEmail": null,
-    "coordinatorPhone": null,
-    "structuredData": null,
-    "tags": [],
-    "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-commerce-bp357",
-    "embedding": null,
-    "isActive": true,
-    "createdAt": "2025-06-12T14:48:11.063966",
-    "updatedAt": "2025-06-12T14:48:11.063966"
+    "createdAt": "2025-06-12T23:35:24.807234",
+    "updatedAt": "2025-06-12T23:35:24.807234"
   },
   {
     "code": "BP359",
-    "title": null,
+    "title": "Bachelor of Accounting/Bachelor of Commerce",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -499,9 +347,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "Master the digital environment and tackle the latest trends and challenges with expert knowledge and analytical skills.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies .",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -512,12 +360,12 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-accountingbachelor-of-commerce-bp359",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:11.277183",
-    "updatedAt": "2025-06-12T14:48:11.277183"
+    "createdAt": "2025-06-12T23:35:25.324243",
+    "updatedAt": "2025-06-12T23:35:25.324243"
   },
   {
-    "code": "BP289",
-    "title": null,
+    "code": "BP352",
+    "title": "Bachelor of Accounting/Bachelor of Laws",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -526,13 +374,12 @@
     ],
     "campus": [
       "Melbourne City",
-      "Bundoora",
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "Throughout your study in the Bachelor of Accounting / Bachelor of Laws, you will be equipped with a broad theoretical and practical understanding of these two in-demand fields.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -540,15 +387,15 @@
     "structuredData": null,
     "tags": [],
     "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-food-technology-and-nutritionbachelor-of-business-bp289",
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-accountingbachelor-of-laws-bp352",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:11.560096",
-    "updatedAt": "2025-06-12T14:48:11.560096"
+    "createdAt": "2025-06-12T23:35:25.705099",
+    "updatedAt": "2025-06-12T23:35:25.705099"
   },
   {
-    "code": "BP357",
-    "title": null,
+    "code": "BP351",
+    "title": "Bachelor of Accounting",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -561,9 +408,100 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "Offering practical knowledge through core studies in both accounting and law, the skills you acquire through the Bachelor of Accounting will enable you to analyse and evaluate data and information throughout the accounting discipline. Beyond enterprise, you will explore business and future technology, digital literacy, social impact and the role of business in society, economics, sustainability, and more.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
+    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
+    "coordinatorName": null,
+    "coordinatorEmail": null,
+    "coordinatorPhone": null,
+    "structuredData": null,
+    "tags": [],
+    "schoolId": null,
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-accounting-bp351",
+    "embedding": null,
+    "isActive": true,
+    "createdAt": "2025-06-12T23:35:26.029659",
+    "updatedAt": "2025-06-12T23:35:26.029659"
+  },
+  {
+    "code": "BP343",
+    "title": "Bachelor of Business",
+    "level": "BACHELOR",
+    "duration": null,
+    "deliveryMode": [
+      "ONLINE",
+      "ON_CAMPUS"
+    ],
+    "campus": [
+      "Melbourne City",
+      "Online",
+      "Vietnam"
+    ],
+    "description": "We’ve adopted a new agile, non-traditional course structure to equip you with greater hands-on learning opportunities and industry engagement.",
+    "careerOutcomes": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
+    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
+    "coordinatorName": null,
+    "coordinatorEmail": null,
+    "coordinatorPhone": null,
+    "structuredData": null,
+    "tags": [],
+    "schoolId": null,
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-business-bp343",
+    "embedding": null,
+    "isActive": true,
+    "createdAt": "2025-06-12T23:35:26.611526",
+    "updatedAt": "2025-06-12T23:35:26.611526"
+  },
+  {
+    "code": "BP344",
+    "title": "Bachelor of Business Professional Practice",
+    "level": "BACHELOR",
+    "duration": null,
+    "deliveryMode": [
+      "ONLINE",
+      "ON_CAMPUS"
+    ],
+    "campus": [
+      "Melbourne City",
+      "Online",
+      "Vietnam"
+    ],
+    "description": "We’ve adopted a new agile, non-traditional course structure to equip you with greater hands-on learning opportunities, industry engagement and a year dedicated to your professional practice studies.",
+    "careerOutcomes": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
+    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
+    "coordinatorName": null,
+    "coordinatorEmail": null,
+    "coordinatorPhone": null,
+    "structuredData": null,
+    "tags": [],
+    "schoolId": null,
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-business-professional-practice-bp344",
+    "embedding": null,
+    "isActive": true,
+    "createdAt": "2025-06-12T23:35:27.044695",
+    "updatedAt": "2025-06-12T23:35:27.044695"
+  },
+  {
+    "code": "BP357",
+    "title": "Bachelor of Commerce",
+    "level": "BACHELOR",
+    "duration": null,
+    "deliveryMode": [
+      "ONLINE",
+      "ON_CAMPUS",
+      "BLENDED"
+    ],
+    "campus": [
+      "Melbourne City",
+      "Online",
+      "Vietnam"
+    ],
+    "description": "With RMIT's Bachelor of Commerce, you'll stay up-to-date with the latest in technology, business theories, and market trends. With six majors on offer, this course you'll explore the complexities of laws, policy development, market dynamics and technological innovation that shape today's commerce.",
+    "careerOutcomes": null,
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies .",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -574,26 +512,27 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-commerce-bp357",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:11.719200",
-    "updatedAt": "2025-06-12T14:48:11.719200"
+    "createdAt": "2025-06-12T23:35:27.323950",
+    "updatedAt": "2025-06-12T23:35:27.323950"
   },
   {
-    "code": "BP257",
-    "title": null,
+    "code": "BP357",
+    "title": "Bachelor of Commerce",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
       "ONLINE",
-      "ON_CAMPUS"
+      "ON_CAMPUS",
+      "BLENDED"
     ],
     "campus": [
       "Melbourne City",
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "With RMIT's Bachelor of Commerce, you'll stay up-to-date with the latest in technology, business theories, and market trends. With six majors on offer, this course you'll explore the complexities of laws, policy development, market dynamics and technological innovation that shape today's commerce.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies .",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -601,15 +540,15 @@
     "structuredData": null,
     "tags": [],
     "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-arts-creative-writing-bp257",
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-commerce-bp357",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:12.061463",
-    "updatedAt": "2025-06-12T14:48:12.061463"
+    "createdAt": "2025-06-12T23:35:27.406445",
+    "updatedAt": "2025-06-12T23:35:27.406445"
   },
   {
     "code": "BP220",
-    "title": null,
+    "title": "Bachelor of Communication (Journalism)",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -621,9 +560,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "Gain a thorough and practical understanding of media, develop invaluable skills and contacts, and take part in live productions of radio and television.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -634,12 +573,12 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-communication-journalism-bp220",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:12.213737",
-    "updatedAt": "2025-06-12T14:48:12.213737"
+    "createdAt": "2025-06-12T23:35:28.152199",
+    "updatedAt": "2025-06-12T23:35:28.152199"
   },
   {
-    "code": "BP354",
-    "title": null,
+    "code": "BP289",
+    "title": "Bachelor of Food Technology and Nutrition/Bachelor of Business",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -648,12 +587,13 @@
     ],
     "campus": [
       "Melbourne City",
+      "Bundoora",
       "Online",
       "Vietnam"
     ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
+    "description": "RMIT's Bachelor of Food Technology and Nutrition / Bachelor of Business double degree will provide you with the scientific knowledge essential for advancing technological capabilities, plus the international business, economic and financial know-how with a global perspective.",
+    "careerOutcomes": "Build networks through capstone experiences in Food Formulation and Design, and Business Graduate Folio.",
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies .",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -661,15 +601,15 @@
     "structuredData": null,
     "tags": [],
     "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-professional-communication-bp354",
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-food-technology-and-nutritionbachelor-of-business-bp289",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:12.707036",
-    "updatedAt": "2025-06-12T14:48:12.707036"
+    "createdAt": "2025-06-12T23:35:28.823060",
+    "updatedAt": "2025-06-12T23:35:28.823060"
   },
   {
     "code": "BP203",
-    "title": null,
+    "title": "Bachelor of Design (Animation and Interactive Media)",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -681,9 +621,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "At RMIT, you're learning from the best. Our art, design and animation courses regularly rank in the top 10 internationally, and are considered some of the best in Australia. Many of our teaching staff are practising artists, designers and industry practitioners. They are experienced educators who are actively engaged in research in their areas of expertise.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -694,12 +634,12 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-design-animation-and-interactive-media-bp203",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:12.775079",
-    "updatedAt": "2025-06-12T14:48:12.775079"
+    "createdAt": "2025-06-12T23:35:29.561556",
+    "updatedAt": "2025-06-12T23:35:29.561556"
   },
   {
-    "code": "BP214",
-    "title": null,
+    "code": "BP257",
+    "title": "Bachelor of Arts (Creative Writing)",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -711,9 +651,39 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "This degree is designed to make you confident, skilled and adaptable in today’s creative industries - where writing and editing are essential skills, and so are creativity, communication, and critical thinking.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
+    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
+    "coordinatorName": null,
+    "coordinatorEmail": null,
+    "coordinatorPhone": null,
+    "structuredData": null,
+    "tags": [],
+    "schoolId": null,
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-arts-creative-writing-bp257",
+    "embedding": null,
+    "isActive": true,
+    "createdAt": "2025-06-12T23:35:30.482686",
+    "updatedAt": "2025-06-12T23:35:30.482686"
+  },
+  {
+    "code": "BP214",
+    "title": "Bachelor of Design (Games)",
+    "level": "BACHELOR",
+    "duration": null,
+    "deliveryMode": [
+      "ONLINE",
+      "ON_CAMPUS"
+    ],
+    "campus": [
+      "Melbourne City",
+      "Online",
+      "Vietnam"
+    ],
+    "description": "Turn your passion into a career. Explore the creative and technical elements of game design and develop your artistic practice.",
+    "careerOutcomes": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -724,12 +694,12 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-design-games-bp214",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:13.047201",
-    "updatedAt": "2025-06-12T14:48:13.047201"
+    "createdAt": "2025-06-12T23:35:30.582908",
+    "updatedAt": "2025-06-12T23:35:30.582908"
   },
   {
-    "code": "BP309",
-    "title": null,
+    "code": "BP354",
+    "title": "Bachelor of Professional Communication",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -741,9 +711,39 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "Learn at the cutting edge of professional communication practice and build your future as you customise your career in advertising, digital communication and public relations.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
+    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
+    "coordinatorName": null,
+    "coordinatorEmail": null,
+    "coordinatorPhone": null,
+    "structuredData": null,
+    "tags": [],
+    "schoolId": null,
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-professional-communication-bp354",
+    "embedding": null,
+    "isActive": true,
+    "createdAt": "2025-06-12T23:35:30.989726",
+    "updatedAt": "2025-06-12T23:35:30.989726"
+  },
+  {
+    "code": "BP309",
+    "title": "Bachelor of Design (Digital Media)",
+    "level": "BACHELOR",
+    "duration": null,
+    "deliveryMode": [
+      "ONLINE",
+      "ON_CAMPUS"
+    ],
+    "campus": [
+      "Melbourne City",
+      "Online",
+      "Vietnam"
+    ],
+    "description": "Combining theory with practical industry-based knowledge, you will develop a digital media design specialisation in interactive media, digital video, digital sound, or digital environments.",
+    "careerOutcomes": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -754,12 +754,12 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-design-digital-media-bp309",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:13.420195",
-    "updatedAt": "2025-06-12T14:48:13.420195"
+    "createdAt": "2025-06-12T23:35:31.341584",
+    "updatedAt": "2025-06-12T23:35:31.341584"
   },
   {
     "code": "BP096",
-    "title": null,
+    "title": "Bachelor of Software Engineering (Professional)",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -772,9 +772,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "RMIT's Bachelor of Software Engineering equips you with a solid foundation in computer science and maths. You'll also develop deep expertise in software architecture, processes, methodologies and quality frameworks.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies .",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -785,12 +785,12 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-software-engineering-professional-bp096",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:14.153810",
-    "updatedAt": "2025-06-12T14:48:14.153810"
+    "createdAt": "2025-06-12T23:35:32.006125",
+    "updatedAt": "2025-06-12T23:35:32.006125"
   },
   {
     "code": "BP192",
-    "title": null,
+    "title": "Bachelor of Environmental Science",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -803,9 +803,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "The environment faces threats and challenges that include climate change, habitat loss, emerging contaminant and pollution events, and food and water security. The breadth of these challenges requires a combination of knowledge and skills in chemistry, biology, statistics, research and earth sciences for an interdisciplinary approach to overcoming these difficulties.​",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies .",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -816,12 +816,12 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-environmental-science-bp192",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:14.412289",
-    "updatedAt": "2025-06-12T14:48:14.412289"
+    "createdAt": "2025-06-12T23:35:32.229389",
+    "updatedAt": "2025-06-12T23:35:32.229389"
   },
   {
     "code": "BP193",
-    "title": null,
+    "title": "Bachelor of Environmental Science/Bachelor of Environment and Society",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -833,9 +833,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "Combine science-led knowledge and social science skills to address the way we adapt to environmental change, and help create a sustainable future.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "Mathematics; or Victorian Certificate of Education (VCE) Units 3 and 4 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics, or equivalent studies, with a study score of at least 20.",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -846,42 +846,12 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-environmental-sciencebachelor-of-environment-and-society-bp193",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:14.902235",
-    "updatedAt": "2025-06-12T14:48:14.902235"
-  },
-  {
-    "code": "BP328",
-    "title": null,
-    "level": "BACHELOR",
-    "duration": null,
-    "deliveryMode": [
-      "ONLINE",
-      "ON_CAMPUS"
-    ],
-    "campus": [
-      "Brunswick",
-      "Online",
-      "Vietnam"
-    ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
-    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
-    "coordinatorName": null,
-    "coordinatorEmail": null,
-    "coordinatorPhone": null,
-    "structuredData": null,
-    "tags": [],
-    "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-fashion-design-bp328",
-    "embedding": null,
-    "isActive": true,
-    "createdAt": "2025-06-12T14:48:14.933077",
-    "updatedAt": "2025-06-12T14:48:14.933077"
+    "createdAt": "2025-06-12T23:35:33.185248",
+    "updatedAt": "2025-06-12T23:35:33.185248"
   },
   {
     "code": "BP327",
-    "title": null,
+    "title": "Bachelor of Fashion (Enterprise)",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -893,9 +863,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "You will gain an understanding of the dynamics of the industry, including consumer buying patterns, and how to design, develop, source, communicate and sell fashion products.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -906,12 +876,42 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-fashion-enterprise-bp327",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:15.152245",
-    "updatedAt": "2025-06-12T14:48:15.152245"
+    "createdAt": "2025-06-12T23:35:33.610690",
+    "updatedAt": "2025-06-12T23:35:33.610690"
   },
   {
-    "code": "BP326",
-    "title": null,
+    "code": "BP032",
+    "title": "Bachelor of Nursing",
+    "level": "BACHELOR",
+    "duration": null,
+    "deliveryMode": [
+      "ONLINE",
+      "ON_CAMPUS"
+    ],
+    "campus": [
+      "Bundoora",
+      "Online",
+      "Vietnam"
+    ],
+    "description": "Delivered in Bundoora, you will equipped with the essential theoretical skills and highly practical knowledge required to make a difference in a range of healthcare settings. Through your study, you will be prepared for diverse and complex healthcare environments through academic excellence, innovative research and clinical practice.",
+    "careerOutcomes": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
+    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
+    "coordinatorName": null,
+    "coordinatorEmail": null,
+    "coordinatorPhone": null,
+    "structuredData": null,
+    "tags": [],
+    "schoolId": null,
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-nursing-bp032",
+    "embedding": null,
+    "isActive": true,
+    "createdAt": "2025-06-12T23:35:34.685196",
+    "updatedAt": "2025-06-12T23:35:34.685196"
+  },
+  {
+    "code": "BP328",
+    "title": "Bachelor of Fashion (Design)",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -923,9 +923,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
+    "description": "As a student, you’ll be encouraged to create ethical design propositions and use cross-disciplinary strategies to drive global and competitive practice. As a graduate, you will have comprehensive knowledge in fashion design, preparing you for a wide range of existing and new industry contexts, jobs of the future, or further study.",
+    "careerOutcomes": "If you have successfully completed or expect to complete the RMIT Associate Degree in Fashion Design and Technology prior to this intake, complete the following: Your folio must comprise 10 - 15 pages containing two projects that demonstrate your capacity to develop and realise design propositions from creative and technical perspectives. These projects should be undertaken within your Associate Degree in Fashion Design and Technology study. Examples of projects include: Design and creation of a single garment Design of a small collection Design and creation of a garment or collection within a group Creation of an artwork or object (e.g. graphic design, accessories) Documentation of related experiences such as work experience, workshops, or travel Each project should include: A heading A written summary (up to 150 words) describing the problem or inspiration your project explores, and the approach you took to creating the project. If you undertook the work in a group, explain your role and contribution. A suggested format for presenting each project is: Documentation of research and inspiration for design ideas, with annotations that explain how this research informed your ideas and approaches (1-2 pages) Development or planning of ideas, for example sketching or drawing, with annotations about the process of creative development (2-3 pages) Exploration of materials or methods of making outcomes, for example patternmaking, toiling, creating tests or swatches, creating prototypes. Include annotations about the resolution of design through technical exploration (2-3 pages) Documentation of the project outcome (1-2 pages) Submission instructions Your folio should be a single PDF (maximum size 10MB). Within the PDF, you can provide links to multimedia work/s such as video. Please ensure to include your full name and RMIT application number on the front page. Alternatively, if your folio is hosted online, you must supply the URL (with the username and password if applicable). The folio must be contained within one webpage.",
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -933,107 +933,15 @@
     "structuredData": null,
     "tags": [],
     "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-fashion-and-textiles-sustainable-innovation-bp326",
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-fashion-design-bp328",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:15.472920",
-    "updatedAt": "2025-06-12T14:48:15.472920"
-  },
-  {
-    "code": "BP032",
-    "title": null,
-    "level": "BACHELOR",
-    "duration": null,
-    "deliveryMode": [
-      "ONLINE",
-      "ON_CAMPUS"
-    ],
-    "campus": [
-      "Bundoora",
-      "Online",
-      "Vietnam"
-    ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
-    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
-    "coordinatorName": null,
-    "coordinatorEmail": null,
-    "coordinatorPhone": null,
-    "structuredData": null,
-    "tags": [],
-    "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-nursing-bp032",
-    "embedding": null,
-    "isActive": true,
-    "createdAt": "2025-06-12T14:48:15.919021",
-    "updatedAt": "2025-06-12T14:48:15.919021"
-  },
-  {
-    "code": "BP094",
-    "title": null,
-    "level": "BACHELOR",
-    "duration": null,
-    "deliveryMode": [
-      "ONLINE",
-      "ON_CAMPUS",
-      "BLENDED"
-    ],
-    "campus": [
-      "Melbourne City",
-      "Online",
-      "Vietnam"
-    ],
-    "description": null,
-    "careerOutcomes": "Graduates can find positions such as data scientist, systems architect, analyst & software architect, and leadership roles. Graduates have been employed by Apple, Adobe, Telstra and ANZ. Read more about careers",
-    "entryRequirements": null,
-    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
-    "coordinatorName": null,
-    "coordinatorEmail": null,
-    "coordinatorPhone": null,
-    "structuredData": null,
-    "tags": [],
-    "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-computer-science-bp094",
-    "embedding": null,
-    "isActive": true,
-    "createdAt": "2025-06-12T14:48:16.229506",
-    "updatedAt": "2025-06-12T14:48:16.229506"
-  },
-  {
-    "code": "BP340",
-    "title": null,
-    "level": "BACHELOR",
-    "duration": null,
-    "deliveryMode": [
-      "ONLINE",
-      "ON_CAMPUS",
-      "BLENDED"
-    ],
-    "campus": [
-      "Melbourne City",
-      "Online",
-      "Vietnam"
-    ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
-    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
-    "coordinatorName": null,
-    "coordinatorEmail": null,
-    "coordinatorPhone": null,
-    "structuredData": null,
-    "tags": [],
-    "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-data-science-bp340",
-    "embedding": null,
-    "isActive": true,
-    "createdAt": "2025-06-12T14:48:16.595264",
-    "updatedAt": "2025-06-12T14:48:16.595264"
+    "createdAt": "2025-06-12T23:35:34.706449",
+    "updatedAt": "2025-06-12T23:35:34.706449"
   },
   {
     "code": "BP311",
-    "title": null,
+    "title": "Bachelor of Pharmaceutical Sciences",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -1045,9 +953,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "Throughout your pharmaceutical studies, you will develop knowledge about the human body, the action of drugs in them, and ways in which the pharmaceutical industry can deliver more reliable, accessible and effective treatments.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in Biology or Chemistry or equivalent studies . AND Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies.",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -1058,12 +966,42 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-pharmaceutical-sciences-bp311",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:16.847857",
-    "updatedAt": "2025-06-12T14:48:16.847857"
+    "createdAt": "2025-06-12T23:35:35.445820",
+    "updatedAt": "2025-06-12T23:35:35.445820"
   },
   {
-    "code": "BP348",
-    "title": null,
+    "code": "BP326",
+    "title": "Bachelor of Fashion and Textiles (Sustainable Innovation)",
+    "level": "BACHELOR",
+    "duration": null,
+    "deliveryMode": [
+      "ONLINE",
+      "ON_CAMPUS"
+    ],
+    "campus": [
+      "Brunswick",
+      "Online",
+      "Vietnam"
+    ],
+    "description": "Technology innovations and improved environmental, social and ethical practices will fundamentally change how clothes are made, consumed and experienced. To support the development of sustainable solutions for the fashion industry, capabilities in technology and sustainability need to be developed and combined with traditional fashion and textile craft-based knowledge and skills.",
+    "careerOutcomes": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
+    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
+    "coordinatorName": null,
+    "coordinatorEmail": null,
+    "coordinatorPhone": null,
+    "structuredData": null,
+    "tags": [],
+    "schoolId": null,
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-fashion-and-textiles-sustainable-innovation-bp326",
+    "embedding": null,
+    "isActive": true,
+    "createdAt": "2025-06-12T23:35:35.477381",
+    "updatedAt": "2025-06-12T23:35:35.477381"
+  },
+  {
+    "code": "BP094",
+    "title": "Bachelor of Computer Science",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -1076,9 +1014,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
+    "description": "Design innovative software, applications and systems, develop programming skills, and specialise in different fields of computer science.",
+    "careerOutcomes": "Graduates can find positions such as data scientist, systems architect, analyst & software architect, and leadership roles. Graduates have been employed by Apple, Adobe, Telstra and ANZ. Read more about careers",
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies .",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -1086,15 +1024,46 @@
     "structuredData": null,
     "tags": [],
     "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-data-science-professional-bp348",
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-computer-science-bp094",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:17.068043",
-    "updatedAt": "2025-06-12T14:48:17.068043"
+    "createdAt": "2025-06-12T23:35:35.805861",
+    "updatedAt": "2025-06-12T23:35:35.805861"
+  },
+  {
+    "code": "BP340",
+    "title": "Bachelor of Data Science",
+    "level": "BACHELOR",
+    "duration": null,
+    "deliveryMode": [
+      "ONLINE",
+      "ON_CAMPUS",
+      "BLENDED"
+    ],
+    "campus": [
+      "Melbourne City",
+      "Online",
+      "Vietnam"
+    ],
+    "description": "RMIT's Bachelor of Data Science will develop skills in data analytics, statistics, computer science, machine learning, programming, mathematics, and data wrangling that will enable you to be central to business decision-making, corporate strategy and government planning.",
+    "careerOutcomes": null,
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies .",
+    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
+    "coordinatorName": null,
+    "coordinatorEmail": null,
+    "coordinatorPhone": null,
+    "structuredData": null,
+    "tags": [],
+    "schoolId": null,
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-data-science-bp340",
+    "embedding": null,
+    "isActive": true,
+    "createdAt": "2025-06-12T23:35:36.227178",
+    "updatedAt": "2025-06-12T23:35:36.227178"
   },
   {
     "code": "BP355",
-    "title": null,
+    "title": "Bachelor of Cyber Security",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -1106,9 +1075,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "This hands-on degree is modelled on the Australian Signals Directorate framework, which identifies the dynamic capabilities and skills needed to combat the latest and emerging cyber threats. From computer forensics to blockchain, from cyber security testing to AI, you’ll be ready for action when you encounter different cyber security challenges in the workplace.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies .",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -1119,12 +1088,12 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-cyber-security-bp355",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:17.338960",
-    "updatedAt": "2025-06-12T14:48:17.338960"
+    "createdAt": "2025-06-12T23:35:36.680685",
+    "updatedAt": "2025-06-12T23:35:36.680685"
   },
   {
     "code": "BP347",
-    "title": null,
+    "title": "Bachelor of Computer Science (Professional)",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -1137,9 +1106,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
+    "description": "Design software and cyber security systems, explore AI, and hone your professional skills in the booming field of computer science.",
+    "careerOutcomes": "Undertake a one-year industry internship, gaining practical, hands-on experience and developing professional networks.",
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies .",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -1150,42 +1119,12 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-computer-science-professional-bp347",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:17.593089",
-    "updatedAt": "2025-06-12T14:48:17.593089"
-  },
-  {
-    "code": "BP356",
-    "title": null,
-    "level": "BACHELOR",
-    "duration": null,
-    "deliveryMode": [
-      "ONLINE",
-      "ON_CAMPUS"
-    ],
-    "campus": [
-      "Melbourne City",
-      "Online",
-      "Vietnam"
-    ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
-    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
-    "coordinatorName": null,
-    "coordinatorEmail": null,
-    "coordinatorPhone": null,
-    "structuredData": null,
-    "tags": [],
-    "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-cyber-security-professional-bp356",
-    "embedding": null,
-    "isActive": true,
-    "createdAt": "2025-06-12T14:48:17.959800",
-    "updatedAt": "2025-06-12T14:48:17.959800"
+    "createdAt": "2025-06-12T23:35:37.206528",
+    "updatedAt": "2025-06-12T23:35:37.206528"
   },
   {
     "code": "BP162",
-    "title": null,
+    "title": "Bachelor of Information Technology",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -1198,9 +1137,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "Develop essential, highly in-demand IT skills, and specialise in fascinating fields like blockchain, data management, artificial intelligence and more.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies .",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -1211,12 +1150,42 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-information-technology-bp162",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:18.062782",
-    "updatedAt": "2025-06-12T14:48:18.062782"
+    "createdAt": "2025-06-12T23:35:37.577707",
+    "updatedAt": "2025-06-12T23:35:37.577707"
   },
   {
-    "code": "BP349",
-    "title": null,
+    "code": "BP356",
+    "title": "Bachelor of Cyber Security (Professional)",
+    "level": "BACHELOR",
+    "duration": null,
+    "deliveryMode": [
+      "ONLINE",
+      "ON_CAMPUS"
+    ],
+    "campus": [
+      "Melbourne City",
+      "Online",
+      "Vietnam"
+    ],
+    "description": "Take your cyber security skills to the next level and to launch a successful career in this ever in-demand field.",
+    "careerOutcomes": null,
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies .",
+    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
+    "coordinatorName": null,
+    "coordinatorEmail": null,
+    "coordinatorPhone": null,
+    "structuredData": null,
+    "tags": [],
+    "schoolId": null,
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-cyber-security-professional-bp356",
+    "embedding": null,
+    "isActive": true,
+    "createdAt": "2025-06-12T23:35:38.208964",
+    "updatedAt": "2025-06-12T23:35:38.208964"
+  },
+  {
+    "code": "BP348",
+    "title": "Bachelor of Data Science (Professional)",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -1229,9 +1198,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "This degree comprises three years of study followed by a one-year industry internship in the final year of study, organised with the assistance of the School of Computing Technologies. Your time spent learning in an industry context provides a unique opportunity to develop your professional and technical skills while creating and extending your professional network.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies .",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -1239,45 +1208,15 @@
     "structuredData": null,
     "tags": [],
     "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-information-technology-professional-bp349",
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-data-science-professional-bp348",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:18.308080",
-    "updatedAt": "2025-06-12T14:48:18.308080"
-  },
-  {
-    "code": "BP023",
-    "title": null,
-    "level": "BACHELOR",
-    "duration": null,
-    "deliveryMode": [
-      "ONLINE",
-      "ON_CAMPUS"
-    ],
-    "campus": [
-      "Melbourne City",
-      "Online",
-      "Vietnam"
-    ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
-    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
-    "coordinatorName": null,
-    "coordinatorEmail": null,
-    "coordinatorPhone": null,
-    "structuredData": null,
-    "tags": [],
-    "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-criminal-justice-bp023",
-    "embedding": null,
-    "isActive": true,
-    "createdAt": "2025-06-12T14:48:18.539753",
-    "updatedAt": "2025-06-12T14:48:18.539753"
+    "createdAt": "2025-06-12T23:35:38.240669",
+    "updatedAt": "2025-06-12T23:35:38.240669"
   },
   {
     "code": "BP295",
-    "title": null,
+    "title": "Bachelor of Criminology and Psychology",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -1289,9 +1228,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "Have you ever wondered why people engage in offending behaviour? In the Bachelor of Criminology and Psychology, you will develop an understanding of the psychology of crime, be able to conduct forensic interviews and provide case management for offenders, victims and clients with complex needs.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -1302,26 +1241,27 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-criminology-and-psychology-bp295",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:18.882133",
-    "updatedAt": "2025-06-12T14:48:18.882133"
+    "createdAt": "2025-06-12T23:35:38.968009",
+    "updatedAt": "2025-06-12T23:35:38.968009"
   },
   {
-    "code": "BP335",
-    "title": null,
+    "code": "BP349",
+    "title": "Bachelor of Information Technology (Professional)",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
       "ONLINE",
-      "ON_CAMPUS"
+      "ON_CAMPUS",
+      "BLENDED"
     ],
     "campus": [
       "Melbourne City",
       "Online",
       "Vietnam"
     ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
+    "description": "The RMIT Bachelor of Information Technology (Professional) comprises three years of study followed by a one-year industry internship in your final year of study, organised with the assistance of the School of Computing Technologies. Your internship provides a unique opportunity to develop your professional and technical skills while creating and extending your professional network.",
+    "careerOutcomes": "Opportunity to undertake a one-year industry placement and innovative programming bootcamps and studios, gaining practical, hands-on experience and developing professional networks.",
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies .",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -1329,15 +1269,15 @@
     "structuredData": null,
     "tags": [],
     "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-laws-bp335",
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-information-technology-professional-bp349",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:19.120328",
-    "updatedAt": "2025-06-12T14:48:19.120328"
+    "createdAt": "2025-06-12T23:35:39.121691",
+    "updatedAt": "2025-06-12T23:35:39.121691"
   },
   {
     "code": "BP346",
-    "title": null,
+    "title": "Bachelor of Laws/Bachelor of Business",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -1349,9 +1289,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "No matter which direction you plan on taking, or where your passions and interests lie, the Bachelor of Laws/Bachelor of Business is designed to give you the skills you need to succeed in a fast-changing world.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -1362,12 +1302,72 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-lawsbachelor-of-business-bp346",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:19.358121",
-    "updatedAt": "2025-06-12T14:48:19.358121"
+    "createdAt": "2025-06-12T23:35:39.808541",
+    "updatedAt": "2025-06-12T23:35:39.808541"
+  },
+  {
+    "code": "BP023",
+    "title": "Bachelor of Criminal Justice",
+    "level": "BACHELOR",
+    "duration": null,
+    "deliveryMode": [
+      "ONLINE",
+      "ON_CAMPUS"
+    ],
+    "campus": [
+      "Melbourne City",
+      "Online",
+      "Vietnam"
+    ],
+    "description": "Discover how justice systems interact with law enforcement, explore human rights and global crime, and work on real cases as part of your study.",
+    "careerOutcomes": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
+    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
+    "coordinatorName": null,
+    "coordinatorEmail": null,
+    "coordinatorPhone": null,
+    "structuredData": null,
+    "tags": [],
+    "schoolId": null,
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-criminal-justice-bp023",
+    "embedding": null,
+    "isActive": true,
+    "createdAt": "2025-06-12T23:35:39.868309",
+    "updatedAt": "2025-06-12T23:35:39.868309"
+  },
+  {
+    "code": "BP335",
+    "title": "Bachelor of Laws",
+    "level": "BACHELOR",
+    "duration": null,
+    "deliveryMode": [
+      "ONLINE",
+      "ON_CAMPUS"
+    ],
+    "campus": [
+      "Melbourne City",
+      "Online",
+      "Vietnam"
+    ],
+    "description": "Delivered by leaders of industry in the heart of Melbourne, this course law degree draws on our deep industry connections to give you as much real-world experience as possible. This practical component is balanced with a thorough theoretical grounding in the Australian legal system and fundamental legal principles and concepts.",
+    "careerOutcomes": "Unlike others, the RMIT Bachelor of Laws is just three years. With targeted law electives, you are career-ready, faster.",
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
+    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
+    "coordinatorName": null,
+    "coordinatorEmail": null,
+    "coordinatorPhone": null,
+    "structuredData": null,
+    "tags": [],
+    "schoolId": null,
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-laws-bp335",
+    "embedding": null,
+    "isActive": true,
+    "createdAt": "2025-06-12T23:35:40.274171",
+    "updatedAt": "2025-06-12T23:35:40.274171"
   },
   {
     "code": "BP360",
-    "title": null,
+    "title": "Bachelor of Laws/Bachelor of Professional Communication",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -1380,9 +1380,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "The Bachelor of Professional Communication provides you with interdisciplinary knowledge and skills relevant to the global communication landscape. This complements the legal knowledge gained in the Bachelor of Laws, allowing you to approach legal issues with a nuanced understanding of how communication dynamics influence legal contexts.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -1393,12 +1393,12 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-lawsbachelor-of-professional-communication-bp360",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:19.590511",
-    "updatedAt": "2025-06-12T14:48:19.590511"
+    "createdAt": "2025-06-12T23:35:41.131576",
+    "updatedAt": "2025-06-12T23:35:41.131576"
   },
   {
     "code": "BP358",
-    "title": null,
+    "title": "Bachelor of Laws/Bachelor of Commerce",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -1411,9 +1411,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "The Bachelor of Laws/Bachelor of Commerce program will teach you about the impacts of technology on legal practice and global commerce. You'll learn how to develop practical strategies for real-world business and legal situations, while keeping cultural and diversity frameworks in mind to foster inclusivity.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies .",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -1424,12 +1424,12 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-lawsbachelor-of-commerce-bp358",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:20.255217",
-    "updatedAt": "2025-06-12T14:48:20.255217"
+    "createdAt": "2025-06-12T23:35:41.612425",
+    "updatedAt": "2025-06-12T23:35:41.612425"
   },
   {
     "code": "BP154",
-    "title": null,
+    "title": "Bachelor of Psychology",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -1441,9 +1441,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "In addition to the principles of personality, psychopathology and psychotherapy, you will explore social, developmental, biological and cognitive psychology, as well as research methods in psychology.",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -1454,12 +1454,72 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-psychology-bp154",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:20.488000",
-    "updatedAt": "2025-06-12T14:48:20.488000"
+    "createdAt": "2025-06-12T23:35:42.947091",
+    "updatedAt": "2025-06-12T23:35:42.947091"
+  },
+  {
+    "code": "BP047",
+    "title": "Bachelor of Arts (Music Industry)",
+    "level": "BACHELOR",
+    "duration": null,
+    "deliveryMode": [
+      "ONLINE",
+      "ON_CAMPUS"
+    ],
+    "campus": [
+      "Melbourne City",
+      "Online",
+      "Vietnam"
+    ],
+    "description": "Explore trends and issues in music and gain the skills to pursue a career in sound engineering, artist and event management, journalism and more.",
+    "careerOutcomes": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
+    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
+    "coordinatorName": null,
+    "coordinatorEmail": null,
+    "coordinatorPhone": null,
+    "structuredData": null,
+    "tags": [],
+    "schoolId": null,
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-arts-music-industry-bp047",
+    "embedding": null,
+    "isActive": true,
+    "createdAt": "2025-06-12T23:35:43.049943",
+    "updatedAt": "2025-06-12T23:35:43.049943"
+  },
+  {
+    "code": "BP204",
+    "title": "Bachelor of Legal and Dispute Studies",
+    "level": "BACHELOR",
+    "duration": null,
+    "deliveryMode": [
+      "ONLINE",
+      "ON_CAMPUS"
+    ],
+    "campus": [
+      "Melbourne City",
+      "Online",
+      "Vietnam"
+    ],
+    "description": "Learn about the social, political and ethical aspects of law and develop skills in law and alternative dispute resolution practices.",
+    "careerOutcomes": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
+    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
+    "coordinatorName": null,
+    "coordinatorEmail": null,
+    "coordinatorPhone": null,
+    "structuredData": null,
+    "tags": [],
+    "schoolId": null,
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-legal-and-dispute-studies-bp204",
+    "embedding": null,
+    "isActive": true,
+    "createdAt": "2025-06-12T23:35:43.378469",
+    "updatedAt": "2025-06-12T23:35:43.378469"
   },
   {
     "code": "BP350",
-    "title": null,
+    "title": "Bachelor of Science",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -1473,9 +1533,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
+    "description": "Enjoy flexibility with a degree that allows you to pursue a range of science specialisations while gaining practical real-world experience.",
+    "careerOutcomes": "Develop a career-ready skill set including practical, technology, digital, communication and teamwork skills to prepare you for career success.",
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies .",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -1486,193 +1546,12 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-science-bp350",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:20.919451",
-    "updatedAt": "2025-06-12T14:48:20.919451"
-  },
-  {
-    "code": "BP330",
-    "title": null,
-    "level": "BACHELOR",
-    "duration": null,
-    "deliveryMode": [
-      "ONLINE",
-      "ON_CAMPUS"
-    ],
-    "campus": [
-      "Melbourne City",
-      "Bundoora",
-      "Online",
-      "Vietnam"
-    ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
-    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
-    "coordinatorName": null,
-    "coordinatorEmail": null,
-    "coordinatorPhone": null,
-    "structuredData": null,
-    "tags": [],
-    "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-space-science-bp330",
-    "embedding": null,
-    "isActive": true,
-    "createdAt": "2025-06-12T14:48:21.450267",
-    "updatedAt": "2025-06-12T14:48:21.450267"
-  },
-  {
-    "code": "BP332",
-    "title": null,
-    "level": "BACHELOR",
-    "duration": null,
-    "deliveryMode": [
-      "ONLINE",
-      "ON_CAMPUS"
-    ],
-    "campus": [
-      "Melbourne City",
-      "Online",
-      "Vietnam"
-    ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
-    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
-    "coordinatorName": null,
-    "coordinatorEmail": null,
-    "coordinatorPhone": null,
-    "structuredData": null,
-    "tags": [],
-    "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-international-studies-bp332",
-    "embedding": null,
-    "isActive": true,
-    "createdAt": "2025-06-12T14:48:21.780187",
-    "updatedAt": "2025-06-12T14:48:21.780187"
-  },
-  {
-    "code": "BP204",
-    "title": null,
-    "level": "BACHELOR",
-    "duration": null,
-    "deliveryMode": [
-      "ONLINE",
-      "ON_CAMPUS"
-    ],
-    "campus": [
-      "Melbourne City",
-      "Online",
-      "Vietnam"
-    ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
-    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
-    "coordinatorName": null,
-    "coordinatorEmail": null,
-    "coordinatorPhone": null,
-    "structuredData": null,
-    "tags": [],
-    "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-legal-and-dispute-studies-bp204",
-    "embedding": null,
-    "isActive": true,
-    "createdAt": "2025-06-12T14:48:22.162047",
-    "updatedAt": "2025-06-12T14:48:22.162047"
-  },
-  {
-    "code": "BP322",
-    "title": null,
-    "level": "BACHELOR",
-    "duration": null,
-    "deliveryMode": [
-      "ONLINE",
-      "ON_CAMPUS"
-    ],
-    "campus": [
-      "Melbourne City",
-      "Online",
-      "Vietnam"
-    ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
-    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
-    "coordinatorName": null,
-    "coordinatorEmail": null,
-    "coordinatorPhone": null,
-    "structuredData": null,
-    "tags": [],
-    "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-youth-work-and-youth-studies-bp322",
-    "embedding": null,
-    "isActive": true,
-    "createdAt": "2025-06-12T14:48:22.427178",
-    "updatedAt": "2025-06-12T14:48:22.427178"
-  },
-  {
-    "code": "BP047",
-    "title": null,
-    "level": "BACHELOR",
-    "duration": null,
-    "deliveryMode": [
-      "ONLINE",
-      "ON_CAMPUS"
-    ],
-    "campus": [
-      "Melbourne City",
-      "Online",
-      "Vietnam"
-    ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
-    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
-    "coordinatorName": null,
-    "coordinatorEmail": null,
-    "coordinatorPhone": null,
-    "structuredData": null,
-    "tags": [],
-    "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-arts-music-industry-bp047",
-    "embedding": null,
-    "isActive": true,
-    "createdAt": "2025-06-12T14:48:22.642521",
-    "updatedAt": "2025-06-12T14:48:22.642521"
-  },
-  {
-    "code": "BP112",
-    "title": null,
-    "level": "BACHELOR",
-    "duration": null,
-    "deliveryMode": [
-      "ONLINE",
-      "ON_CAMPUS"
-    ],
-    "campus": [
-      "Melbourne City",
-      "Online",
-      "Vietnam"
-    ],
-    "description": null,
-    "careerOutcomes": null,
-    "entryRequirements": null,
-    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
-    "coordinatorName": null,
-    "coordinatorEmail": null,
-    "coordinatorPhone": null,
-    "structuredData": null,
-    "tags": [],
-    "schoolId": null,
-    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-social-science-psychology-bp112",
-    "embedding": null,
-    "isActive": true,
-    "createdAt": "2025-06-12T14:48:22.901065",
-    "updatedAt": "2025-06-12T14:48:22.901065"
+    "createdAt": "2025-06-12T23:35:43.407464",
+    "updatedAt": "2025-06-12T23:35:43.407464"
   },
   {
     "code": "BP199",
-    "title": null,
+    "title": "Bachelor of Food Technology and Nutrition",
     "level": "BACHELOR",
     "duration": null,
     "deliveryMode": [
@@ -1685,9 +1564,9 @@
       "Online",
       "Vietnam"
     ],
-    "description": null,
+    "description": "Join the dynamic food industry with advanced skills in manufacturing and packaging, quality assurance, entrepreneurship, community nutrition, education, and more.​",
     "careerOutcomes": null,
-    "entryRequirements": null,
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies .",
     "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
     "coordinatorName": null,
     "coordinatorEmail": null,
@@ -1698,7 +1577,128 @@
     "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-food-technology-and-nutrition-bp199",
     "embedding": null,
     "isActive": true,
-    "createdAt": "2025-06-12T14:48:23.235033",
-    "updatedAt": "2025-06-12T14:48:23.235033"
+    "createdAt": "2025-06-12T23:35:43.977955",
+    "updatedAt": "2025-06-12T23:35:43.977955"
+  },
+  {
+    "code": "BP332",
+    "title": "Bachelor of International Studies",
+    "level": "BACHELOR",
+    "duration": null,
+    "deliveryMode": [
+      "ONLINE",
+      "ON_CAMPUS"
+    ],
+    "campus": [
+      "Melbourne City",
+      "Online",
+      "Vietnam"
+    ],
+    "description": "During your studies, you will build a strong understanding of intercultural, social and political issues and how to address them. You have the opportunity to select one of three majors, complemented by a language minor, and either a disciplinary minor or a range of courses where you can explore your interests.",
+    "careerOutcomes": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
+    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
+    "coordinatorName": null,
+    "coordinatorEmail": null,
+    "coordinatorPhone": null,
+    "structuredData": null,
+    "tags": [],
+    "schoolId": null,
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-international-studies-bp332",
+    "embedding": null,
+    "isActive": true,
+    "createdAt": "2025-06-12T23:35:44.704932",
+    "updatedAt": "2025-06-12T23:35:44.704932"
+  },
+  {
+    "code": "BP112",
+    "title": "Bachelor of Social Science (Psychology)",
+    "level": "BACHELOR",
+    "duration": null,
+    "deliveryMode": [
+      "ONLINE",
+      "ON_CAMPUS"
+    ],
+    "campus": [
+      "Melbourne City",
+      "Online",
+      "Vietnam"
+    ],
+    "description": "Explore human experience and behaviour with this people-focussed, hands-on degree that allows you pursue a career that makes a difference.",
+    "careerOutcomes": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
+    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
+    "coordinatorName": null,
+    "coordinatorEmail": null,
+    "coordinatorPhone": null,
+    "structuredData": null,
+    "tags": [],
+    "schoolId": null,
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-social-science-psychology-bp112",
+    "embedding": null,
+    "isActive": true,
+    "createdAt": "2025-06-12T23:35:44.878555",
+    "updatedAt": "2025-06-12T23:35:44.878555"
+  },
+  {
+    "code": "BP330",
+    "title": "Bachelor of Space Science",
+    "level": "BACHELOR",
+    "duration": null,
+    "deliveryMode": [
+      "ONLINE",
+      "ON_CAMPUS"
+    ],
+    "campus": [
+      "Melbourne City",
+      "Bundoora",
+      "Online",
+      "Vietnam"
+    ],
+    "description": "RMIT's Bachelor of Space Science will develop critical skills in space science and technology, connecting the upstream (build/launch) and downstream (application of space-related products and services) industries.",
+    "careerOutcomes": null,
+    "entryRequirements": "Victorian Certificate of Education (VCE) units 3 and 4: a study score of at least 20 in one of Maths: General Mathematics, Maths: Mathematical Methods or Maths: Specialist Mathematics or equivalent studies .",
+    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
+    "coordinatorName": null,
+    "coordinatorEmail": null,
+    "coordinatorPhone": null,
+    "structuredData": null,
+    "tags": [],
+    "schoolId": null,
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-space-science-bp330",
+    "embedding": null,
+    "isActive": true,
+    "createdAt": "2025-06-12T23:35:45.597959",
+    "updatedAt": "2025-06-12T23:35:45.597959"
+  },
+  {
+    "code": "BP322",
+    "title": "Bachelor of Youth Work and Youth Studies",
+    "level": "BACHELOR",
+    "duration": null,
+    "deliveryMode": [
+      "ONLINE",
+      "ON_CAMPUS"
+    ],
+    "campus": [
+      "Melbourne City",
+      "Online",
+      "Vietnam"
+    ],
+    "description": "Are you interested in helping others? Study this degree to be involved in the welfare and health of the community.",
+    "careerOutcomes": null,
+    "entryRequirements": "There are no prerequisite subjects required for entry into this qualification.",
+    "fees": "2025 indicative fees In 2025, the annual student contribution amount (tuition fee) you will pay for a standard year of full-time study is between AU$4,627 to AU$16,992*. Additional expenses Student services and amenities fee (SSAF): AU$365 maximum fee for 2025*. Other items related to your program, including field trips, textbooks and equipment. Annual fee adjustment Amounts quoted are indicative fees per annum, and are based on a standard year of full-time study (96 credit points). A proportionate fee applies for more or less than the full-time study load. Fees are adjusted on an annual basis and these fees should only be used as a guide. Defer your payment You may be eligible to apply for a HECS-HELP loan, which can be used to defer payment of up to the full amount of your student contribution fees. You may also be eligible to apply to defer payment of your SSAF through the SA-HELP loan scheme. Learn more about fees for undergraduate study . Paying your fees and applying for refunds For information on how to pay your fees or how to apply for a refund, please see Paying your fees and applying for refunds .",
+    "coordinatorName": null,
+    "coordinatorEmail": null,
+    "coordinatorPhone": null,
+    "structuredData": null,
+    "tags": [],
+    "schoolId": null,
+    "sourceUrl": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-youth-work-and-youth-studies-bp322",
+    "embedding": null,
+    "isActive": true,
+    "createdAt": "2025-06-12T23:35:45.762294",
+    "updatedAt": "2025-06-12T23:35:45.762294"
   }
 ]

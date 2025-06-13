@@ -1,0 +1,29 @@
+{
+  "scrape_date": "2025-06-13T01:00:28.504484",
+  "total_valid_items": 3072,
+  "total_items_processed": 3069,
+  "empty_content_filtered": 0,
+  "invalid_content_filtered": 0,
+  "duplicates_avoided": 25,
+  "urls_visited": 3177,
+  "content_breakdown": {
+    "policies": 10,
+    "student-support": 297,
+    "enrollment": 296,
+    "fees-scholarships": 223,
+    "academic-info": 49,
+    "student-life": 88,
+    "research": 1388,
+    "careers": 52,
+    "international": 346,
+    "online-learning": 191,
+    "faq": 16,
+    "forms": 45,
+    "contact": 68
+  },
+  "validation_settings": {
+    "min_content_length": 100,
+    "min_meaningful_words": 10
+  },
+  "output_file": "rmit_knowledge_base/academic_information.json"
+}

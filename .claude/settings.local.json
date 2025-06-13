@@ -36,7 +36,11 @@
       "Bash(/Users/suhayb/.nvm/versions/node/v18.20.3/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/arm64-darwin/rg -A 50 \"https://www1.rmit.edu.au/courses/004110\" rmit_knowledge_base.json)",
       "Bash(/Users/suhayb/.nvm/versions/node/v18.20.3/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/arm64-darwin/rg -B 5 -A 10 \"004110\" rmit_knowledge_base.json)",
       "Bash(ls:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(npx prisma migrate reset:*)",
+      "Bash(npx prisma db seed:*)",
+      "Bash(npm run seed:*)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }

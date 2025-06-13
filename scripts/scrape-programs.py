@@ -8,8 +8,8 @@ import time
 from datetime import datetime
 
 # ---- Configuration ----
-INPUT_FILE   = "C:/Users/garv1/Desktop/chatbot/AIChatBot/programs_url.txt"
-OUTPUT_FILE  = "C:/Users/garv1/Desktop/chatbot/AIChatBot/rmit_knowledge_base/programs_data.json"
+INPUT_FILE   = "programs_url.txt"
+OUTPUT_FILE  = "rmit_knowledge_base/programs_data.json"
 MAX_WORKERS  = 5
 RATE_LIMIT   = 0.2    # seconds between requests per thread
 TIMEOUT      = 30     # seconds per HTTP request
@@ -39,20 +39,115 @@ def load_program_urls(filepath: str):
 def clean_text(text: str) -> str:
     return re.sub(r'\s+', ' ', text or '').strip()
 
+def extract_title(soup: BeautifulSoup) -> str:
+    """Extract the program title from various possible selectors."""
+    # Try multiple selectors for title
+    title_selectors = [
+        "h1.program-summary__heading",
+        "h1",
+        ".program-summary__heading",
+        "[data-testid='program-title']",
+        ".page-title",
+        ".hero-title"
+    ]
+    
+    for selector in title_selectors:
+        title_el = soup.select_one(selector)
+        if title_el:
+            title = clean_text(title_el.get_text())
+            if title and title.lower() not in ['study at rmit', 'rmit university']:
+                return title
+    
+    # Try extracting from page title or meta tags
+    page_title = soup.find('title')
+    if page_title:
+        title = clean_text(page_title.get_text())
+        # Remove common suffixes like "- RMIT University"
+        title = re.sub(r'\s*-\s*RMIT.*$', '', title, flags=re.IGNORECASE)
+        if title and title.lower() not in ['study at rmit', 'rmit university']:
+            return title
+    
+    return None
+
+def extract_description(soup: BeautifulSoup) -> str:
+    """Extract the program description from the page content."""
+    # Try to find the main description paragraph
+    description_selectors = [
+        ".program-summary__description",
+        ".hero-description", 
+        ".program-description",
+        ".course-overview",
+        ".program-overview"
+    ]
+    
+    for selector in description_selectors:
+        desc_el = soup.select_one(selector)
+        if desc_el:
+            desc = clean_text(desc_el.get_text())
+            if desc and len(desc) > 50:  # Ensure it's substantial
+                return desc
+    
+    # Fallback: Look for the first substantial paragraph after the title
+    # This is based on the structure seen in the fetched page
+    all_paragraphs = soup.find_all('p')
+    for p in all_paragraphs:
+        text = clean_text(p.get_text())
+        # Look for paragraphs that seem like descriptions (long enough and descriptive)
+        if (len(text) > 100 and 
+            any(word in text.lower() for word in ['degree', 'course', 'program', 'study', 'learn', 'skills', 'prepare', 'develop']) and
+            not any(skip_word in text.lower() for skip_word in ['cookie', 'visa', 'apply', 'fee', 'tuition'])):
+            return text
+    
+    # Last resort: try to find any text that looks like a description
+    full_text = soup.get_text()
+    
+    # Look for patterns that typically indicate a program description
+    desc_patterns = [
+        r'This degree will[^.]*\.',
+        r'This program[^.]*\.',
+        r'This course[^.]*\.',
+        r'Gain[^.]*skills[^.]*\.',
+        r'Develop[^.]*skills[^.]*\.',
+        r'Learn[^.]*\.',
+        r'Study[^.]*and[^.]*\.'
+    ]
+    
+    for pattern in desc_patterns:
+        match = re.search(pattern, full_text, re.IGNORECASE)
+        if match:
+            desc = clean_text(match.group(0))
+            if len(desc) > 50:
+                return desc
+    
+    return None
+
 def extract_section(soup: BeautifulSoup, header_regex: re.Pattern):
     """Grab the text under the first matching header until the next header."""
-    header = soup.find(lambda tag:
-                       tag.name in ["h1","h2","h3","strong"] and header_regex.search(tag.get_text()))
-    if not header:
-        return None
-    parts = []
-    sib = header.find_next_sibling()
-    while sib and sib.name not in ["h1","h2","h3","strong"]:
-        txt = sib.get_text(separator=" ", strip=True)
-        if txt:
-            parts.append(txt)
-        sib = sib.find_next_sibling()
-    return clean_text(" ".join(parts)) or None
+    # Try different header selectors
+    headers = soup.find_all(['h1', 'h2', 'h3', 'h4', 'strong', 'b'])
+    
+    for header in headers:
+        header_text = header.get_text(strip=True)
+        if header_regex.search(header_text):
+            parts = []
+            current = header.find_next_sibling()
+            
+            while current:
+                if current.name in ['h1', 'h2', 'h3', 'h4', 'strong', 'b']:
+                    # Stop if we hit another header
+                    break
+                    
+                if current.name == 'p' or current.name == 'div':
+                    text = current.get_text(separator=" ", strip=True)
+                    if text and len(text) > 10:  # Only substantial text
+                        parts.append(text)
+                
+                current = current.find_next_sibling()
+            
+            if parts:
+                return clean_text(" ".join(parts))
+    
+    return None
 
 def normalize_url(url: str) -> str:
     """
@@ -74,9 +169,15 @@ def scrape_program(program):
         resp.raise_for_status()
         soup = BeautifulSoup(resp.text, "html.parser")
 
-        # Title
-        title_el = soup.select_one("h1.program-summary__heading")
-        title = clean_text(title_el.get_text()) if title_el else None
+        # Extract title using improved method
+        title = extract_title(soup)
+        if not title:
+            print(f"⚠️ Could not extract title for {code}")
+
+        # Extract description using improved method
+        description = extract_description(soup)
+        if not description:
+            print(f"⚠️ Could not extract description for {code}")
 
         # Level inference
         if code.startswith("BP"):
@@ -110,11 +211,10 @@ def scrape_program(program):
         if not campuses:
             campuses = ["Melbourne City"]
 
-        # RAG sections
-        description       = extract_section(soup, re.compile(r'description|overview', re.I))
-        careerOutcomes    = extract_section(soup, re.compile(r'career outcomes?|employment', re.I))
-        entryRequirements = extract_section(soup, re.compile(r'(entry|admission) requirements?', re.I))
-        fees              = extract_section(soup, re.compile(r'\bfee\b', re.I))
+        # RAG sections with improved extraction
+        careerOutcomes = extract_section(soup, re.compile(r'career outcomes?|employment|graduate|job', re.I))
+        entryRequirements = extract_section(soup, re.compile(r'(entry|admission) requirements?|prerequisites', re.I))
+        fees = extract_section(soup, re.compile(r'\bfee\b|tuition|cost', re.I))
 
         # Coordinator email & phone
         full_text = soup.get_text(" ", strip=True)
@@ -172,6 +272,7 @@ def main():
             res = future.result()
             if res:
                 results.append(res)
+                print(f"✅ Scraped {res['code']}: {res['title'][:50]}...")
 
     # Write out JSON
     out_path = Path(OUTPUT_FILE)

@@ -258,26 +258,28 @@ When search results are provided, use them to give accurate, current information
     return labels[source] || source;
   }
 
-  private formatSingleItemForAI(item: { title: string; structuredData?: Record<string, any> }): string {
+  private formatSingleItemForAI(item: { title: string; structuredData?: Record<string, unknown> }): string {
+    const data = item.structuredData || {};
+    
     return `
-    **Course Code:** ${item.structuredData?.code ?? 'N/A'}
+    **Course Code:** ${data.code ?? 'N/A'}
     **Title:** ${item.title}
-    **Level:** ${item.structuredData?.level ?? 'N/A'}
-    **Credit Points:** ${item.structuredData?.creditPoints ?? 'N/A'}
-    **Delivery Mode:** ${item.structuredData?.deliveryMode?.join(', ') ?? 'N/A'}
-    **Campus:** ${item.structuredData?.campus?.join(', ') ?? 'N/A'}
-    **Prerequisites:** ${item.structuredData?.prerequisites?.trim() || 'Not specified'}
-    **School:** ${item.structuredData?.school ?? 'N/A'}
-    **Faculty:** ${item.structuredData?.faculty ?? 'N/A'}
-    **Coordinator:** ${item.structuredData?.coordinator ?? 'N/A'}
-    **Email:** ${item.structuredData?.coordinatorEmail ?? 'N/A'}
-    **Phone:** ${item.structuredData?.coordinatorPhone ?? 'N/A'}
+    **Level:** ${data.level ?? 'N/A'}
+    **Credit Points:** ${data.creditPoints ?? 'N/A'}
+    **Delivery Mode:** ${Array.isArray(data.deliveryMode) ? data.deliveryMode.join(', ') : 'N/A'}
+    **Campus:** ${Array.isArray(data.campus) ? data.campus.join(', ') : 'N/A'}
+    **Prerequisites:** ${typeof data.prerequisites === 'string' ? data.prerequisites.trim() || 'Not specified' : 'Not specified'}
+    **School:** ${data.school ?? 'N/A'}
+    **Faculty:** ${data.faculty ?? 'N/A'}
+    **Coordinator:** ${data.coordinator ?? 'N/A'}
+    **Email:** ${data.coordinatorEmail ?? 'N/A'}
+    **Phone:** ${data.coordinatorPhone ?? 'N/A'}
 
     **Learning Outcomes:**
-    ${(item.structuredData?.learningOutcomes ?? []).map((o: string, i: number) => `${i + 1}. ${o}`).join('\n') || 'Not specified'}
+    ${Array.isArray(data.learningOutcomes) ? data.learningOutcomes.map((o: unknown, i: number) => `${i + 1}. ${String(o)}`).join('\n') : 'Not specified'}
 
     **Assessment Tasks:**
-    ${(item.structuredData?.assessmentTasks ?? []).map((t: string, i: number) => `${i + 1}. ${t}`).join('\n') || 'Not specified'}
+    ${Array.isArray(data.assessmentTasks) ? data.assessmentTasks.map((t: unknown, i: number) => `${i + 1}. ${String(t)}`).join('\n') : 'Not specified'}
     `.trim();
   }
 

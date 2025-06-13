@@ -19,24 +19,30 @@ This full-stack application provides RMIT students with an AI assistant that can
 - Message history and context management
 - Multi-modal support (text and image analysis)
 - Typing indicators and response streaming
+- **Context-aware conversations** - Seamless switching between subjects without confusion
+- **Smart URL handling** - Automatic raw URL display for RMIT course links
 
 ### 🔍 **Intelligent Search & Knowledge Base**
-- Comprehensive RMIT course and program database
-- Smart search decisions (knowledge base vs. web search)
-- Course code recognition (e.g., COSC1111, BP094)
-- Real-time search with caching for performance
-- Context-aware result ranking
+- Comprehensive RMIT course and program database (4 specialized tables)
+- **Enhanced query classification** - Distinguishes between course, program, and general queries
+- **Smart search decisions** - Knowledge base vs. web search with context awareness
+- **Course code recognition** - Advanced pattern matching (e.g., COSC1111, BP094, MATH2469)
+- **Real-time search integration** - Serper API for current information
+- **Context-aware result ranking** - Prioritizes recent entities over session history
+- **Fallback search strategies** - Multiple search patterns for comprehensive coverage
 
 ### 🖼️ **Image Processing**
 - Upload and analyze images (PNG, JPEG, GIF up to 1MB)
 - AI-powered image description and analysis
 - Automatic compression and optimization
+- **Never search when images present** - Pure image analysis priority
 
 ### 📱 **Responsive Design**
 - Mobile-first interface optimized for all devices
 - Collapsible sidebar with session management
 - Touch-friendly interactions
 - Accessibility features and keyboard navigation
+- **Enhanced URL display** - Proper text wrapping for long RMIT URLs
 
 ## 🛠️ Tech Stack
 
@@ -133,28 +139,66 @@ AIChatBot/
 │   ├── app/                    # Next.js App Router pages
 │   │   ├── auth-callback/      # Auth callback handler
 │   │   ├── chat/              # Chat interface and sessions
+│   │   │   └── [sessionId]/   # Individual chat sessions
 │   │   ├── settings/          # User settings page
 │   │   └── api/               # API routes
+│   │       ├── auth/          # Kinde authentication
+│   │       ├── streamingAI/   # AI streaming responses
+│   │       └── trpc/          # tRPC API endpoints
 │   ├── components/            # React components
 │   │   ├── chat/              # Chat-related components
 │   │   ├── settings/          # Settings components
 │   │   ├── ui/                # ShadCN UI components
-│   │   └── layout/            # Layout components
+│   │   ├── layout/            # Layout components
+│   │   ├── error/             # Error handling components
+│   │   └── providers/         # Context providers
 │   ├── lib/                   # Utility libraries
 │   │   ├── services/          # Service layer
-│   │   ├── orchestrators/     # Business logic
-│   │   └── auth.ts            # Authentication config
+│   │   │   ├── ai.service.ts           # Claude AI integration
+│   │   │   ├── bedrock.service.ts      # AWS Bedrock client
+│   │   │   ├── search.service.ts       # Search orchestration
+│   │   │   ├── knowledgeBase.service.ts # Database queries
+│   │   │   ├── context.service.ts      # Context management
+│   │   │   ├── prompt.service.ts       # Prompt engineering
+│   │   │   └── queryClassifier.ts      # Query classification
+│   │   ├── orchestrators/     # Business logic orchestration
+│   │   │   ├── aiOrchestrator.ts       # Main AI flow
+│   │   │   └── chatOrchestrator.ts     # Chat management
+│   │   ├── auth.ts            # Authentication config
+│   │   ├── prisma.ts          # Database client
+│   │   └── utils.ts           # Utility functions
 │   ├── server/                # Backend API
-│   │   └── api/routers/       # tRPC routers
+│   │   ├── api/routers/       # tRPC routers
+│   │   │   ├── auth.ts        # Authentication routes
+│   │   │   ├── chat.ts        # Chat management
+│   │   │   └── knowledgeBase.ts # Knowledge base routes
+│   │   └── db/                # Database utilities
 │   ├── hooks/                 # Custom React hooks
+│   │   └── useUserSync.ts     # User synchronization
 │   └── types/                 # TypeScript definitions
 ├── prisma/                    # Database schema and migrations
-│   ├── schema.prisma          # Database schema
+│   ├── schema.prisma          # Enhanced database schema
+│   │                          # - Users, ChatSessions, Messages
+│   │                          # - Courses, Programs, AcademicSchools
+│   │                          # - AcademicInformation
 │   ├── migrations/            # Database migrations
-│   └── seed/                  # Database seeding scripts
-├── scripts/                   # Python scraping scripts
-├── rmit_knowledge_base/       # Knowledge base data
+│   └── seed/                  # Enhanced database seeding
+│       └── seed.ts            # Comprehensive seeding logic
+├── scripts/                   # Enhanced Python scraping system
+│   ├── run-scrapers.sh        # Automated scraping pipeline
+│   ├── scrape-academic-info.py # Academic information scraper
+│   ├── scrape-courses.py      # Course data scraper
+│   ├── scrape-programs.py     # Program data scraper
+│   └── clean_up.py           # Data cleaning utilities
+├── rmit_knowledge_base/       # Scraped RMIT data
+│   ├── courses_data.json      # Course information
+│   ├── programs_data.json     # Program information
+│   ├── schools_data.json      # School/faculty data
+│   ├── academic_information.json # Academic policies & info
+│   └── *_summary.json         # Data summaries and statistics
 └── doc/                       # Documentation
+    ├── FEATURES.md            # Feature documentation
+    └── SEARCH_SYSTEM_COMPREHENSIVE_DOCUMENTATION.md
 ```
 
 ## 🗄️ Available Scripts
@@ -185,50 +229,90 @@ npm run seed-direct        # Direct seeding without validation
 npm run setup-knowledge-base # Complete knowledge base setup
 ```
 
-## 🧠 Knowledge Base System
+## 🧠 Enhanced Knowledge Base System
 
-The project includes a sophisticated knowledge base system that scrapes and processes RMIT University data:
+The project features a sophisticated, multi-layered knowledge base system designed specifically for RMIT University:
 
-### **Data Sources**
-- RMIT course information and details
-- Academic policies and procedures
-- Student services and support information
-- Campus facilities and resources
+### **Database Architecture**
+- **4 Specialized Tables**: Courses, Programs, Academic Schools, Academic Information
+- **Relational Design**: Schools → Programs/Courses with proper foreign keys
+- **Comprehensive Course Data**: 500+ courses with prerequisites, coordinators, assessments
+- **Full Program Catalog**: Bachelor, Master, Diploma programs with entry requirements
+- **Academic Policies**: Enrollment, assessment, student support information
+- **School Hierarchy**: Faculty → School → Program/Course organization
 
-### **Data Processing**
-- **Python scrapers** collect data from RMIT website
-- **Validation system** ensures data quality and consistency
-- **Enhanced seeder** processes and stores data in PostgreSQL
-- **Batch processing** handles large datasets efficiently
+### **Enhanced Data Sources**
+- **RMIT Course Database**: Complete course catalog with detailed information
+- **Program Information**: Degree requirements, career outcomes, fees
+- **Academic Policies**: Student handbook, assessment policies, procedures
+- **School Directory**: Faculty structure, contact information, program offerings
+- **Real-time Web Data**: Current events, deadlines, policy updates via Serper API
 
-### **Search Integration**
-- **Intelligent search** determines when to use knowledge base vs web search
-- **Context awareness** uses conversation history for better results
-- **Course code detection** automatically recognizes RMIT course codes
-- **Priority scoring** ranks results by relevance and importance
+### **Advanced Data Processing**
+- **Multi-stage Python scrapers** with error handling and retry logic
+- **Data validation pipeline** ensures consistency and completeness
+- **Relationship mapping** between courses, programs, and schools
+- **Enhanced seeding system** with batch processing and progress tracking
+- **Automated cleanup scripts** for data quality maintenance
 
-## 🔧 Key Services
+### **Intelligent Search Integration**
+- **Query Classification System**: Automatically distinguishes course vs program queries
+- **Context-Aware Search**: Prioritizes recent conversation entities
+- **Fallback Strategies**: Multiple search patterns for comprehensive coverage
+- **Hybrid Search**: Knowledge base + web search with smart decision making
+- **Course Code Recognition**: Advanced pattern matching for RMIT codes
+- **Priority Scoring**: Relevance ranking with context weighting
+
+## 🔧 Enhanced Service Architecture
 
 ### **AI Orchestrator** (`lib/orchestrators/aiOrchestrator.ts`)
-- Manages AI conversation flow
-- Handles context and memory management
-- Integrates search results with AI responses
+- **Enhanced AI conversation flow** with context-aware decision making
+- **Advanced search decisions** - knowledge base vs web search logic
+- **Multi-modal support** - text and image processing coordination
+- **Response confidence assessment** and fallback strategies
+- **Context and memory management** with conversation history
+- **Search result integration** with AI responses
 
 ### **Search Service** (`lib/services/search.service.ts`)
-- Intelligent search decision making
-- Knowledge base querying
-- Web search integration
-- Result caching and optimization
+- **Intelligent search orchestration** combining multiple sources
+- **Hybrid search strategy** - knowledge base + Serper API integration
+- **Search decision logic** based on query type and context
+- **Result aggregation and ranking** with relevance scoring
+- **Performance optimization** with caching and parallel searches
+- **Fallback mechanisms** for comprehensive coverage
 
 ### **Knowledge Base Service** (`lib/services/knowledgeBase.service.ts`)
-- Database querying for RMIT-specific information
-- Content filtering and ranking
-- Category-based search optimization
+- **Multi-table database querying** across 4 specialized tables
+- **Advanced filtering and ranking** with context awareness
+- **Relationship-aware searches** (school → program → course)
+- **Category-based optimization** for different query types
+- **Structured data formatting** for AI consumption
+- **Content preprocessing** and snippet generation
+
+### **Context Service** (`lib/services/context.service.ts`)
+- **Advanced context management** with entity prioritization
+- **Conversation history analysis** for better search results
+- **Entity extraction and tracking** (courses, programs, schools)
+- **Context switching support** - seamless subject transitions
+- **Memory optimization** with relevance-based retention
+
+### **Query Classifier** (`lib/services/queryClassifier.ts`)
+- **Intelligent query classification** - course vs program vs general
+- **Pattern recognition** for RMIT-specific entities
+- **Context-aware classification** using conversation history
+- **Priority-based decision making** for search routing
+
+### **Prompt Service** (`lib/services/prompt.service.ts`)
+- **Advanced prompt engineering** for Claude Sonnet 4
+- **Context-aware prompt construction** with search results
+- **URL formatting optimization** for RMIT course links
+- **Response quality guidelines** and formatting rules
 
 ### **Bedrock Service** (`lib/services/bedrock.service.ts`)
-- AWS Bedrock integration for Claude Sonnet 4
-- Streaming response handling
-- Error management and fallbacks
+- **AWS Bedrock integration** for Claude Sonnet 4
+- **Streaming response handling** with proper error management
+- **Authentication and credential management**
+- **Regional optimization** and fallback configurations
 
 ## 🚀 Deployment
 
@@ -267,13 +351,39 @@ The project includes a sophisticated knowledge base system that scrapes and proc
 - **Secure session management**
 - **Error boundaries** and graceful error handling
 
-## 🎯 RMIT-Specific Features
+## 🎯 Enhanced RMIT-Specific Features
 
-- **Course Information**: Comprehensive database of RMIT courses and programs
-- **Academic Calendar**: Important dates and deadlines
-- **Student Services**: Complete guide to RMIT support services
-- **Campus Information**: Facilities, locations, and resources
-- **Policy Knowledge**: Academic policies and procedures
+### **Comprehensive Course Database**
+- **500+ RMIT Courses**: Complete catalog with detailed information
+- **Prerequisites & Dependencies**: Course pathway mapping and requirements
+- **Coordinator Information**: Direct contact details for course coordinators
+- **Assessment Methods**: Detailed breakdown of assessment tasks and learning outcomes
+- **Delivery Modes**: Campus, online, and blended delivery options
+
+### **Complete Program Catalog**
+- **Full Degree Portfolio**: Bachelor, Master, Diploma, and Certificate programs
+- **Entry Requirements**: Detailed admission criteria and pathways
+- **Career Outcomes**: Industry connections and employment prospects
+- **Program Structure**: Course sequences and specialization options
+- **Fees and Scholarships**: Financial information and funding opportunities
+
+### **Academic Support System**
+- **Policy Knowledge**: Academic integrity, assessment, enrollment policies
+- **Student Services**: Mental health, career services, learning support
+- **Administrative Procedures**: Special consideration, credit transfer, appeals
+- **Campus Resources**: Facilities, libraries, student centers
+
+### **Real-time Information Integration**
+- **Current Events**: Latest RMIT news and announcements
+- **Academic Calendar**: Important dates, deadlines, semester schedules
+- **Policy Updates**: Recent changes to academic policies and procedures
+- **Emergency Information**: Campus safety and emergency procedures
+
+### **Intelligent Query Handling**
+- **Context-Aware Responses**: Understands when you switch between courses/programs
+- **Smart URL Generation**: Direct links to official RMIT pages
+- **Multi-level Search**: Course → Program → School relationship awareness
+- **Personalized Recommendations**: Based on conversation context and student needs
 
 ## 🤝 Contributing
 

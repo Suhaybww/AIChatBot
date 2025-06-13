@@ -984,7 +984,7 @@ Source: ${item.sourceUrl || 'RMIT Course Database'}
 ## All Available Data
 The following additional information is available for this course:
 ${Object.entries(data)
-  .filter(([_key, value]) => value !== null && value !== undefined && value !== '')
+  .filter(([ value]) => value !== null && value !== undefined && value !== '')
   .map(([key, value]) => `- **${key}**: ${Array.isArray(value) ? value.join(', ') : String(value)}`)
   .join('\n')}`;
     }
@@ -1024,7 +1024,7 @@ Source: ${item.sourceUrl || 'RMIT Program Database'}
 ## All Available Data
 The following additional information is available for this program:
 ${Object.entries(data)
-  .filter(([_key, value]) => value !== null && value !== undefined && value !== '')
+  .filter(([ value]) => value !== null && value !== undefined && value !== '')
   .map(([key, value]) => `- **${key}**: ${Array.isArray(value) ? value.join(', ') : String(value)}`)
   .join('\n')}`;
     }

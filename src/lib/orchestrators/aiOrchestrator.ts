@@ -5,6 +5,7 @@ import { SearchService } from "../services/search.service";
 import { KnowledgeBaseService } from "../services/knowledgeBase.service";
 import { promptService } from "../services/prompt.service";
 import type { SearchResponse } from "../services/search.service";
+import type { ConversationContext } from "../services/context.service";
 
 export interface AIResponse {
   response: string;
@@ -71,7 +72,7 @@ export class AIOrchestrator {
     const startTime = Date.now();
 
     // Build conversation context first if available
-    let context = null;
+    let context: ConversationContext | undefined = undefined;
     let conversationHistory: string[] = [];
     
     if (includeContext && sessionId && userId) {
@@ -123,16 +124,30 @@ export class AIOrchestrator {
 
     // Create enhanced prompt
     console.log(`📝 Creating prompt. hasContext: ${!!context}, hasSearchResults: ${!!searchResults}, hasImage: ${!!imageUrl}`);
-    let enhancedPrompt: string;
-    if (context) {
-      enhancedPrompt = this.contextService.createContextualPrompt(
-        userMessage,
-        context,
-        searchResults
-      );
-    } else {
-      enhancedPrompt = promptService.createSimplePrompt(userMessage, searchResults);
-    }
+    // let enhancedPrompt: string;
+    // if (context) {
+    //   enhancedPrompt = this.contextService.createContextualPrompt(
+    //     userMessage,
+    //     context,
+    //     searchResults
+    //   );
+    // } else {
+    //   enhancedPrompt = promptService.createSimplePrompt(userMessage, searchResults);
+    // }
+    const enhancedPrompt = promptService.createPrompt(
+      userMessage,
+      {
+        includeDate: true,
+        includeContext: !!context,
+        includeSearchResults: !!searchResults?.results.length,
+        includeKnowledgeBase: !!options.structuredContext,
+        isKnowledgeOnlyMode: false 
+      },
+      context,
+      searchResults,
+      options.structuredContext 
+    );
+
 
     // Generate AI response
     console.log('🤖 Generating AI response...');

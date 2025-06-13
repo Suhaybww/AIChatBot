@@ -715,53 +715,40 @@ export class KnowledgeBaseService {
    */
   private buildCourseContent(course: CourseWithSchool): string {
     const parts = [];
-    
-    if (course.description) {
-      parts.push(course.description);
-    }
-    
-    if (course.creditPoints) {
-      parts.push(`Credit Points: ${course.creditPoints}`);
-    }
-    
-    if (course.deliveryMode && course.deliveryMode.length > 0) {
-      parts.push(`Delivery Mode: ${course.deliveryMode.join(', ')}`);
-    }
-    
-    if (course.campus && course.campus.length > 0) {
-      parts.push(`Campus: ${course.campus.join(', ')}`);
-    }
-    
-    if (course.prerequisites) {
-      parts.push(`Prerequisites: ${course.prerequisites}`);
-    }
-    
-    if (course.learningOutcomes) {
-      parts.push(`Learning Outcomes: ${course.learningOutcomes}`);
-    }
-    
-    if (course.assessmentTasks) {
-      parts.push(`Assessment: ${course.assessmentTasks}`);
-    }
-    
+    if (course.description) parts.push(course.description);
+    if (course.creditPoints) parts.push(`Credit Points: ${course.creditPoints}`);
+    if (course.deliveryMode && course.deliveryMode.length > 0) parts.push(`Delivery Mode: ${course.deliveryMode.join(', ')}`);
+    if (course.campus && course.campus.length > 0) parts.push(`Campus: ${course.campus.join(', ')}`);
+    if (course.prerequisites) parts.push(`Prerequisites: ${course.prerequisites}`);
+    if (course.learningOutcomes) parts.push(`Learning Outcomes: ${course.learningOutcomes}`);
+    if (course.assessmentTasks) parts.push(`Assessment: ${course.assessmentTasks}`);
     if (course.coordinatorName) {
       let coordinatorInfo = `Course Coordinator: ${course.coordinatorName}`;
-      if (course.coordinatorEmail) {
-        coordinatorInfo += ` (Email: ${course.coordinatorEmail})`;
-      }
-      if (course.coordinatorPhone) {
-        coordinatorInfo += ` (Phone: ${course.coordinatorPhone})`;
-      }
+      if (course.coordinatorEmail) coordinatorInfo += ` (Email: ${course.coordinatorEmail})`;
+      if (course.coordinatorPhone) coordinatorInfo += ` (Phone: ${course.coordinatorPhone})`;
       parts.push(coordinatorInfo);
     }
-    
     if (course.school) {
       parts.push(`School: ${course.school.name}`);
-      if (course.school.faculty) {
-        parts.push(`Faculty: ${course.school.faculty}`);
-      }
+      if (course.school.faculty) parts.push(`Faculty: ${course.school.faculty}`);
     }
-    
+    // Add any additional fields present in the course object
+    const extraFields = [
+      'code', 'level', 'sourceUrl', 'tags', 'createdAt', 'updatedAt'
+    ];
+    extraFields.forEach(field => {
+      // @ts-expect-error: dynamic property access for known extra fields
+      const value = course[field];
+      if (value !== undefined && value !== null) {
+        if (Array.isArray(value)) {
+          parts.push(`${field.charAt(0).toUpperCase() + field.slice(1)}: ${value.join(', ')}`);
+        } else if (typeof value === 'object' && value instanceof Date) {
+          parts.push(`${field.charAt(0).toUpperCase() + field.slice(1)}: ${value.toISOString()}`);
+        } else {
+          parts.push(`${field.charAt(0).toUpperCase() + field.slice(1)}: ${String(value)}`);
+        }
+      }
+    });
     return parts.join('\n\n');
   }
 
@@ -947,88 +934,47 @@ export class KnowledgeBaseService {
    */
   private formatSingleItemForAI(item: KnowledgeBaseItem): string {
     const data = item.structuredData as Record<string, unknown>;
-    
     if (item.type === 'course') {
-      return `# ${item.title}
-
-**Course Code:** ${data.code}
-**Type:** Course
-**Level:** ${data.level}
-**Credit Points:** ${data.creditPoints || 'Not specified'}
-**School:** ${data.school || 'Not specified'}
-**Faculty:** ${data.faculty || 'Not specified'}
-
-## Course Description
-${item.content}
-
-## Course Coordinator
-${data.coordinator ? `- Name: ${data.coordinator}
-- Email: ${data.coordinatorEmail || 'Not provided'}
-- Phone: ${data.coordinatorPhone || 'Not provided'}` : 'Coordinator information not available'}
-
-## Prerequisites
-${data.prerequisites || 'No prerequisites'}
-
-## Delivery Information
-- **Delivery Mode:** ${Array.isArray(data.deliveryMode) ? data.deliveryMode.join(', ') : 'Not specified'}
-- **Campus:** ${Array.isArray(data.campus) ? data.campus.join(', ') : 'Not specified'}
-
-## Assessment
-${data.assessmentTasks || 'Assessment information not available'}
-
-## Learning Outcomes
-${data.learningOutcomes || 'Learning outcomes not available'}
-
-Source: ${item.sourceUrl || 'RMIT Course Database'}
-
-## All Available Data
-The following additional information is available for this course:
-${Object.entries(data)
-  .filter(([ value]) => value !== null && value !== undefined && value !== '')
-  .map(([key, value]) => `- **${key}**: ${Array.isArray(value) ? value.join(', ') : String(value)}`)
-  .join('\n')}`;
+      return `# ${item.title}\n\n` +
+        `**Course Code:** ${data.code}\n` +
+        `**Type:** Course\n` +
+        `**Level:** ${data.level}\n` +
+        `**Credit Points:** ${data.creditPoints || 'Not specified'}\n` +
+        `**School:** ${data.school || 'Not specified'}\n` +
+        `**Faculty:** ${data.faculty || 'Not specified'}\n` +
+        `\n## Course Description\n${item.content}\n` +
+        `\n## Course Coordinator\n${data.coordinator ? `- Name: ${data.coordinator}\n- Email: ${data.coordinatorEmail || 'Not provided'}\n- Phone: ${data.coordinatorPhone || 'Not provided'}` : 'Coordinator information not available'}\n` +
+        `\n## Prerequisites\n${data.prerequisites || 'No prerequisites'}\n` +
+        `\n## Delivery Information\n- **Delivery Mode:** ${Array.isArray(data.deliveryMode) ? data.deliveryMode.join(', ') : 'Not specified'}\n- **Campus:** ${Array.isArray(data.campus) ? data.campus.join(', ') : 'Not specified'}\n` +
+        `\n## Assessment\n${data.assessmentTasks || 'Assessment information not available'}\n` +
+        `\n## Learning Outcomes\n${data.learningOutcomes || 'Learning outcomes not available'}\n` +
+        `\nSource: ${item.sourceUrl || 'RMIT Course Database'}\n` +
+        `\n## All Available Data\nThe following additional information is available for this course:\n` +
+        Object.entries(data)
+          .filter(([, value]) => value !== null && value !== undefined && value !== '')
+          .map(([key, value]) => `- **${key}**: ${Array.isArray(value) ? value.join(', ') : String(value)}`)
+          .join('\n');
     }
-    
     if (item.type === 'program') {
-      return `# ${item.title}
-
-**Program Code:** ${data.code}
-**Type:** ${data.level} Program
-**Duration:** ${data.duration || 'Not specified'}
-**School:** ${data.school || 'Not specified'}
-**Faculty:** ${data.faculty || 'Not specified'}
-
-## Program Description
-${item.content}
-
-## Program Coordinator
-${data.coordinator ? `- Name: ${data.coordinator}
-- Email: ${data.coordinatorEmail || 'Not provided'}
-- Phone: ${data.coordinatorPhone || 'Not provided'}` : 'Coordinator information not available'}
-
-## Entry Requirements
-${data.entryRequirements || 'Entry requirements not specified'}
-
-## Career Outcomes
-${data.careerOutcomes || 'Career outcomes not specified'}
-
-## Fees Information
-${data.fees || 'Fee information not available'}
-
-## Delivery Information
-- **Delivery Mode:** ${Array.isArray(data.deliveryMode) ? data.deliveryMode.join(', ') : 'Not specified'}
-- **Campus:** ${Array.isArray(data.campus) ? data.campus.join(', ') : 'Not specified'}
-
-Source: ${item.sourceUrl || 'RMIT Program Database'}
-
-## All Available Data
-The following additional information is available for this program:
-${Object.entries(data)
-  .filter(([ value]) => value !== null && value !== undefined && value !== '')
-  .map(([key, value]) => `- **${key}**: ${Array.isArray(value) ? value.join(', ') : String(value)}`)
-  .join('\n')}`;
+      return `# ${item.title}\n\n` +
+        `**Program Code:** ${data.code}\n` +
+        `**Type:** ${data.level} Program\n` +
+        `**Duration:** ${data.duration || 'Not specified'}\n` +
+        `**School:** ${data.school || 'Not specified'}\n` +
+        `**Faculty:** ${data.faculty || 'Not specified'}\n` +
+        `\n## Program Description\n${item.content}\n` +
+        `\n## Program Coordinator\n${data.coordinator ? `- Name: ${data.coordinator}\n- Email: ${data.coordinatorEmail || 'Not provided'}\n- Phone: ${data.coordinatorPhone || 'Not provided'}` : 'Coordinator information not available'}\n` +
+        `\n## Entry Requirements\n${data.entryRequirements || 'Entry requirements not specified'}\n` +
+        `\n## Career Outcomes\n${data.careerOutcomes || 'Career outcomes not specified'}\n` +
+        `\n## Fees Information\n${data.fees || 'Fee information not available'}\n` +
+        `\n## Delivery Information\n- **Delivery Mode:** ${Array.isArray(data.deliveryMode) ? data.deliveryMode.join(', ') : 'Not specified'}\n- **Campus:** ${Array.isArray(data.campus) ? data.campus.join(', ') : 'Not specified'}\n` +
+        `\nSource: ${item.sourceUrl || 'RMIT Program Database'}\n` +
+        `\n## All Available Data\nThe following additional information is available for this program:\n` +
+        Object.entries(data)
+          .filter(([, value]) => value !== null && value !== undefined && value !== '')
+          .map(([key, value]) => `- **${key}**: ${Array.isArray(value) ? value.join(', ') : String(value)}`)
+          .join('\n');
     }
-    
     // Default formatting for other types
     return this.formatItemForAI(item);
   }

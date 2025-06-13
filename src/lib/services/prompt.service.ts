@@ -96,10 +96,30 @@ When search results are provided, use them to give accurate, current information
     }
 
     // Add knowledge base content for knowledge-only responses
+    // if (options.includeKnowledgeBase && knowledgeContent) {
+    //   prompt += `\n\nRMIT KNOWLEDGE BASE CONTENT:\n${knowledgeContent}`;
+    //   prompt += `\n\n${this.KNOWLEDGE_RESPONSE_GUIDELINES}`;
+    // }
+
     if (options.includeKnowledgeBase && knowledgeContent) {
-      prompt += `\n\nRMIT KNOWLEDGE BASE CONTENT:\n${knowledgeContent}`;
-      prompt += `\n\n${this.KNOWLEDGE_RESPONSE_GUIDELINES}`;
-    }
+      prompt += `\n\nRMIT KNOWLEDGE BASE CONTENT:\n`;
+
+      try {
+        const items = JSON.parse(knowledgeContent);
+        if (Array.isArray(items)) {
+          items.forEach(item => {
+          prompt += `\n\n${this.formatSingleItemForAI(item)}\n`;
+        });
+      } else {
+        prompt += `${this.formatSingleItemForAI(items)}\n`;
+      }
+    } catch (e) {
+      prompt += `${knowledgeContent}\n`;
+    } 
+
+    prompt += `\n\n${this.KNOWLEDGE_RESPONSE_GUIDELINES}`;
+  }
+
 
     // Add user message
     prompt += `\n\n--- USER QUESTION ---\n${userMessage}\n\n--- YOUR RESPONSE ---`;
@@ -211,6 +231,30 @@ When search results are provided, use them to give accurate, current information
     };
     return labels[source] || source;
   }
+
+  formatSingleItemForAI(item: any): string {
+    return `
+    **Course Code:** ${item.structuredData?.code ?? 'N/A'}
+    **Title:** ${item.title}
+    **Level:** ${item.structuredData?.level ?? 'N/A'}
+    **Credit Points:** ${item.structuredData?.creditPoints ?? 'N/A'}
+    **Delivery Mode:** ${item.structuredData?.deliveryMode?.join(', ') ?? 'N/A'}
+    **Campus:** ${item.structuredData?.campus?.join(', ') ?? 'N/A'}
+    **Prerequisites:** ${item.structuredData?.prerequisites?.trim() || 'Not specified'}
+    **School:** ${item.structuredData?.school ?? 'N/A'}
+    **Faculty:** ${item.structuredData?.faculty ?? 'N/A'}
+    **Coordinator:** ${item.structuredData?.coordinator ?? 'N/A'}
+    **Email:** ${item.structuredData?.coordinatorEmail ?? 'N/A'}
+    **Phone:** ${item.structuredData?.coordinatorPhone ?? 'N/A'}
+
+    **Learning Outcomes:**
+    ${(item.structuredData?.learningOutcomes ?? []).map((o: string, i: number) => `${i + 1}. ${o}`).join('\n') || 'Not specified'}
+
+    **Assessment Tasks:**
+    ${(item.structuredData?.assessmentTasks ?? []).map((t: string, i: number) => `${i + 1}. ${t}`).join('\n') || 'Not specified'}
+    `.trim();
+  }
+
 
   /**
    * Create a prompt for search quality evaluation

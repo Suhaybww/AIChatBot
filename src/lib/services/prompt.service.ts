@@ -127,17 +127,17 @@ When search results are provided, use them to give accurate, current information
         const items = JSON.parse(knowledgeContent);
         if (Array.isArray(items)) {
           items.forEach(item => {
-          prompt += `\n\n${this.formatSingleItemForAI(item)}\n`;
-        });
-      } else {
-        prompt += `${this.formatSingleItemForAI(items)}\n`;
-      }
-    } catch (e) {
-      prompt += `${knowledgeContent}\n`;
-    } 
+            prompt += `\n\n${this.formatSingleItemForAI(item)}\n`;
+          });
+        } else {
+          prompt += `${this.formatSingleItemForAI(items)}\n`;
+        }
+      } catch {
+        prompt += `${knowledgeContent}\n`;
+      } 
 
-    prompt += `\n\n${this.KNOWLEDGE_RESPONSE_GUIDELINES}`;
-  }
+      prompt += `\n\n${this.KNOWLEDGE_RESPONSE_GUIDELINES}`;
+    }
 
 
     // Add user message
@@ -258,7 +258,7 @@ When search results are provided, use them to give accurate, current information
     return labels[source] || source;
   }
 
-  formatSingleItemForAI(item: any): string {
+  private formatSingleItemForAI(item: { title: string; structuredData?: Record<string, any> }): string {
     return `
     **Course Code:** ${item.structuredData?.code ?? 'N/A'}
     **Title:** ${item.title}
@@ -285,7 +285,7 @@ When search results are provided, use them to give accurate, current information
   /**
    * Create a prompt for search quality evaluation
    */
-  createSearchEvaluationPrompt(query: string, searchResults: SearchResponse): string {
+  public createSearchEvaluationPrompt(query: string, searchResults: SearchResponse): string {
     return `Evaluate if these search results adequately answer the query: "${query}"
     
 Results found: ${searchResults.results.length}

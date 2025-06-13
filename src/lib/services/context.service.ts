@@ -207,22 +207,71 @@ export class ContextService {
   }
 
   private extractEntities(messages: string[]): ConversationContext['sessionEntities'] {
-    const allText = messages.join(' ');
+    // Heavily prioritize the most recent message, then include older messages
+    const mostRecentMessage = messages[messages.length - 1] || '';
+    const olderMessages = messages.slice(0, -1);
     
-    // Course codes (e.g., COSC2123, BP094)
+    // Extract entities from most recent message first
     const courseCodePattern = /\b([A-Z]{2,4}\d{3,5})\b/g;
-    const courseMatches = allText.match(courseCodePattern) || [];
-    const courses = Array.from(new Set(courseMatches.map(c => c.toUpperCase())));
+    
+    const recentCourseMatches = mostRecentMessage.match(courseCodePattern) || [];
+    const olderCourseMatches = olderMessages.join(' ').match(courseCodePattern) || [];
+    
+    // Prioritize recent entities, then add older ones
+    const courses: string[] = [];
+    const seenCourses = new Set<string>();
+    
+    // Add recent courses first
+    for (const course of recentCourseMatches.map(c => c.toUpperCase())) {
+      if (!seenCourses.has(course)) {
+        courses.push(course);
+        seenCourses.add(course);
+      }
+    }
+    
+    // Add older courses (but recent courses stay at top)
+    for (const course of olderCourseMatches.map(c => c.toUpperCase())) {
+      if (!seenCourses.has(course)) {
+        courses.push(course);
+        seenCourses.add(course);
+      }
+    }
 
-    // Program names
+    // Program names - also prioritize recent messages
     const programPattern = /\b(bachelor of \w+|master of \w+|diploma of \w+|certificate \w+ in \w+)/gi;
-    const programMatches = allText.match(programPattern) || [];
-    const programs = Array.from(new Set(programMatches.map(p => 
+    const recentProgramMatches = mostRecentMessage.match(programPattern) || [];
+    const olderProgramMatches = olderMessages.join(' ').match(programPattern) || [];
+    
+    const programs: string[] = [];
+    const seenPrograms = new Set<string>();
+    
+    // Add recent programs first
+    for (const program of recentProgramMatches.map(p => 
       p.split(' ').map(word => 
         word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
       ).join(' ')
-    )));
+    )) {
+      if (!seenPrograms.has(program)) {
+        programs.push(program);
+        seenPrograms.add(program);
+      }
+    }
+    
+    // Add older programs
+    for (const program of olderProgramMatches.map(p => 
+      p.split(' ').map(word => 
+        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+      ).join(' ')
+    )) {
+      if (!seenPrograms.has(program)) {
+        programs.push(program);
+        seenPrograms.add(program);
+      }
+    }
 
+    // For other entities, use combined text but prioritize recent
+    const allText = mostRecentMessage + ' ' + olderMessages.join(' ');
+    
     // Policies
     const policyPattern = /\b(academic integrity|assessment policy|enrollment policy|refund policy|student conduct|special consideration|credit transfer|advanced standing)\b/gi;
     const policyMatches = allText.match(policyPattern) || [];
@@ -250,6 +299,11 @@ export class ContextService {
       const matches = allText.match(pattern) || [];
       dates.push(...matches);
     });
+
+    console.log('🔍 Context extraction debug:');
+    console.log('📝 Most recent message:', mostRecentMessage);
+    console.log('📚 Extracted courses (prioritized):', courses.slice(0, 10));
+    console.log('🎓 Extracted programs (prioritized):', programs.slice(0, 10));
 
     return {
       courses: courses.slice(0, 10),

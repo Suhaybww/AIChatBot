@@ -27,6 +27,7 @@ export interface AIRequestOptions {
   maxTokens?: number;
   temperature?: number;
   imageUrl?: string;
+  structuredContext?: string;
   searchOptions?: {
     includeWeb?: boolean;
     includeKnowledgeBase?: boolean;

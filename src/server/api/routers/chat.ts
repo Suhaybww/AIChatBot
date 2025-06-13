@@ -1,7 +1,9 @@
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc/trpc";
 import { z } from "zod";
 import { aiOrchestrator } from "@/lib/orchestrators";
-import { SearchService } from "@/lib/services";
+import { SearchService} from "@/lib/services";
+import { KnowledgeBaseService } from "@/lib/services/knowledgeBase.service";
+import { ContextService } from "@/lib/services/context.service"
 import { v4 as uuidv4 } from "uuid";
 import { Role } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
@@ -123,6 +125,23 @@ export const chatRouter = createTRPCRouter({
 
         // PHASE 2: Generate AI response
         console.log(`🤖 Processing message for session ${sessionInfo.sessionId}`);
+
+        const contextService = new ContextService();
+        const fullContext = await contextService.buildContext(
+          sessionInfo.sessionId,
+          input.content,
+          ctx.user.id
+        );
+        const queryContext = contextService.createQueryContext(fullContext);
+
+        const knowledgeBaseService = new KnowledgeBaseService()
+
+        const context = await knowledgeBaseService.getStructuredKnowledgeForAI (
+          input.content,
+          undefined,
+          queryContext
+        )
+
         
         // Use orchestrator with intelligent search and image support
         let aiResponse = await aiOrchestrator.generateResponse(input.content, {
@@ -133,7 +152,8 @@ export const chatRouter = createTRPCRouter({
           userId,
           imageUrl: input.imageUrl,
           maxTokens: 1000,
-          temperature: 0.7
+          temperature: 0.7,
+          structuredContext: context
         });
 
         if (!aiResponse.response) {

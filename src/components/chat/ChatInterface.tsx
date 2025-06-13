@@ -445,10 +445,17 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
     return content
       .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>')
       .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^\s]+?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 underline">$1</a>')
       .split("\n")
       .map((line) => line.trim())
       .filter((line) => line.length > 0)
-      .map((line) => `<p class="mb-2 last:mb-0">${line}</p>`)
+      .map((line) => {
+        // Check if line is a standalone URL
+        if (line.match(/^https?:\/\/[^\s]+$/)) {
+          return `<p class="mb-2 last:mb-0"><a href="${line}" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 underline break-all text-sm">${line}</a></p>`;
+        }
+        return `<p class="mb-2 last:mb-0">${line}</p>`;
+      })
       .join("");
   };
 
@@ -679,24 +686,37 @@ export function ChatInterface({ user, sessionId }: ChatInterfaceProps) {
                                   <div key={result.id} className="text-xs border border-gray-700/20 rounded p-2 bg-gray-800/20">
                                     <div className="flex items-start justify-between">
                                       <div className="flex-1 min-w-0">
-                                        <div className="font-medium text-gray-300 line-clamp-1 mb-1">
+                                        <div className="font-medium text-gray-300 mb-1">
                                           {result.title}
                                         </div>
-                                        <div className="text-gray-500 line-clamp-2 text-xs">
+                                        <div className="text-gray-500 line-clamp-2 text-xs mb-2">
                                           {result.content.slice(0, 120)}...
                                         </div>
+                                        {result.url && result.url !== '' && !result.url.startsWith('#') && (
+                                          <a
+                                            href={result.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-blue-400 hover:text-blue-300 underline break-all text-xs"
+                                            title={result.url}
+                                          >
+                                            {result.url}
+                                          </a>
+                                        )}
                                       </div>
-                                      <a
-                                        href={result.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="ml-2 text-blue-400 hover:text-blue-300 flex-shrink-0"
-                                        title="View source"
-                                      >
-                                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                        </svg>
-                                      </a>
+                                      {result.url && result.url !== '' && !result.url.startsWith('#') && (
+                                        <a
+                                          href={result.url}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="ml-2 text-blue-400 hover:text-blue-300 flex-shrink-0"
+                                          title="Open in new tab"
+                                        >
+                                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                          </svg>
+                                        </a>
+                                      )}
                                     </div>
                                   </div>
                                 ))}

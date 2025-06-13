@@ -123,7 +123,7 @@ export class KnowledgeBaseService {
           id: `${item.type}_${item.id}`,
           title: item.title,
           content: shouldReturnFullContent ? item.content : this.prepareContentSnippet(item.content, query, enhancedTerms),
-          url: item.sourceUrl || `#${item.type}-${item.id}`,
+          url: item.sourceUrl && item.sourceUrl !== '' && !item.sourceUrl.startsWith('#') ? item.sourceUrl : '',
           source: 'knowledge_base' as const,
           relevanceScore: this.calculateRelevanceScore(item, classification, index),
           searchQuery: query,

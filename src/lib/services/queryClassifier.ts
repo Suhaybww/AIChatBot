@@ -58,7 +58,32 @@ export class QueryClassifier {
       };
     }
     
-    // 2. Check for course name patterns (before program patterns)
+    // 2. Check for program patterns (BEFORE course patterns to prevent misclassification)
+    const programPatterns = {
+      bachelor: /bachelor\s+(of\s+)?[\w\s]+/i,
+      master: /master\s+(of\s+)?[\w\s]+/i,
+      diploma: /diploma\s+(of\s+)?[\w\s]+/i,
+      certificate: /certificate\s+[\w\s]+/i,
+      programCode: /\b(BP\d{3,4}|MC\d{3,4}|BH\d{3,4})\b/i
+    };
+    
+    for (const [type, pattern] of Object.entries(programPatterns)) {
+      const match = query.match(pattern);
+      if (match) {
+        console.log(`🎓 Program pattern detected: ${type} - ${pattern}`);
+        return {
+          primaryTable: 'program',
+          secondaryTables: [],
+          queryType: 'specific_program',
+          extractedEntities: {
+            programCode: type === 'programCode' ? match[1] : undefined,
+            keywords: this.extractKeywords(query)
+          }
+        };
+      }
+    }
+
+    // 3. Check for course name patterns (after program patterns)
     const courseNamePatterns = [
       // Academic subjects with descriptors
       /\b(introduction|intro|fundamentals?|principles?|advanced|basic|elementary|intermediate)\s+(to|of|in)\s+[\w\s]+/i,
@@ -91,31 +116,7 @@ export class QueryClassifier {
       }
     }
 
-    // 3. Check for program patterns
-    const programPatterns = {
-      bachelor: /bachelor\s+(of\s+)?[\w\s]+/i,
-      master: /master\s+(of\s+)?[\w\s]+/i,
-      diploma: /diploma\s+(of\s+)?[\w\s]+/i,
-      certificate: /certificate\s+[\w\s]+/i,
-      programCode: /\b(BP\d{3,4}|MC\d{3,4}|BH\d{3,4})\b/i
-    };
-    
-    for (const [type, pattern] of Object.entries(programPatterns)) {
-      const match = query.match(pattern);
-      if (match) {
-        return {
-          primaryTable: 'program',
-          secondaryTables: [],
-          queryType: 'specific_program',
-          extractedEntities: {
-            programCode: type === 'programCode' ? match[1] : undefined,
-            keywords: this.extractKeywords(query)
-          }
-        };
-      }
-    }
-    
-    // 3. Check for school/faculty queries
+    // 4. Check for school/faculty queries
     if (/school\s+of|faculty\s+of|computing\s+school|business\s+school/i.test(queryLower)) {
       return {
         primaryTable: 'school',

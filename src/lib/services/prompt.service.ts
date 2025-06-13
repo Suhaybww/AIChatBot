@@ -52,9 +52,12 @@ When search results are provided, use them to give accurate, current information
    - Provide general RMIT contact information if appropriate
 
 4. **URL Formatting Rules**:
-   - When providing URLs, format them as proper clickable links
-   - Use the format: [Course/Program Name](URL)
-   - Example: [COSC1111 - Data Communication](https://www1.rmit.edu.au/browse/...)
+   - For RMIT course URLs (those starting with "https://www1.rmit.edu.au/browse/"), display the raw URL on its own line without markdown formatting
+   - For other URLs (like program pages), use proper markdown links: [Program Name](URL)
+   - ALWAYS use the complete, full URL exactly as provided in the search results
+   - NEVER truncate, modify, or shorten URLs - copy them exactly
+   - Example for course URLs: After describing COSC1111, include the full URL on a new line like this:
+     https://www1.rmit.edu.au/browse/;CURPOS=1?STYPE=ENTIRE&CLOCATION=Study+at+RMIT/&QRY=+type%3Dflexible++subtype%3Dheparta++keywords%3D(COSC1111)&course=COSC1111&title=&Search=Search
    - NEVER reference "Result 1", "Result 2" etc. Just use the content directly
    - When mentioning information from search results, integrate it naturally without result numbers`;
 
@@ -92,6 +95,22 @@ When search results are provided, use them to give accurate, current information
     // Add search results with clear instructions
     if (options.includeSearchResults && searchResults?.results.length) {
       prompt += this.buildSearchResultsSection(searchResults);
+      
+      // Add explicit URL reference section for courses
+      const courseResults = searchResults.results.filter(r => r.title.includes('COSC') || r.title.includes('GRAP') || r.title.includes('ACCT'));
+      if (courseResults.length > 0) {
+        prompt += `\n\n--- CRITICAL: INCLUDE THESE EXACT URLS ---`;
+        courseResults.forEach(result => {
+          const courseCode = result.title.match(/([A-Z]{3,4}\d{4})/)?.[1];
+          if (courseCode) {
+            prompt += `\n\nWhen mentioning ${courseCode}, include this COMPLETE URL on its own line:`;
+            prompt += `\n${result.url}`;
+            prompt += `\n\nDO NOT MODIFY THE URL - COPY IT EXACTLY AS SHOWN ABOVE`;
+          }
+        });
+        prompt += `\n\n--- END CRITICAL URL SECTION ---`;
+      }
+      
       prompt += this.SEARCH_RESULT_INSTRUCTIONS;
     }
 
@@ -128,7 +147,7 @@ When search results are provided, use them to give accurate, current information
     if (options.isKnowledgeOnlyMode) {
       prompt += `\nProvide a direct, comprehensive answer based on the knowledge base content above.`;
     } else if (searchResults?.results.length) {
-      prompt += `\nUse the search results above to provide an accurate, helpful response. Include specific URLs when relevant.`;
+      prompt += `\nUse the search results above to provide an accurate, helpful response. Include specific URLs when relevant. CRITICAL: When creating markdown links, copy the complete URL exactly from the "URL:" field in the search results - do not truncate or modify it. If there is an "EXACT URLS TO USE" section above, use those URLs word-for-word.`;
     } else {
       prompt += `\nProvide a helpful response based on your knowledge of RMIT. Be specific where possible, and suggest resources for more information.`;
     }
@@ -201,6 +220,13 @@ When search results are provided, use them to give accurate, current information
     searchResults.results.forEach((result) => {
       section += `\n\n${result.title}`;
       section += `\nURL: ${result.url}`;
+      
+      // Debug logging for URL issues
+      if (result.title.includes('COSC1111')) {
+        console.log('DEBUG - COSC1111 URL in prompt:', result.url);
+        console.log('DEBUG - URL length:', result.url.length);
+      }
+      
       section += `\nSource: ${this.getSourceLabel(result.source)}`;
       
       // Clean and truncate content

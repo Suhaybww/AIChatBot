@@ -46,7 +46,7 @@ export class AIService {
         throw new Error(parsed.error.message || "Unknown error from Claude API")
     }
 
-    return parsed.content[0]?.text || ""
+    return parsed.content[0]?.text || "";
   }
 
   async sendMessages(
@@ -161,6 +161,6 @@ User's question: ${content || "What information is shown in this image?"}`
         throw new Error(parsed.error.message || "Unknown error from Claude API")
     }
 
-    return parsed.content[0]?.text || ""
+    return parsed.content[0]?.text || "";
   }
 }

@@ -1,4 +1,3 @@
-// queryClassifier.ts
 export interface ConversationContext {
   lastCourseCode?: string;
   lastProgramCode?: string;

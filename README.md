@@ -224,9 +224,16 @@ npm run db:seed      # Seed database with sample data
 ```bash
 npm run scrape              # Run Python scrapers to collect RMIT data
 npm run validate            # Validate scraped data files
-npm run seed               # Seed knowledge base into database
-npm run seed-direct        # Direct seeding without validation
+npm run seed                # Seed knowledge base into database
+npm run seed-direct         # Direct seeding without validation
 npm run setup-knowledge-base # Complete knowledge base setup
+```
+
+### Testing & Validation
+```bash
+npm run test-setup-full     # Comprehensive test setup
+npm run create-test-pdfs    # Create test PDF documents
+npm run process-docs        # Process documentation files
 ```
 
 ## 🧠 Enhanced Knowledge Base System
@@ -237,13 +244,14 @@ The project features a sophisticated, multi-layered knowledge base system design
 - **4 Specialized Tables**: Courses, Programs, Academic Schools, Academic Information
 - **Relational Design**: Schools → Programs/Courses with proper foreign keys
 - **Comprehensive Course Data**: 500+ courses with prerequisites, coordinators, assessments
-- **Full Program Catalog**: Bachelor, Master, Diploma programs with entry requirements
+- **Bachelor's Program Catalog**: Focused collection of RMIT bachelor degree programs with entry requirements
 - **Academic Policies**: Enrollment, assessment, student support information
 - **School Hierarchy**: Faculty → School → Program/Course organization
+- **Note**: Program table currently contains bachelor's degrees; schema supports all levels (master's, diploma, etc.) for future expansion
 
 ### **Enhanced Data Sources**
 - **RMIT Course Database**: Complete course catalog with detailed information
-- **Program Information**: Degree requirements, career outcomes, fees
+- **Bachelor's Program Information**: Comprehensive degree requirements, career outcomes, fees for undergraduate programs
 - **Academic Policies**: Student handbook, assessment policies, procedures
 - **School Directory**: Faculty structure, contact information, program offerings
 - **Real-time Web Data**: Current events, deadlines, policy updates via Serper API
@@ -360,12 +368,13 @@ The project features a sophisticated, multi-layered knowledge base system design
 - **Assessment Methods**: Detailed breakdown of assessment tasks and learning outcomes
 - **Delivery Modes**: Campus, online, and blended delivery options
 
-### **Complete Program Catalog**
-- **Full Degree Portfolio**: Bachelor, Master, Diploma, and Certificate programs
-- **Entry Requirements**: Detailed admission criteria and pathways
+### **Program Catalog (Bachelor's Focus)**
+- **Bachelor's Degree Portfolio**: Comprehensive collection of RMIT bachelor degree programs
+- **Entry Requirements**: Detailed admission criteria and pathways for undergraduate studies
 - **Career Outcomes**: Industry connections and employment prospects
 - **Program Structure**: Course sequences and specialization options
 - **Fees and Scholarships**: Financial information and funding opportunities
+- **Note**: Currently focused on bachelor's programs; master's and other levels may be added in future updates
 
 ### **Academic Support System**
 - **Policy Knowledge**: Academic integrity, assessment, enrollment policies

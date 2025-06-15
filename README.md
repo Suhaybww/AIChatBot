@@ -1,5 +1,7 @@
 # RMIT AI ChatBot - Vega
 
+🌐 **Live Demo: [https://vega-teal.vercel.app/](https://vega-teal.vercel.app/)**
+
 An intelligent AI-powered chatbot designed specifically for RMIT University students with advanced search capabilities, comprehensive knowledge base, and sophisticated chat management system.
 
 ## 🚀 Project Overview
